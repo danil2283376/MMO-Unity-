@@ -11,7 +11,7 @@ public class InventoryObject : ScriptableObject
     [HideInInspector]
     public bool inventoryIsFull = false;
 
-    public void AddItem(ItemObject itemObject, int amount) 
+    public void AddItem(ItemObject itemObject, int amount, InventorySlot inventorySlot) 
     {
         int indexFindItem = IndexFindItem(itemObject);
         if (indexFindItem != -1)
@@ -19,8 +19,12 @@ public class InventoryObject : ScriptableObject
         else
         {
             //Debug.Log("Добавляю новый элемент в список");
-            inventory.Add(new InventorySlot(itemObject, amount));
+            //InventorySlot copyInventory = new InventorySlot(inventorySlot);
+            inventorySlot.itemObject = itemObject;
+            inventorySlot.amount = amount;
+            inventory.Add(new InventorySlot(inventorySlot));
         }
+        //Debug.Log(inventory.Count);
     }
 
     public int IndexFindItem(ItemObject itemObject)
@@ -45,33 +49,25 @@ public class InventoryObject : ScriptableObject
         if (itemObject != null)
         {
             int indexFindItem = IndexFindItem(itemObject);
-            //for (i = 0; i < inventory.Count; i++)
-            //{
-            //    if (inventory[i].itemObject.typeItem == itemObject.typeItem)
-            //    {
-            //        break ;
-            //    }
-            //}
             // Если мы не нашли похожего предмета
             if (indexFindItem == -1)
             {
-                //Debug.Log("Нет найденого придмета!");
                 // Ищу пустое место под предмет
                 int i;
-                Debug.Log("Кол-во предметов: " + inventory.Count);
                 for (i = 0; i < inventory.Count; i++)
                 {
                     if (inventory[i].itemObject == null)
                     {
-                        //inventory[i].itemObject = new ItemObject();
+                        Debug.Log("KALL");
                         inventory[i].SetValueInSlot(itemObject, amount);
                         inventoryIsFull = false;
-                        break;
+                        break ;
                     }
                 }
                 // Инвентарь полный, и не найдено похожего предмета
                 if (i == inventory.Count)
                     inventoryIsFull = true;
+                //Debug.Log("index empty slot: " + i);
             }
             else
                 inventory[indexFindItem].AddAmount(amount);

@@ -5,7 +5,6 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     public InventoryObject inventory;
-
     private void OnTriggerEnter(Collider other)
     {
         if (other != null)
@@ -13,7 +12,6 @@ public class Inventory : MonoBehaviour
             Item item = other.GetComponent<Item>();
             if (item != null)
             {
-                //inventory.AddItem(item.item, 1);
                 inventory.AddItemInSlot(item.item, item.amount);
                 Destroy(other.gameObject);
             }
