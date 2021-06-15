@@ -6,6 +6,7 @@ using UnityEngine;
     menuName = "Inventory System/Inventory")]
 public class InventoryObject : ScriptableObject
 {
+    public int maxAmountInventorySlot;
     public List<InventorySlot> inventory = new List<InventorySlot>();
     
     [HideInInspector]
@@ -22,7 +23,10 @@ public class InventoryObject : ScriptableObject
             //InventorySlot copyInventory = new InventorySlot(inventorySlot);
             inventorySlot.itemObject = itemObject;
             inventorySlot.amount = amount;
-            inventory.Add(new InventorySlot(inventorySlot));
+
+            InventorySlot inventorySlot1 = new InventorySlot(inventorySlot);
+            //inventorySlot1.maxAmount = maxAmountInventorySlot;
+            inventory.Add(inventorySlot1);
         }
         //Debug.Log(inventory.Count);
     }
@@ -36,7 +40,8 @@ public class InventoryObject : ScriptableObject
                 if (inventory[i].itemObject != null)
                 {
                     if (itemObject.typeItem != TypeItem.Default)
-                        if (inventory[i].itemObject.typeItem == itemObject.typeItem)
+                        if (inventory[i].itemObject.typeItem == itemObject.typeItem
+                            && inventory[i].itemObject.name == itemObject.name)
                             return (i);
                 }
             }
@@ -58,10 +63,9 @@ public class InventoryObject : ScriptableObject
                 {
                     if (inventory[i].itemObject == null)
                     {
-                        Debug.Log("KALL");
                         inventory[i].SetValueInSlot(itemObject, amount);
                         inventoryIsFull = false;
-                        break ;
+                        break;
                     }
                 }
                 // Инвентарь полный, и не найдено похожего предмета
@@ -70,13 +74,9 @@ public class InventoryObject : ScriptableObject
                 //Debug.Log("index empty slot: " + i);
             }
             else
+            {
                 inventory[indexFindItem].AddAmount(amount);
+            }
         }
     }
-    //private void SetValueInSlot(ItemObject itemObject, int amount, int i)
-    //{
-    //    inventory[i].itemObject = itemObject;
-    //    inventory[i].amount = amount;
-    //    inventory[i].
-    //}
 }

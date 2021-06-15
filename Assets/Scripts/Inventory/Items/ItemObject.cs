@@ -12,6 +12,7 @@ public enum TypeItem
 
 public class ItemObject : ScriptableObject
 {
+    public string name;
     public Sprite sprite;
     public GameObject prefabItem;
     [TextArea]

@@ -18,6 +18,7 @@ public class Fill_Inventory : MonoBehaviour
             InventorySlot inventorySlot = panel.GetChild(i).GetComponent<InventorySlot>();
             //inventory.inventory[i] = inventorySlot;
             inventorySlot.gameObjectSlot = inventorySlot.gameObject;
+            inventorySlot.maxAmount = inventory.maxAmountInventorySlot;
             //inventorySlot.itemObject = new ItemObject();
             //inventorySlot.itemObject.typeItem = TypeItem.Default;
             //ѕќ‘» —»Ћ сделал теперь общий инвентарь,
