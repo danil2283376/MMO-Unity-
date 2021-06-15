@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor.UI;
 
 public enum TypeItem 
 {
@@ -11,6 +12,7 @@ public enum TypeItem
 
 public class ItemObject : ScriptableObject
 {
+    public Sprite sprite;
     public GameObject prefabItem;
     [TextArea]
     public string description;

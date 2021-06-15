@@ -11,8 +11,18 @@ public class Inventory : MonoBehaviour
         if (other != null)
         {
             Item item = other.GetComponent<Item>();
-            inventory.AddItem(item.item, 1);
-            Destroy(other.gameObject);
+            if (item != null)
+            {
+                //inventory.AddItem(item.item, 1);
+                inventory.AddItemInSlot(item.item, item.amount);
+                Destroy(other.gameObject);
+            }
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        if (inventory.inventory != null)
+            inventory.inventory.Clear();
     }
 }
