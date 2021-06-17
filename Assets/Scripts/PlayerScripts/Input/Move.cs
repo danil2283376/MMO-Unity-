@@ -38,6 +38,5 @@ public class Move : MonoBehaviour
             _rb.AddForce(-transform.right * speedMove, ForceMode.Impulse);
         if (Input.GetKey(KeyCode.D) && speed < maximumSpeed)
             _rb.AddForce(transform.right * speedMove, ForceMode.Impulse);
-    
     }
 }

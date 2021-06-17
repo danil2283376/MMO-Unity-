@@ -8,27 +8,26 @@ public class InventoryObject : ScriptableObject
 {
     public int maxAmountInventorySlot;
     public List<InventorySlot> inventory = new List<InventorySlot>();
-    
+
     [HideInInspector]
     public bool inventoryIsFull = false;
 
     public void AddItem(ItemObject itemObject, int amount, InventorySlot inventorySlot) 
     {
-        int indexFindItem = IndexFindItem(itemObject);
-        if (indexFindItem != -1)
-            inventory[indexFindItem].AddAmount(amount);
-        else
-        {
-            //Debug.Log("Äîáàâëÿþ íîâûé ýëåìåíò â ñïèñîê");
-            //InventorySlot copyInventory = new InventorySlot(inventorySlot);
+        //int indexFindItem = IndexFindItem(itemObject);
+        //if (indexFindItem != -1)
+        //    inventory[indexFindItem].AddAmount(amount);
+        //else
+        //{
+        //if (inventorySlot != null && amount > 0)
+        //{
             inventorySlot.itemObject = itemObject;
             inventorySlot.amount = amount;
 
             InventorySlot inventorySlot1 = new InventorySlot(inventorySlot);
-            //inventorySlot1.maxAmount = maxAmountInventorySlot;
             inventory.Add(inventorySlot1);
-        }
-        //Debug.Log(inventory.Count);
+        //}
+        //}
     }
 
     public int IndexFindItem(ItemObject itemObject)
@@ -69,14 +68,19 @@ public class InventoryObject : ScriptableObject
                     }
                 }
                 // Èíâåíòàðü ïîëíûé, è íå íàéäåíî ïîõîæåãî ïðåäìåòà
-                if (i == inventory.Count)
+
+                Debug.Log("i = " + i);
+                //Debug.Log("inventoryIsFull: " + inventory[i].slotIsFull);
+                ÊÀÊÈÌ ÒÎ ÎÁÐÀÇÎÌ i ÂÛÕÎÄÈÒ ÇÀ ÏÐÅÄÅËÛ ÌÀÑÑÈÂÀ,
+                ÍÓÆÍÎ ×ÒÎÁÛ ÏÐÎÂÅÐßËÑß ÈÍÂÅÍÒÀÐÜ ÍÀ ÇÀÏÎËÍÅÍÍÎÑÒÜ ÏÓÒÅÌ,
+                ÅÑËÈ ß×ÅÉÊÀ Ñ ÒÀÊÈÌ ÆÅ ÒÈÏÎÌ ÇÀÏÎËÍÅÍÀ È Â ÈÍÂÅÍÒÀÐÅ ÍÅÒ ÌÅÑÒÀ ×ÒÎÁÛ ÏÎËÎÆÈÒÜ ÒÀÊÎÉ ÆÅ ÒÈÏ ÍÎ Â ÍÎÂÓÞ ß×ÅÉÊÓ.
+                ÒÎ ÈÍÂÅÍÒÀÐÜ ÇÀÏÎËÍÅÍ -> ëîãè÷íî
+                if (i == (inventory.Count - 1) && inventory[i].slotIsFull == true)
                     inventoryIsFull = true;
                 //Debug.Log("index empty slot: " + i);
             }
             else
-            {
                 inventory[indexFindItem].AddAmount(amount);
-            }
         }
     }
 }

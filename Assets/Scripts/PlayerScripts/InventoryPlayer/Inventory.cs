@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour
 {
     public InventoryObject inventory;
+    public InventoryObject fastSlotsInventory;
     private void OnTriggerEnter(Collider other)
     {
         if (other != null)
@@ -12,15 +13,25 @@ public class Inventory : MonoBehaviour
             Item item = other.GetComponent<Item>();
             if (item != null)
             {
-                inventory.AddItemInSlot(item.item, item.amount);
+                PickUpItem(item);
                 Destroy(other.gameObject);
             }
         }
+    }
+
+    private void PickUpItem(Item item)
+    {
+        if (fastSlotsInventory.inventoryIsFull == true)
+            inventory.AddItemInSlot(item.item, item.amount);
+        else
+            fastSlotsInventory.AddItemInSlot(item.item, item.amount);
     }
 
     private void OnApplicationQuit()
     {
         if (inventory.inventory != null)
             inventory.inventory.Clear();
+        if (fastSlotsInventory.inventory != null)
+            fastSlotsInventory.inventory.Clear();
     }
 }

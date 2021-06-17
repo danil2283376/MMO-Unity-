@@ -15,10 +15,14 @@ public class InventorySlot : MonoBehaviour
     public int amount;
     [HideInInspector]
     public bool slotIsFull = false;
-
+    [HideInInspector]
+    public int numberInventorySlot;
+    [HideInInspector]
     public GameObject gameObjectSlot;
 
     private Image _imageOnSlot;
+    private TextMeshProUGUI _countItems;
+    private TextOnSlot[] textsOnSlots;
     public InventorySlot() 
     {
         amount = 0;
@@ -40,6 +44,7 @@ public class InventorySlot : MonoBehaviour
         gameObjectSlot = copy.gameObjectSlot;
         _imageOnSlot = copy._imageOnSlot;
         maxAmount = copy.maxAmount;
+        slotIsFull = copy.slotIsFull;
         UpdateTextInventorySlot();
     }
 
@@ -80,8 +85,50 @@ public class InventorySlot : MonoBehaviour
     {
         if (slotIsFull == false)
         {
-            TextMeshProUGUI textMeshProUGUI = gameObjectSlot.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-            textMeshProUGUI.text = amount + "/" + maxAmount;
+            if (itemObject != null)
+            {
+                TextMeshProUGUI textMeshProUGUI = gameObjectSlot.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+                //_countItems.text = amount + "/" + maxAmount;
+                textMeshProUGUI.text = amount + "/" + maxAmount;
+            }
         }
+    }
+
+    //private TextMeshProUGUI FindOnGameObjectText(string nameFindGameObject)
+    //{
+    //    TextMeshProUGUI findText = null;
+
+    //    for (int i = 0; i < gameObjectSlot.transform.childCount; i++)
+    //    {
+    //        GameObject gameObject = gameObjectSlot.transform.GetChild(i).gameObject;
+    //        if (gameObject.name == nameFindGameObject)
+    //        {
+    //            findText = gameObject.GetComponent<TextMeshProUGUI>();
+    //            break ;
+    //        }
+    //    }
+    //    return (findText);
+    //}
+}
+
+class TextOnSlot 
+{
+    public string nameText;
+    public GameObject gameObjectText;
+
+    public TextMeshProUGUI FindOnGameObjectText(string nameFindGameObject)
+    {
+        TextMeshProUGUI findText = null;
+
+        for (int i = 0; i < gameObjectText.transform.childCount; i++)
+        {
+            GameObject gameObject = gameObjectText.transform.GetChild(i).gameObject;
+            if (gameObject.name == nameFindGameObject)
+            {
+                findText = gameObject.GetComponent<TextMeshProUGUI>();
+                break;
+            }
+        }
+        return (findText);
     }
 }

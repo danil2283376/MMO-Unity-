@@ -8,24 +8,17 @@ public class Fill_Inventory : MonoBehaviour
 
     private void Awake()
     {
-        GameObject inventoryPanel = GameObject.Find("InventoryPanel");
+        inventory.inventoryIsFull = false;
+        GameObject inventoryPanel = transform.gameObject;
 
-        Transform panel = inventoryPanel.transform.GetChild(0);
-
-        int countInventorySlots = panel.childCount;
+        int countInventorySlots = inventoryPanel.transform.childCount;
         for (int i = 0; i < countInventorySlots; i++)
         {
-            InventorySlot inventorySlot = panel.GetChild(i).GetComponent<InventorySlot>();
-            //inventory.inventory[i] = inventorySlot;
+            InventorySlot inventorySlot = inventoryPanel.transform.GetChild(i).GetComponent<InventorySlot>();
             inventorySlot.gameObjectSlot = inventorySlot.gameObject;
             inventorySlot.maxAmount = inventory.maxAmountInventorySlot;
-            //inventorySlot.itemObject = new ItemObject();
-            //inventorySlot.itemObject.typeItem = TypeItem.Default;
-            //ѕќ‘» —»Ћ сделал теперь общий инвентарь,
-            //но нужно теперь добавл€ть в него элементы
-            //при подн€тии предмета
+            inventorySlot.numberInventorySlot = i;
             inventory.AddItem(inventorySlot.itemObject, 0, inventorySlot);
-            //Debug.Log(inventory.inventory.Count);
         }
     }
 }

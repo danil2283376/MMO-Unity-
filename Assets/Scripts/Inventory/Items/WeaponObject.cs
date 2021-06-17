@@ -6,9 +6,10 @@ using UnityEngine;
     menuName = "Inventory System/Items/Weapon")]
 public class WeaponObject : ItemObject
 {
-    public int attack;
-    public int ammo;
-
+    public int damage;
+    public int ñartridgeInTheHorn;
+    public int maxAmmo;
+    public int accuracy;
     public void Awake()
     {
         typeItem = TypeItem.Weapon;
