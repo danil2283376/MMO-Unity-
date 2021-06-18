@@ -23,7 +23,7 @@ public class InventoryObject : ScriptableObject
         //{
             inventorySlot.itemObject = itemObject;
             inventorySlot.amount = amount;
-
+        inventorySlot.slotIsFull = false;
             InventorySlot inventorySlot1 = new InventorySlot(inventorySlot);
             inventory.Add(inventorySlot1);
         //}
@@ -68,19 +68,46 @@ public class InventoryObject : ScriptableObject
                     }
                 }
                 // Èíâåíòàðü ïîëíûé, è íå íàéäåíî ïîõîæåãî ïðåäìåòà
-
-                Debug.Log("i = " + i);
+                //Debug.Log("i = " + i);
                 //Debug.Log("inventoryIsFull: " + inventory[i].slotIsFull);
-                ÊÀÊÈÌ ÒÎ ÎÁÐÀÇÎÌ i ÂÛÕÎÄÈÒ ÇÀ ÏÐÅÄÅËÛ ÌÀÑÑÈÂÀ,
-                ÍÓÆÍÎ ×ÒÎÁÛ ÏÐÎÂÅÐßËÑß ÈÍÂÅÍÒÀÐÜ ÍÀ ÇÀÏÎËÍÅÍÍÎÑÒÜ ÏÓÒÅÌ,
-                ÅÑËÈ ß×ÅÉÊÀ Ñ ÒÀÊÈÌ ÆÅ ÒÈÏÎÌ ÇÀÏÎËÍÅÍÀ È Â ÈÍÂÅÍÒÀÐÅ ÍÅÒ ÌÅÑÒÀ ×ÒÎÁÛ ÏÎËÎÆÈÒÜ ÒÀÊÎÉ ÆÅ ÒÈÏ ÍÎ Â ÍÎÂÓÞ ß×ÅÉÊÓ.
-                ÒÎ ÈÍÂÅÍÒÀÐÜ ÇÀÏÎËÍÅÍ -> ëîãè÷íî
-                if (i == (inventory.Count - 1) && inventory[i].slotIsFull == true)
-                    inventoryIsFull = true;
+                //ÊÀÊÈÌ ÒÎ ÎÁÐÀÇÎÌ i ÂÛÕÎÄÈÒ ÇÀ ÏÐÅÄÅËÛ ÌÀÑÑÈÂÀ,
+                //ÍÓÆÍÎ ×ÒÎÁÛ ÏÐÎÂÅÐßËÑß ÈÍÂÅÍÒÀÐÜ ÍÀ ÇÀÏÎËÍÅÍÍÎÑÒÜ ÏÓÒÅÌ,
+                //ÅÑËÈ ß×ÅÉÊÀ Ñ ÒÀÊÈÌ ÆÅ ÒÈÏÎÌ ÇÀÏÎËÍÅÍÀ È Â ÈÍÂÅÍÒÀÐÅ ÍÅÒ ÌÅÑÒÀ ×ÒÎÁÛ ÏÎËÎÆÈÒÜ ÒÀÊÎÉ ÆÅ ÒÈÏ ÍÎ Â ÍÎÂÓÞ ß×ÅÉÊÓ.
+                //ÒÎ ÈÍÂÅÍÒÀÐÜ ÇÀÏÎËÍÅÍ -> ëîãè÷íî
+                CheckInventoryFull(itemObject);
+                //if (i == (inventory.Count - 1) && inventory[i].slotIsFull == true)
+                //    inventoryIsFull = true;
                 //Debug.Log("index empty slot: " + i);
             }
             else
                 inventory[indexFindItem].AddAmount(amount);
         }
+    }
+
+    public void CheckInventoryFull(ItemObject itemObject)
+    {
+        int i = 0;
+        if (itemObject != null)
+        {
+            for (i = 0; i < inventory.Count; i++)
+            {
+                if (inventory[i].itemObject == null)
+                    break;
+                if (inventory[i].itemObject.typeItem == itemObject.typeItem)
+                {
+                    if (inventory[i].itemObject.name == itemObject.name)
+                    {
+                        if (inventory[i].slotIsFull == true)
+                            continue;
+                        else
+                            break;
+                    }
+                }
+            }
+        }
+        if (i == inventory.Count)
+            inventoryIsFull = true;
+        else
+            inventoryIsFull = false;
     }
 }

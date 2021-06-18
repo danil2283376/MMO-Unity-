@@ -21,6 +21,7 @@ public class Inventory : MonoBehaviour
 
     private void PickUpItem(Item item)
     {
+        fastSlotsInventory.CheckInventoryFull(item.item);
         if (fastSlotsInventory.inventoryIsFull == true)
             inventory.AddItemInSlot(item.item, item.amount);
         else
