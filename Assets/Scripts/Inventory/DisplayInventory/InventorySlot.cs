@@ -22,7 +22,7 @@ public class InventorySlot : MonoBehaviour
 
     private Image _imageOnSlot;
     private TextMeshProUGUI _countItems;
-    private TextOnSlot[] textsOnSlots;
+    private TextsOnSlot textsOnSlot;
     public InventorySlot() 
     {
         amount = 0;
@@ -45,6 +45,9 @@ public class InventorySlot : MonoBehaviour
         _imageOnSlot = copy._imageOnSlot;
         maxAmount = copy.maxAmount;
         slotIsFull = copy.slotIsFull;
+        _imageOnSlot = gameObjectSlot.GetComponent<Image>();
+        // Add all TextMeshProUGUI on slot
+        textsOnSlot = new TextsOnSlot(gameObjectSlot);
         UpdateTextInventorySlot();
     }
 
@@ -76,7 +79,7 @@ public class InventorySlot : MonoBehaviour
 
     private void UpdateInventorySlot()
     {
-        _imageOnSlot = gameObjectSlot.GetComponent<Image>();
+        //_imageOnSlot = gameObjectSlot.GetComponent<Image>();
         _imageOnSlot.sprite = itemObject.sprite;
         UpdateTextInventorySlot();
     }
@@ -87,9 +90,11 @@ public class InventorySlot : MonoBehaviour
         {
             if (itemObject != null)
             {
-                TextMeshProUGUI textMeshProUGUI = gameObjectSlot.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-                //_countItems.text = amount + "/" + maxAmount;
-                textMeshProUGUI.text = amount + "/" + maxAmount;
+                //TextMeshProUGUI textMeshProUGUI = gameObjectSlot.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI countItems = textsOnSlot.SearchNeedText("NumberSlot");
+                //Debug.Log(textMeshProUGUI.name);
+                if (countItems != null)
+                    countItems.text = amount + "/" + maxAmount;
             }
         }
     }
@@ -111,24 +116,54 @@ public class InventorySlot : MonoBehaviour
     //}
 }
 
-class TextOnSlot 
+class TextsOnSlot
 {
     public string nameText;
-    public GameObject gameObjectText;
+    public GameObject gameObject;
+    private TextMeshProUGUI[] textsOnGameObject;
 
-    public TextMeshProUGUI FindOnGameObjectText(string nameFindGameObject)
+    public TextsOnSlot(GameObject gameObjectWithTexts)
     {
-        TextMeshProUGUI findText = null;
+        gameObject = gameObjectWithTexts;
+        textsOnGameObject = new TextMeshProUGUI[gameObjectWithTexts.transform.childCount];
+        AddAllTextsOnGameObject();
+    }
 
-        for (int i = 0; i < gameObjectText.transform.childCount; i++)
+    public TextMeshProUGUI SearchNeedText(string nameText)
+    {
+        TextMeshProUGUI findNeedText = null;
+        for (int i = 0; i < textsOnGameObject.Length; i++)
         {
-            GameObject gameObject = gameObjectText.transform.GetChild(i).gameObject;
-            if (gameObject.name == nameFindGameObject)
+            if (textsOnGameObject[i].name == nameText)
             {
-                findText = gameObject.GetComponent<TextMeshProUGUI>();
+                findNeedText = textsOnGameObject[i];
                 break;
             }
         }
-        return (findText);
+        return (findNeedText);
     }
+
+    private void AddAllTextsOnGameObject()
+    {
+        for (int i = 0; i < textsOnGameObject.Length; i++)
+        {
+            textsOnGameObject[i] = gameObject.transform.GetChild(i).GetComponent<TextMeshProUGUI>();
+        }
+    }
+
+    //public TextMeshProUGUI FindOnGameObjectText(string nameFindGameObject)
+    //{
+    //    TextMeshProUGUI findText = null;
+
+    //    for (int i = 0; i < gameObjectText.transform.childCount; i++)
+    //    {
+    //        GameObject gameObject = gameObjectText.transform.GetChild(i).gameObject;
+    //        if (gameObject.name == nameFindGameObject)
+    //        {
+    //            findText = gameObject.GetComponent<TextMeshProUGUI>();
+    //            break;
+    //        }
+    //    }
+    //    return (findText);
+    //}
 }

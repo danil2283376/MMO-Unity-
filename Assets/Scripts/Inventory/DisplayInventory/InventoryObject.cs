@@ -14,20 +14,11 @@ public class InventoryObject : ScriptableObject
 
     public void AddItem(ItemObject itemObject, int amount, InventorySlot inventorySlot) 
     {
-        //int indexFindItem = IndexFindItem(itemObject);
-        //if (indexFindItem != -1)
-        //    inventory[indexFindItem].AddAmount(amount);
-        //else
-        //{
-        //if (inventorySlot != null && amount > 0)
-        //{
-            inventorySlot.itemObject = itemObject;
-            inventorySlot.amount = amount;
+        inventorySlot.itemObject = itemObject;
+        inventorySlot.amount = amount;
         inventorySlot.slotIsFull = false;
-            InventorySlot inventorySlot1 = new InventorySlot(inventorySlot);
-            inventory.Add(inventorySlot1);
-        //}
-        //}
+        InventorySlot inventorySlot1 = new InventorySlot(inventorySlot);
+        inventory.Add(inventorySlot1);
     }
 
     public int IndexFindItem(ItemObject itemObject)
@@ -63,7 +54,7 @@ public class InventoryObject : ScriptableObject
                     if (inventory[i].itemObject == null)
                     {
                         inventory[i].SetValueInSlot(itemObject, amount);
-                        inventoryIsFull = false;
+                        //inventoryIsFull = false;
                         break;
                     }
                 }
