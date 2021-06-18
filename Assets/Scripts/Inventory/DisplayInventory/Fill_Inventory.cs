@@ -15,10 +15,9 @@ public class Fill_Inventory : MonoBehaviour
         for (int i = 0; i < countInventorySlots; i++)
         {
             InventorySlot inventorySlot = inventoryPanel.transform.GetChild(i).GetComponent<InventorySlot>();
-            inventorySlot.gameObjectSlot = inventorySlot.gameObject;
             inventorySlot.maxAmount = inventory.maxAmountInventorySlot;
             inventorySlot.numberInventorySlot = i;
-            inventory.AddItem(inventorySlot.itemObject, 0, inventorySlot);
+            inventory.AddItem(inventorySlot);
         }
     }
 }

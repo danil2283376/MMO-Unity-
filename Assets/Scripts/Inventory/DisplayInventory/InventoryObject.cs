@@ -12,11 +12,8 @@ public class InventoryObject : ScriptableObject
     [HideInInspector]
     public bool inventoryIsFull = false;
 
-    public void AddItem(ItemObject itemObject, int amount, InventorySlot inventorySlot) 
+    public void AddItem(InventorySlot inventorySlot) 
     {
-        inventorySlot.itemObject = itemObject;
-        inventorySlot.amount = amount;
-        inventorySlot.slotIsFull = false;
         InventorySlot inventorySlot1 = new InventorySlot(inventorySlot);
         inventory.Add(inventorySlot1);
     }
@@ -27,11 +24,11 @@ public class InventoryObject : ScriptableObject
         {
             for (int i = 0; i < inventory.Count; i++)
             {
-                if (inventory[i].itemObject != null)
+                if (inventory[i].ItemObjectInSlot != null)
                 {
                     if (itemObject.typeItem != TypeItem.Default)
-                        if (inventory[i].itemObject.typeItem == itemObject.typeItem
-                            && inventory[i].itemObject.name == itemObject.name)
+                        if (inventory[i].ItemObjectInSlot.typeItem == itemObject.typeItem
+                            && inventory[i].ItemObjectInSlot.name == itemObject.name)
                             return (i);
                 }
             }
@@ -51,24 +48,14 @@ public class InventoryObject : ScriptableObject
                 int i;
                 for (i = 0; i < inventory.Count; i++)
                 {
-                    if (inventory[i].itemObject == null)
+                    if (inventory[i].ItemObjectInSlot == null)
                     {
                         inventory[i].SetValueInSlot(itemObject, amount);
                         //inventoryIsFull = false;
                         break;
                     }
                 }
-                // Èíâåíòàðü ïîëíûé, è íå íàéäåíî ïîõîæåãî ïðåäìåòà
-                //Debug.Log("i = " + i);
-                //Debug.Log("inventoryIsFull: " + inventory[i].slotIsFull);
-                //ÊÀÊÈÌ ÒÎ ÎÁÐÀÇÎÌ i ÂÛÕÎÄÈÒ ÇÀ ÏÐÅÄÅËÛ ÌÀÑÑÈÂÀ,
-                //ÍÓÆÍÎ ×ÒÎÁÛ ÏÐÎÂÅÐßËÑß ÈÍÂÅÍÒÀÐÜ ÍÀ ÇÀÏÎËÍÅÍÍÎÑÒÜ ÏÓÒÅÌ,
-                //ÅÑËÈ ß×ÅÉÊÀ Ñ ÒÀÊÈÌ ÆÅ ÒÈÏÎÌ ÇÀÏÎËÍÅÍÀ È Â ÈÍÂÅÍÒÀÐÅ ÍÅÒ ÌÅÑÒÀ ×ÒÎÁÛ ÏÎËÎÆÈÒÜ ÒÀÊÎÉ ÆÅ ÒÈÏ ÍÎ Â ÍÎÂÓÞ ß×ÅÉÊÓ.
-                //ÒÎ ÈÍÂÅÍÒÀÐÜ ÇÀÏÎËÍÅÍ -> ëîãè÷íî
                 CheckInventoryFull(itemObject);
-                //if (i == (inventory.Count - 1) && inventory[i].slotIsFull == true)
-                //    inventoryIsFull = true;
-                //Debug.Log("index empty slot: " + i);
             }
             else
                 inventory[indexFindItem].AddAmount(amount);
@@ -82,13 +69,13 @@ public class InventoryObject : ScriptableObject
         {
             for (i = 0; i < inventory.Count; i++)
             {
-                if (inventory[i].itemObject == null)
+                if (inventory[i].ItemObjectInSlot == null)
                     break;
-                if (inventory[i].itemObject.typeItem == itemObject.typeItem)
+                if (inventory[i].ItemObjectInSlot.typeItem == itemObject.typeItem)
                 {
-                    if (inventory[i].itemObject.name == itemObject.name)
+                    if (inventory[i].ItemObjectInSlot.name == itemObject.name)
                     {
-                        if (inventory[i].slotIsFull == true)
+                        if (inventory[i].SlotIsFull == true)
                             continue;
                         else
                             break;
