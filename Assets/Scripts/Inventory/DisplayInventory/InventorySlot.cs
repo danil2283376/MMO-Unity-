@@ -90,9 +90,7 @@ public class InventorySlot : MonoBehaviour
         {
             if (itemObject != null)
             {
-                //TextMeshProUGUI textMeshProUGUI = gameObjectSlot.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-                TextMeshProUGUI countItems = textsOnSlot.SearchNeedText("NumberSlot");
-                //Debug.Log(textMeshProUGUI.name);
+                TextMeshProUGUI countItems = textsOnSlot.SearchNeedText("CountItems");
                 if (countItems != null)
                     countItems.text = amount + "/" + maxAmount;
             }
