@@ -22,9 +22,9 @@ public class InventoryObject : ScriptableObject
         }
     }
 
-    public void AddInventorySlot(GameObject gameObject) 
+    public void AddInventorySlot(GameObject gameObjectSlot)
     {
-        InventorySlot inventorySlot1 = gameObject.GetComponent<InventorySlot>();
+        InventorySlot inventorySlot1 = gameObjectSlot.GetComponent<InventorySlot>();
         inventorySlot1.maxAmount = maxAmountInventorySlot;
         inventory.Add(inventorySlot1);
     }

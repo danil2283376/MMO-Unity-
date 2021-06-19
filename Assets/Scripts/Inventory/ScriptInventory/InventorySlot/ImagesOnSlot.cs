@@ -10,7 +10,6 @@ public class ImagesOnSlot
     public Image borderInSlot;
     public Color idleImage;
     public Color activeImage;
-    public bool activeSlot;
     public ImagesOnSlot(GameObject inventorySlot, Color _idleImage, Color _activeImage)
     {
         gameObjectSlot = inventorySlot;
@@ -20,9 +19,9 @@ public class ImagesOnSlot
         SearchNeedImage("BorderSlot", ref borderInSlot);
     }
 
-    public void ActivateImage()
+    public void ActivateBorder(bool activateImage)
     {
-        if (activeSlot == true)
+        if (activateImage == true)
             borderInSlot.color = activeImage;
         else
             borderInSlot.color = idleImage;

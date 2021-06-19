@@ -32,6 +32,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.GridLayoutGroup
     - UnityEngine.UI.Image
+    - UnityEngine.UI.Text
   sceneClasses:
     Assets/Scenes/SampleScene.unity:
     - Class: 1
@@ -96,6 +97,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 4910}
     - Class: 114
       Script: {instanceID: 4978}
+    - Class: 114
+      Script: {instanceID: 5036}
     - Class: 114
       Script: {instanceID: 5302}
     - Class: 114
@@ -551,7 +554,7 @@ ScriptsOnlyBuild:
     className: VariablesSaver
   - hash:
       serializedVersion: 2
-      Hash: 3a561767f41abedaff1907fd84e5beea
+      Hash: 101e375a944631cba1241b85e40e1ec6
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: WorkWithInventory

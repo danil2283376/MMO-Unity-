@@ -11,9 +11,9 @@ public class InventorySlot : MonoBehaviour
     public Color activeColor;
 
     [HideInInspector] public int maxAmount;
-    [HideInInspector] public bool slotIsActive = false;
     [HideInInspector] public int numberInventorySlot;
 
+    public bool _slotIsActive { get; set; } = false;
     private int _amount { get; set; } = 0;
     private bool _slotIsFull { get; set; } = false;
     private ItemObject _itemObjectInSlot { get; set; } = null;
@@ -21,6 +21,18 @@ public class InventorySlot : MonoBehaviour
 
     private TextsOnSlot _textsOnSlot = null;
     private ImagesOnSlot _imagesOnslot = null;
+
+    public bool SlotIsActive 
+    {
+        get 
+        {
+            return (_slotIsActive);
+        }
+        private set
+        {
+            _slotIsActive = value;
+        }
+    }
 
     public int Amount
     {
@@ -45,7 +57,7 @@ public class InventorySlot : MonoBehaviour
         }
         private set
         {
-            _slotIsFull = value;
+            this._slotIsFull = value;
         }
     }
 
@@ -82,20 +94,7 @@ public class InventorySlot : MonoBehaviour
         this._slotIsFull = false;
         this._textsOnSlot = new TextsOnSlot(this.GameObjectSlot);
         this._imagesOnslot = new ImagesOnSlot(this.GameObjectSlot, idleColor, activeColor);
-    }
-
-    public InventorySlot(InventorySlot copy)
-    {
-        this.ItemObjectInSlot = copy.ItemObjectInSlot;
-        this._amount = copy._amount;
-        this._gameObjectSlot = copy.GameObjectSlot;
-        this.maxAmount = copy.maxAmount;
-        this._slotIsFull = copy._slotIsFull;
-        this._textsOnSlot = copy._textsOnSlot;
-        this._imagesOnslot = copy._imagesOnslot;
-        this.numberInventorySlot = copy.numberInventorySlot;
-        //this.SlotIsFull = false;
-        this.SlotIsFull = copy.SlotIsFull;
+        this._imagesOnslot.borderInSlot.color = idleColor;
     }
 
     public void Clone(InventorySlot copy)
@@ -108,7 +107,6 @@ public class InventorySlot : MonoBehaviour
         this._textsOnSlot = copy._textsOnSlot;
         this._imagesOnslot = copy._imagesOnslot;
         this.numberInventorySlot = copy.numberInventorySlot;
-        //this.SlotIsFull = false;
         this.SlotIsFull = copy.SlotIsFull;
     }
 
@@ -129,11 +127,9 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
-    public void SlotIsActive()
+    public void ActivateSlot(bool activeSlot)
     {
-        slotIsActive = !slotIsActive;
-        _imagesOnslot.activeSlot = slotIsActive;
-        _imagesOnslot.ActivateImage();
+        this._imagesOnslot.ActivateBorder(activeSlot);
     }
 
     private void UpdateImageSlot()
