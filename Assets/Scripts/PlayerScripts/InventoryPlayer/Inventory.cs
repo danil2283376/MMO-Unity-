@@ -6,6 +6,7 @@ public class Inventory : MonoBehaviour
 {
     public InventoryObject inventory;
     public InventoryObject fastSlotsInventory;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other != null)
@@ -22,7 +23,7 @@ public class Inventory : MonoBehaviour
     private void PickUpItem(Item item)
     {
         fastSlotsInventory.CheckInventoryFull(item.item);
-        if (fastSlotsInventory.inventoryIsFull == true)
+        if (fastSlotsInventory.InventoryIsFull == true)
             inventory.AddItemInSlot(item.item, item.amount);
         else
             fastSlotsInventory.AddItemInSlot(item.item, item.amount);

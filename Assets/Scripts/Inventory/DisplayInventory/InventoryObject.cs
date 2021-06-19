@@ -6,15 +6,26 @@ using UnityEngine;
     menuName = "Inventory System/Inventory")]
 public class InventoryObject : ScriptableObject
 {
-    public int maxAmountInventorySlot;
     public List<InventorySlot> inventory = new List<InventorySlot>();
+    public int maxAmountInventorySlot;
 
-    [HideInInspector]
-    public bool inventoryIsFull = false;
+    private bool inventoryIsFull { get; set; } = false;
+    public bool InventoryIsFull
+    {
+        get 
+        {
+            return (inventoryIsFull);
+        }
+        private set 
+        {
+            inventoryIsFull = value;
+        }
+    }
 
     public void AddItem(InventorySlot inventorySlot) 
     {
         InventorySlot inventorySlot1 = new InventorySlot(inventorySlot);
+        inventorySlot1.maxAmount = maxAmountInventorySlot;
         inventory.Add(inventorySlot1);
     }
 
