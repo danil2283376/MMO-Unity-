@@ -26,7 +26,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2910246355953495857}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1545961267066617753}
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -296,6 +296,7 @@ GameObject:
   - component: {fileID: 3017877688610925797}
   - component: {fileID: 1590097027531053840}
   - component: {fileID: 7972276484722238184}
+  - component: {fileID: 52286550}
   m_Layer: 6
   m_Name: InventorySlot 1
   m_TagString: Untagged
@@ -346,7 +347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idleColor: {r: 1, g: 1, b: 1, a: 0}
-  activeColor: {r: 1, g: 0, b: 0, a: 0}
+  activeColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
   maxAmount: 60
   numberInventorySlot: 0
 --- !u!114 &7972276484722238184
@@ -379,3 +380,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &52286550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6447137741027712353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e1c2220f21923043bbf7ecf5dfbc98e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

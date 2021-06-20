@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(InventorySlot))]
 public class ActivateSlotOnMouse : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private InventorySlot _inventorySlot;
@@ -14,8 +15,6 @@ public class ActivateSlotOnMouse : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        GameObject gameObject = eventData.pointerEnter;
-
         _inventorySlot.ActivateSlot(true);
     }
 

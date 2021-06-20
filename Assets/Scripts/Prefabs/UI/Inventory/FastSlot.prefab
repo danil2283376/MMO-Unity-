@@ -479,11 +479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a555e8c53d593da42a367404e987bef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleColor: {r: 1, g: 1, b: 1, a: 0}
-  activeColor: {r: 1, g: 0.023584902, b: 0.023584902, a: 0}
-  itemObject: {fileID: 0}
+  idleColor: {r: 1, g: 1, b: 1, a: 1}
+  activeColor: {r: 1, g: 0.023584902, b: 0.023584902, a: 1}
   maxAmount: 60
-  amount: 0
-  slotIsFull: 0
   numberInventorySlot: 0
-  gameObjectSlot: {fileID: 0}

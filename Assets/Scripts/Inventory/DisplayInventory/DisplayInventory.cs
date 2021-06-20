@@ -26,7 +26,6 @@ public class DisplayInventory : MonoBehaviour
     {
         gameObject.transform.localPosition = _newPosition;
         Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
     }
 
     void Update()
