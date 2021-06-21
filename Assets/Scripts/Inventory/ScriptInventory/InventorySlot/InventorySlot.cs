@@ -108,6 +108,8 @@ public class InventorySlot : MonoBehaviour
         this._imagesOnslot = copy._imagesOnslot;
         this.numberInventorySlot = copy.numberInventorySlot;
         this.SlotIsFull = copy.SlotIsFull;
+        UpdateImageSlot();
+        UpdateTextInventorySlot();
     }
 
     public void AddAmount(int amount)
