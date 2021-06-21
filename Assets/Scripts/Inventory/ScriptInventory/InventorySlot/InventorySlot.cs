@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -18,20 +19,16 @@ public class InventorySlot : MonoBehaviour
     private bool _slotIsFull { get; set; } = false;
     private ItemObject _itemObjectInSlot { get; set; } = null;
     private GameObject _gameObjectSlot { get; set; } = null;
+    private TextsOnSlot _textsOnSlot { get; set; } = null;
+    private ImagesOnSlot _imagesOnslot { get; set; } = null;
 
-    private TextsOnSlot _textsOnSlot = null;
-    private ImagesOnSlot _imagesOnslot = null;
-
-    public bool SlotIsActive 
+    public bool SlotIsActive
     {
-        get 
+        get
         {
             return (_slotIsActive);
         }
-        private set
-        {
-            _slotIsActive = value;
-        }
+        private set => _slotIsActive = value;
     }
 
     public int Amount
@@ -42,23 +39,31 @@ public class InventorySlot : MonoBehaviour
         }
         private set
         {
-            if (this._amount == 0)
-                this._amount = value;
+            //if (value > maxAmount)
+            //    throw new InvalidOperationException("value > maxAmount, in Script InventorySlot!!!");
+            if ((_amount + value) <= maxAmount)
+            {
+                if (this._amount == 0)
+                    this._amount = value;
+                else
+                    this._amount += value;
+                SlotIsActive = false;
+                UpdateTextInventorySlot();
+            }
             else
-                this._amount += value;
-            UpdateTextInventorySlot();
+            {
+                SlotIsActive = true;
+            }
         }
     }
+
     public bool SlotIsFull
     {
         get
         {
             return (this._slotIsFull);
         }
-        private set
-        {
-            this._slotIsFull = value;
-        }
+        private set => this._slotIsFull = value;
     }
 
     public ItemObject ItemObjectInSlot
@@ -74,9 +79,9 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
-    public GameObject GameObjectSlot 
+    public GameObject GameObjectSlot
     {
-        get 
+        get
         {
             return (this._gameObjectSlot);
         }
@@ -87,6 +92,23 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
+    public TextsOnSlot TextsOnSlot
+    {
+        get
+        {
+            return (_textsOnSlot);
+        }
+        private set => this._textsOnSlot = value;
+    }
+
+    public ImagesOnSlot ImagesOnSlot 
+    {
+        get 
+        {
+            return (_imagesOnslot);
+        }
+        private set => this._imagesOnslot = value;
+    }
 
     private void Awake()
     {
@@ -95,21 +117,42 @@ public class InventorySlot : MonoBehaviour
         this._textsOnSlot = new TextsOnSlot(this.GameObjectSlot);
         this._imagesOnslot = new ImagesOnSlot(this.GameObjectSlot, idleColor, activeColor);
         this._imagesOnslot.borderInSlot.color = idleColor;
+        if (_imagesOnslot.imageInSlot == null)
+            throw new InvalidOperationException("Image in slot not Found!!!");
+        if (_imagesOnslot.borderInSlot == null)
+            throw new InvalidOperationException("Border in slot not Found!!!");
+    }
+
+    public InventorySlot()
+    {
+
+    }
+
+    public InventorySlot(InventorySlot copy)
+    {
+        this.TextsOnSlot = copy.TextsOnSlot;
+        this.ImagesOnSlot = copy.ImagesOnSlot;
+        this.Amount = copy.Amount;
     }
 
     public void Clone(InventorySlot copy)
     {
+        if (copy == this)
+            throw new InvalidOperationException("Copying yourself!!!");
+
         this.ItemObjectInSlot = copy.ItemObjectInSlot;
-        this._amount = copy._amount;
+        Debug.Log("copy._amount: " + copy.Amount);
         this._gameObjectSlot = copy.GameObjectSlot;
+        this.Amount = copy.Amount;
         this.maxAmount = copy.maxAmount;
-        this._slotIsFull = copy._slotIsFull;
-        this._textsOnSlot = copy._textsOnSlot;
-        this._imagesOnslot = copy._imagesOnslot;
+        this._slotIsFull = copy.SlotIsFull;
+        this._textsOnSlot = copy.TextsOnSlot;
+        this._imagesOnslot = copy.ImagesOnSlot;
         this.numberInventorySlot = copy.numberInventorySlot;
         this.SlotIsFull = copy.SlotIsFull;
+        this.idleColor = copy.idleColor;
+        this.activeColor = copy.activeColor;
         UpdateImageSlot();
-        UpdateTextInventorySlot();
     }
 
     public void AddAmount(int amount)
@@ -136,7 +179,6 @@ public class InventorySlot : MonoBehaviour
 
     private void UpdateImageSlot()
     {
-        if (_imagesOnslot.imageInSlot != null)
         _imagesOnslot.imageInSlot.sprite = _itemObjectInSlot.sprite;
     }
 
@@ -146,9 +188,12 @@ public class InventorySlot : MonoBehaviour
         {
             if (_itemObjectInSlot != null)
             {
+                if (_textsOnSlot != null)
+                {
                     TextMeshProUGUI countItems = _textsOnSlot.SearchNeedText("CountItems");
-                if (countItems != null)
-                    countItems.text = _amount + "/" + maxAmount;
+                    if (countItems != null)
+                        countItems.text = _amount + "/" + maxAmount;
+                }
             }
         }
     }

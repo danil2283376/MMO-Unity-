@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+//ПЛОХО РАБОТАЕТ ДОРАБОТАТЬ, МЕНЯЕТ ПРЕДМЕТЫ ТОЛЬКО С ПУСТЫМИ ЯЧЕЙКАМИ,
+//ТАК ЖЕ ЛОМАЕТ ВЫБОР ЯЧЕЕК!!!
+
 public class SwapItems : MonoBehaviour
 {
     private InventorySlot _selectItemForChange;
@@ -59,6 +62,8 @@ public class SwapItems : MonoBehaviour
                             if (_selectItemForChange != _selectItemForSwap)
                             {
                                 SwapItemsInInventory(ref _selectItemForChange, ref _selectItemForSwap);
+                                _selectItemForChange = null;
+                                _selectItemForSwap = null;
                             }
                             Debug.Log(_selectItemForSwap);
                         }
@@ -68,11 +73,26 @@ public class SwapItems : MonoBehaviour
             _keyIsDown = false;
         }
     }
-
+    // Добавить если типы одинаковые то добавлять просто к кол-ву
     private void SwapItemsInInventory(ref InventorySlot inventoryItem1, ref InventorySlot inventoryItem2)
     {
-        InventorySlot tmpSlot = inventoryItem1;
-        inventoryItem1.Clone(inventoryItem2);
-        inventoryItem2.Clone(tmpSlot);
+        InventorySlot tempSlot = new InventorySlot();
+        tempSlot.Clone(inventoryItem1);
+
+        inventoryItem1.SetValueInSlot(inventoryItem2.ItemObjectInSlot, inventoryItem2.Amount);
+        //GameObject gameObjectSlot1 = inventoryItem1.gameObject;
+        //GameObject gameObjectSlot2 = inventoryItem2.gameObject;
+
+        //Destroy(gameObjectSlot1.GetComponent<InventorySlot>());
+        //gameObjectSlot1.AddComponent<InventorySlot>();
+        //gameObjectSlot1.GetComponent<InventorySlot>().Clone(inventoryItem2);
+
+        //Destroy(gameObjectSlot2.GetComponent<InventorySlot>());
+        //gameObjectSlot2.AddComponent<InventorySlot>();
+        //gameObjectSlot2.GetComponent<InventorySlot>().Clone(tempSlot);
+        //tempSlot.Clone(inventoryItem1);//InventorySlot tmpSlot = inventoryItem1;
+        //inventoryItem1.Clone(inventoryItem2);
+        inventoryItem2.SetValueInSlot(tempSlot.ItemObjectInSlot, tempSlot.Amount);
+        //inventoryItem2.Clone(tempSlot);
     }
 }
