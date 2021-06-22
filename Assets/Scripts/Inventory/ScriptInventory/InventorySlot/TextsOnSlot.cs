@@ -20,11 +20,13 @@ public class TextsOnSlot
         TextMeshProUGUI findNeedText = null;
         for (int i = 0; i < textsOnGameObject.Length; i++)
         {
-            Debug.Log(textsOnGameObject[i].name);
-            if (textsOnGameObject[i].name == nameText)
+            if (textsOnGameObject[i] != null)
             {
-                findNeedText = textsOnGameObject[i];
-                break;
+                if (textsOnGameObject[i].name == nameText)
+                {
+                    findNeedText = textsOnGameObject[i];
+                    break;
+                }
             }
         }
         return (findNeedText);

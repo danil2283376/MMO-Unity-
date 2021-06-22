@@ -1,17 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
-
-//œÀŒ’Œ –¿¡Œ“¿≈“ ƒŒ–¿¡Œ“¿“‹, Ã≈Õﬂ≈“ œ–≈ƒÃ≈“€ “ŒÀ‹ Œ — œ”—“€Ã» ﬂ◊≈… ¿Ã»,
-//“¿  ∆≈ ÀŒÃ¿≈“ ¬€¡Œ– ﬂ◊≈≈ !!!
 
 public class SwapItems : MonoBehaviour
 {
     private InventorySlot _selectItemForChange;
     private InventorySlot _selectItemForSwap;
     private bool _keyIsDown = false;
+
+
+    // Rewrite on two fuction:
+    // 1. GetKey();
+    // 2. GetKeyUp();
     private void Update()
     {
         // Left button mouse pressed?
@@ -35,12 +35,12 @@ public class SwapItems : MonoBehaviour
                             _selectItemForChange = inventorySlot;
                             //if (_selectItemIndex )
                             _keyIsDown = true;
-                            Debug.Log(_selectItemForChange);
                         }
                     }
                 }
             }
         }
+
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             if (EventSystem.current.IsPointerOverGameObject())
@@ -65,7 +65,6 @@ public class SwapItems : MonoBehaviour
                                 _selectItemForChange = null;
                                 _selectItemForSwap = null;
                             }
-                            Debug.Log(_selectItemForSwap);
                         }
                     }
                 }
@@ -76,23 +75,24 @@ public class SwapItems : MonoBehaviour
     // ƒÓ·‡‚ËÚ¸ ÂÒÎË ÚËÔ˚ Ó‰ËÌ‡ÍÓ‚˚Â ÚÓ ‰Ó·‡‚ÎˇÚ¸ ÔÓÒÚÓ Í ÍÓÎ-‚Û
     private void SwapItemsInInventory(ref InventorySlot inventoryItem1, ref InventorySlot inventoryItem2)
     {
-        InventorySlot tempSlot = new InventorySlot();
-        tempSlot.Clone(inventoryItem1);
+        if (inventoryItem1.ImagesOnSlot.imageInSlot.sprite != null)
+        {
+            gameObject.AddComponent<InventorySlot>();
+            InventorySlot tempSlot = gameObject.GetComponent<InventorySlot>();
+            tempSlot.SetValueInSlot(inventoryItem1.ItemObjectInSlot, inventoryItem1.Amount);
+            if (inventoryItem2.ItemObjectInSlot != null)
+            {
+                inventoryItem1.SetValueInSlot(inventoryItem2.ItemObjectInSlot, inventoryItem2.Amount);
+                inventoryItem2.SetValueInSlot(tempSlot.ItemObjectInSlot, tempSlot.Amount);
+            }
+            else
+            {
+                //inventoryItem1.SetValueInSlot(null, 0);
+                inventoryItem1.SetValueInSlot(null, 0);
 
-        inventoryItem1.SetValueInSlot(inventoryItem2.ItemObjectInSlot, inventoryItem2.Amount);
-        //GameObject gameObjectSlot1 = inventoryItem1.gameObject;
-        //GameObject gameObjectSlot2 = inventoryItem2.gameObject;
-
-        //Destroy(gameObjectSlot1.GetComponent<InventorySlot>());
-        //gameObjectSlot1.AddComponent<InventorySlot>();
-        //gameObjectSlot1.GetComponent<InventorySlot>().Clone(inventoryItem2);
-
-        //Destroy(gameObjectSlot2.GetComponent<InventorySlot>());
-        //gameObjectSlot2.AddComponent<InventorySlot>();
-        //gameObjectSlot2.GetComponent<InventorySlot>().Clone(tempSlot);
-        //tempSlot.Clone(inventoryItem1);//InventorySlot tmpSlot = inventoryItem1;
-        //inventoryItem1.Clone(inventoryItem2);
-        inventoryItem2.SetValueInSlot(tempSlot.ItemObjectInSlot, tempSlot.Amount);
-        //inventoryItem2.Clone(tempSlot);
+                inventoryItem2.SetValueInSlot(tempSlot.ItemObjectInSlot, tempSlot.Amount);
+            }
+            Destroy(tempSlot);
+        }
     }
 }

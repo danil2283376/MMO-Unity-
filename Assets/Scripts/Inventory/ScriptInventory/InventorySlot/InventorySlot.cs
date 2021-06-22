@@ -116,11 +116,12 @@ public class InventorySlot : MonoBehaviour
         this._slotIsFull = false;
         this._textsOnSlot = new TextsOnSlot(this.GameObjectSlot);
         this._imagesOnslot = new ImagesOnSlot(this.GameObjectSlot, idleColor, activeColor);
-        this._imagesOnslot.borderInSlot.color = idleColor;
-        if (_imagesOnslot.imageInSlot == null)
-            throw new InvalidOperationException("Image in slot not Found!!!");
-        if (_imagesOnslot.borderInSlot == null)
-            throw new InvalidOperationException("Border in slot not Found!!!");
+        //if (_imagesOnslot.imageInSlot == null)
+        //    throw new InvalidOperationException("Image in slot not Found!!!");
+        //if (_imagesOnslot.borderInSlot == null)
+        //    throw new InvalidOperationException("Border in slot not Found!!!");
+        if (this._imagesOnslot.borderInSlot != null)
+            this._imagesOnslot.borderInSlot.color = idleColor;
     }
 
     public InventorySlot()
@@ -141,10 +142,10 @@ public class InventorySlot : MonoBehaviour
             throw new InvalidOperationException("Copying yourself!!!");
 
         this.ItemObjectInSlot = copy.ItemObjectInSlot;
-        Debug.Log("copy._amount: " + copy.Amount);
         this._gameObjectSlot = copy.GameObjectSlot;
         this.Amount = copy.Amount;
         this.maxAmount = copy.maxAmount;
+        Debug.Log("maxAmount: " + maxAmount);
         this._slotIsFull = copy.SlotIsFull;
         this._textsOnSlot = copy.TextsOnSlot;
         this._imagesOnslot = copy.ImagesOnSlot;
@@ -157,6 +158,8 @@ public class InventorySlot : MonoBehaviour
 
     public void AddAmount(int amount)
     {
+        if (amount < 0)
+            throw new InvalidOperationException("Amount not should be negative number!!!");
         this.Amount = amount;
     }
 
@@ -167,8 +170,15 @@ public class InventorySlot : MonoBehaviour
             this._itemObjectInSlot = itemObject;
             this._itemObjectInSlot.sprite = itemObject.sprite;
             this._itemObjectInSlot.typeItem = itemObject.typeItem;
-            AddAmount(amount);
-            UpdateImageSlot();
+            this._amount = amount;
+            if (_textsOnSlot != null)
+                UpdateTextInventorySlot();
+            if (_imagesOnslot.imageInSlot != null)
+                UpdateImageSlot();
+        }
+        else
+        {
+            SetDefaultValueInSlot();
         }
     }
 
@@ -196,5 +206,16 @@ public class InventorySlot : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void SetDefaultValueInSlot()
+    {
+        this._itemObjectInSlot = null;
+        if (_imagesOnslot.imageInSlot != null)
+            _imagesOnslot.imageInSlot.sprite = null;
+        this._amount = 0;
+        TextMeshProUGUI countItems = _textsOnSlot.SearchNeedText("CountItems");
+        if (countItems != null)
+            countItems.text = "";
     }
 }
