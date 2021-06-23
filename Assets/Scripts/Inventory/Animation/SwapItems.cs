@@ -13,7 +13,6 @@ public class SwapItems : MonoBehaviour
         // Left button mouse pressed?
         if (Input.GetKey(KeyCode.Mouse0))
             SelectFirstItem();
-
         if (Input.GetKeyUp(KeyCode.Mouse0))
             SelectSecondItem();
     }
@@ -53,7 +52,9 @@ public class SwapItems : MonoBehaviour
                         _secondSlotForChange = inventorySlot;
                         if (_firstSlotForChange != _secondSlotForChange)
                         {
-                            SwapItemsInInventory(ref _firstSlotForChange, ref _secondSlotForChange);
+                            bool mergeHappened = EqualsItemMerge(ref _firstSlotForChange, ref _secondSlotForChange);
+                            if (mergeHappened == false)
+                                SwapItemsInInventory(ref _firstSlotForChange, ref _secondSlotForChange);
                             _firstSlotForChange = null;
                             _secondSlotForChange = null;
                         }
@@ -65,30 +66,54 @@ public class SwapItems : MonoBehaviour
     }
 
     // Добавить если типы одинаковые то добавлять просто к кол-ву
-    private void SwapItemsInInventory(ref InventorySlot inventoryItem1, ref InventorySlot inventoryItem2)
+    private void SwapItemsInInventory(ref InventorySlot inventorySlot1, ref InventorySlot inventorySlot2)
     {
-        if (inventoryItem1.ImagesOnSlot.imageInSlot.sprite != null)
+        if (inventorySlot1.ImagesOnSlot.imageInSlot.sprite != null)
         {
             gameObject.AddComponent<InventorySlot>();
             InventorySlot tempSlot = gameObject.GetComponent<InventorySlot>();
-            Debug.Log("HI");
-            tempSlot.maxAmount = inventoryItem1.maxAmount;
-            tempSlot.SetValueInSlot(inventoryItem1.ItemObjectInSlot, inventoryItem1.Amount);
-            Debug.Log("HI");
+
+            tempSlot.maxAmount = inventorySlot1.maxAmount;
+            tempSlot.SetValueInSlot(inventorySlot1.ItemObjectInSlot, inventorySlot1.Amount);
             //Debug.Log("Amount: " + tempSlot.Amount);
-            if (inventoryItem2.ItemObjectInSlot != null)
+            if (inventorySlot2.ItemObjectInSlot != null)
             {
-                inventoryItem1.SetValueInSlot(inventoryItem2.ItemObjectInSlot, inventoryItem2.Amount);
-                inventoryItem2.SetValueInSlot(tempSlot.ItemObjectInSlot, tempSlot.Amount);
+                inventorySlot1.SetValueInSlot(inventorySlot2.ItemObjectInSlot, inventorySlot2.Amount);
+                inventorySlot2.SetValueInSlot(tempSlot.ItemObjectInSlot, tempSlot.Amount);
             }
             else
             {
                 //inventoryItem1.SetValueInSlot(null, 0);
-                inventoryItem1.SetValueInSlot(null, 0);
-                inventoryItem2.SetValueInSlot(tempSlot.ItemObjectInSlot, tempSlot.Amount);
+                inventorySlot1.SetValueInSlot(null, 0);
+                inventorySlot2.SetValueInSlot(tempSlot.ItemObjectInSlot, tempSlot.Amount);
             }
             Destroy(tempSlot);
         }
+    }
+
+    private bool EqualsItemMerge(ref InventorySlot inventorySlot1, ref InventorySlot inventorySlot2)
+    {
+        ItemObject itemSlot1 = inventorySlot1.ItemObjectInSlot;
+        ItemObject itemSlot2 = inventorySlot2.ItemObjectInSlot;
+        if (itemSlot1 != null)
+        {
+            if (itemSlot2 != null)
+            {
+                if (itemSlot1.typeItem == itemSlot2.typeItem
+                    && itemSlot1.name == itemSlot2.name)
+                {
+                    int freeSpaceInSlot2 = inventorySlot2.maxAmount - inventorySlot2.Amount;
+                    int itemForAdd = freeSpaceInSlot2 - inventorySlot1.Amount;
+
+                    if (itemForAdd < 0)
+                        itemForAdd = 0;
+                    inventorySlot2.AddAmount(itemForAdd);
+                    inventorySlot1.SubstractAmount(itemForAdd);
+                    return (true);
+                }
+            }
+        }
+        return (false);
     }
 
     private List<RaycastResult> ReturnAllRayCastObject()

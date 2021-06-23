@@ -146,6 +146,12 @@ public class InventorySlot : MonoBehaviour
             throw new InvalidOperationException("Amount not should be negative number!!!");
         this.Amount += amount;
     }
+    public void SubstractAmount(int amount)
+    {
+        if ((this._amount - amount) < 0)
+            throw new InvalidOperationException("Amount not should be negative number!!!");
+        this.Amount -= amount;
+    }
 
     public void SetValueInSlot(ItemObject itemObject, int amount)
     {
