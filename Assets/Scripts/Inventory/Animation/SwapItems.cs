@@ -8,6 +8,9 @@ public class SwapItems : MonoBehaviour
     private InventorySlot _secondSlotForChange;
     private bool _keyIsDown = false;
 
+    Появляется проблема с тем что если я предмет с большим кол-вом,
+    перетощу в слот с меньший вместительностью, происходит баг
+
     private void Update()
     {
         // Left button mouse pressed?
@@ -52,9 +55,9 @@ public class SwapItems : MonoBehaviour
                         _secondSlotForChange = inventorySlot;
                         if (_firstSlotForChange != _secondSlotForChange)
                         {
-                            bool mergeHappened = EqualsItemMerge(ref _firstSlotForChange, ref _secondSlotForChange);
+                            bool mergeHappened = EqualsItemMerge(_firstSlotForChange, _secondSlotForChange);
                             if (mergeHappened == false)
-                                SwapItemsInInventory(ref _firstSlotForChange, ref _secondSlotForChange);
+                                SwapItemsInInventory(_firstSlotForChange, _secondSlotForChange);
                             _firstSlotForChange = null;
                             _secondSlotForChange = null;
                         }
@@ -66,7 +69,7 @@ public class SwapItems : MonoBehaviour
     }
 
     // Добавить если типы одинаковые то добавлять просто к кол-ву
-    private void SwapItemsInInventory(ref InventorySlot inventorySlot1, ref InventorySlot inventorySlot2)
+    private void SwapItemsInInventory(InventorySlot inventorySlot1, InventorySlot inventorySlot2)
     {
         if (inventorySlot1.ImagesOnSlot.imageInSlot.sprite != null)
         {
@@ -91,7 +94,7 @@ public class SwapItems : MonoBehaviour
         }
     }
 
-    private bool EqualsItemMerge(ref InventorySlot inventorySlot1, ref InventorySlot inventorySlot2)
+    private bool EqualsItemMerge(InventorySlot inventorySlot1, InventorySlot inventorySlot2)
     {
         ItemObject itemSlot1 = inventorySlot1.ItemObjectInSlot;
         ItemObject itemSlot2 = inventorySlot2.ItemObjectInSlot;
@@ -103,13 +106,17 @@ public class SwapItems : MonoBehaviour
                     && itemSlot1.name == itemSlot2.name)
                 {
                     int freeSpaceInSlot2 = inventorySlot2.maxAmount - inventorySlot2.Amount;
-                    int itemForAdd = freeSpaceInSlot2 - inventorySlot1.Amount;
-
-                    if (itemForAdd < 0)
-                        itemForAdd = 0;
-                    inventorySlot2.AddAmount(itemForAdd);
-                    inventorySlot1.SubstractAmount(itemForAdd);
-                    return (true);
+                    int freeSpaceForAdd = freeSpaceInSlot2 - inventorySlot1.Amount;
+                    //int result = inventorySlot2.maxAmount - itemForAdd;
+                    //if (result < 0)
+                    //    result = 0;
+                    if (freeSpaceForAdd >= inventorySlot1.Amount)
+                    {
+                        //Debug.Log(result);
+                        inventorySlot2.AddAmount(inventorySlot1.Amount);
+                        inventorySlot1.SubstractAmount(inventorySlot1.Amount);
+                        return (true);
+                    }
                 }
             }
         }
