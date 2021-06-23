@@ -71,7 +71,11 @@ public class SwapItems : MonoBehaviour
         {
             gameObject.AddComponent<InventorySlot>();
             InventorySlot tempSlot = gameObject.GetComponent<InventorySlot>();
+            Debug.Log("HI");
+            tempSlot.maxAmount = inventoryItem1.maxAmount;
             tempSlot.SetValueInSlot(inventoryItem1.ItemObjectInSlot, inventoryItem1.Amount);
+            Debug.Log("HI");
+            //Debug.Log("Amount: " + tempSlot.Amount);
             if (inventoryItem2.ItemObjectInSlot != null)
             {
                 inventoryItem1.SetValueInSlot(inventoryItem2.ItemObjectInSlot, inventoryItem2.Amount);
@@ -81,7 +85,6 @@ public class SwapItems : MonoBehaviour
             {
                 //inventoryItem1.SetValueInSlot(null, 0);
                 inventoryItem1.SetValueInSlot(null, 0);
-
                 inventoryItem2.SetValueInSlot(tempSlot.ItemObjectInSlot, tempSlot.Amount);
             }
             Destroy(tempSlot);

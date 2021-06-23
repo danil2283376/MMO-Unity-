@@ -41,18 +41,21 @@ public class InventorySlot : MonoBehaviour
         {
             //if (value > maxAmount)
             //    throw new InvalidOperationException("value > maxAmount, in Script InventorySlot!!!");
+            if ((_amount + value) >= maxAmount)
+                SlotIsFull = true;
+            else
+                SlotIsFull = false;
+            //Debug.Log("SlotIsFull: " + SlotIsFull);
+            //Debug.Log("(_amount + value): " + (_amount + value));
+            //Debug.Log("maxAmount: " + maxAmount);
             if ((_amount + value) <= maxAmount)
             {
                 if (this._amount == 0)
                     this._amount = value;
                 else
                     this._amount += value;
-                SlotIsActive = false;
-                UpdateTextInventorySlot();
-            }
-            else
-            {
-                SlotIsActive = true;
+                if (_textsOnSlot != null)
+                    UpdateTextInventorySlot();
             }
         }
     }
@@ -116,10 +119,6 @@ public class InventorySlot : MonoBehaviour
         this._slotIsFull = false;
         this._textsOnSlot = new TextsOnSlot(this.GameObjectSlot);
         this._imagesOnslot = new ImagesOnSlot(this.GameObjectSlot, idleColor, activeColor);
-        //if (_imagesOnslot.imageInSlot == null)
-        //    throw new InvalidOperationException("Image in slot not Found!!!");
-        //if (_imagesOnslot.borderInSlot == null)
-        //    throw new InvalidOperationException("Border in slot not Found!!!");
         if (this._imagesOnslot.borderInSlot != null)
             this._imagesOnslot.borderInSlot.color = idleColor;
     }
@@ -144,8 +143,6 @@ public class InventorySlot : MonoBehaviour
         this.ItemObjectInSlot = copy.ItemObjectInSlot;
         this._gameObjectSlot = copy.GameObjectSlot;
         this.Amount = copy.Amount;
-        this.maxAmount = copy.maxAmount;
-        Debug.Log("maxAmount: " + maxAmount);
         this._slotIsFull = copy.SlotIsFull;
         this._textsOnSlot = copy.TextsOnSlot;
         this._imagesOnslot = copy.ImagesOnSlot;
@@ -170,9 +167,8 @@ public class InventorySlot : MonoBehaviour
             this._itemObjectInSlot = itemObject;
             this._itemObjectInSlot.sprite = itemObject.sprite;
             this._itemObjectInSlot.typeItem = itemObject.typeItem;
-            this._amount = amount;
-            if (_textsOnSlot != null)
-                UpdateTextInventorySlot();
+            Debug.Log("maxAmount: " + maxAmount);
+            this.Amount = amount;
             if (_imagesOnslot.imageInSlot != null)
                 UpdateImageSlot();
         }
@@ -194,16 +190,13 @@ public class InventorySlot : MonoBehaviour
 
     private void UpdateTextInventorySlot()
     {
-        if (_slotIsFull == false)
+        if (_itemObjectInSlot != null)
         {
-            if (_itemObjectInSlot != null)
+            if (_textsOnSlot != null)
             {
-                if (_textsOnSlot != null)
-                {
-                    TextMeshProUGUI countItems = _textsOnSlot.SearchNeedText("CountItems");
-                    if (countItems != null)
-                        countItems.text = _amount + "/" + maxAmount;
-                }
+                TextMeshProUGUI countItems = _textsOnSlot.SearchNeedText("CountItems");
+                if (countItems != null)
+                    countItems.text = _amount + "/" + maxAmount;
             }
         }
     }

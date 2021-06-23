@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86979178930480542a9d1d5bbd653a6b, type: 3}
   m_Name: PlayerInventory
   m_EditorClassIdentifier: 
-  maxAmountInventorySlot: 60
   inventory: []
-  inventoryIsFull: 0
+  maxAmountInventorySlot: 60

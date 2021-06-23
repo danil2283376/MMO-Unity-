@@ -29,7 +29,7 @@ public class InventoryObject : ScriptableObject
         inventory.Add(inventorySlot1);
     }
 
-    public int IndexFindItem(ItemObject itemObject)
+    public InventorySlot InventoryFindItem(ItemObject itemObject)
     {
         if (itemObject != null)
         {
@@ -40,20 +40,21 @@ public class InventoryObject : ScriptableObject
                     if (itemObject.typeItem != TypeItem.Default)
                         if (inventory[i].ItemObjectInSlot.typeItem == itemObject.typeItem
                             && inventory[i].ItemObjectInSlot.name == itemObject.name)
-                            return (i);
+                            return (inventory[i]);
                 }
             }
         }
-        return (-1);
+        return (null);
     }
 
     public void AddItemInSlot(ItemObject itemObject, int amount)
     {
         if (itemObject != null)
         {
-            int indexFindItem = IndexFindItem(itemObject);
+            InventorySlot findInventorySlot = InventoryFindItem(itemObject);
             // Если мы не нашли похожего предмета
-            if (indexFindItem == -1)
+            if (findInventorySlot == null ||
+                findInventorySlot.SlotIsFull == true)// == -1)
             {
                 // Ищу пустое место под предмет
                 int i;
@@ -69,7 +70,7 @@ public class InventoryObject : ScriptableObject
                 CheckInventoryFull(itemObject);
             }
             else
-                inventory[indexFindItem].AddAmount(amount);
+                findInventorySlot.AddAmount(amount);//inventory[indexFindItem].AddAmount(amount);
         }
     }
 
