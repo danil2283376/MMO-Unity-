@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1357
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Scene
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 342}
   m_MaxSize: {x: 12004, y: 8042}
   vertical: 0
-  controlID: 19
+  controlID: 80
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 342}
   m_MaxSize: {x: 8003, y: 8042}
   vertical: 1
-  controlID: 56
+  controlID: 81
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 57
+  controlID: 82
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -312,9 +312,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 106.03713, y: 416.077, z: -548.10046}
+    m_Target: {x: 678.9011, y: 483.1986, z: 1525.8403}
     speed: 2
-    m_Value: {x: 106.03713, y: 416.077, z: -548.10046}
+    m_Value: {x: 678.9011, y: 483.1986, z: 1525.8403}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -361,20 +361,20 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.017692588, y: -0.009852231, z: 0.000024163633, w: 0.9998974}
+    m_Target: {x: -0.03383898, y: 0.1366483, z: 0.004873034, w: 0.9901337}
     speed: 2
-    m_Value: {x: -0.017690776, y: -0.009851222, z: 0.00002416116, w: 0.999795}
+    m_Value: {x: -0.033790268, y: 0.14553884, z: 0.0051768497, w: 0.9887618}
   m_Size:
-    m_Target: 749.44073
+    m_Target: 1216.2322
     speed: 2
-    m_Value: 749.44073
+    m_Value: 1216.2322
   m_Ortho:
     m_Target: 0
     speed: 2
     m_Value: 0
   m_CameraSettings:
-    m_Speed: 1
-    m_SpeedNormalized: 0.5
+    m_Speed: 1.040481
+    m_SpeedNormalized: 0.52000046
     m_SpeedMin: 0.001
     m_SpeedMax: 2
     m_EasingEnabled: 1
@@ -420,9 +420,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 54fbffff
+      m_SelectedIDs: 78f9ffff
+      m_LastClickedID: -1672
+      m_ExpandedIDs: 92f9ffff54fbfffff0520000f65200006a530000cc530000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -586,9 +586,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 60}
-    m_SelectedIDs: 38550000
-    m_LastClickedID: 21816
-    m_ExpandedIDs: 000000002e55000030550000325500003455000036550000385500003a5500003c5500003e550000
+    m_SelectedIDs: 24560000
+    m_LastClickedID: 22052
+    m_ExpandedIDs: 000000002e55000030550000325500003455000036550000385500003a5500003c5500003e55000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -641,8 +641,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
+    m_SelectedInstanceIDs: 92f9ffff
+    m_LastClickedInstanceID: -1646
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c62300000000000072530000
     m_RenameOverlay:

@@ -4,74 +4,66 @@ using UnityEngine.EventSystems;
 
 public class SwapItems : MonoBehaviour
 {
-    private InventorySlot _selectItemForChange;
-    private InventorySlot _selectItemForSwap;
+    private InventorySlot _firstSlotForChange;
+    private InventorySlot _secondSlotForChange;
     private bool _keyIsDown = false;
 
-
-    // Rewrite on two fuction:
-    // 1. GetKey();
-    // 2. GetKeyUp();
     private void Update()
     {
         // Left button mouse pressed?
         if (Input.GetKey(KeyCode.Mouse0))
-        {
-            if (EventSystem.current.IsPointerOverGameObject() && _keyIsDown == false)
-            {
-                PointerEventData pointerData = new PointerEventData(EventSystem.current);
-                pointerData.position = Input.mousePosition;
-
-                List<RaycastResult> result = new List<RaycastResult>();
-                EventSystem.current.RaycastAll(pointerData, result);
-
-                if (result.Count > 0)
-                {
-                    for (int i = 0; i < result.Count; i++)
-                    {
-                        if (result[i].gameObject.layer == LayerMask.NameToLayer("UIInventorySlot"))
-                        {
-                            InventorySlot inventorySlot = result[i].gameObject.GetComponent<InventorySlot>();
-                            _selectItemForChange = inventorySlot;
-                            //if (_selectItemIndex )
-                            _keyIsDown = true;
-                        }
-                    }
-                }
-            }
-        }
+            SelectFirstItem();
 
         if (Input.GetKeyUp(KeyCode.Mouse0))
+            SelectSecondItem();
+    }
+
+    private void SelectFirstItem()
+    {
+        if (EventSystem.current.IsPointerOverGameObject() && _keyIsDown == false)
         {
-            if (EventSystem.current.IsPointerOverGameObject())
+            List<RaycastResult> result = ReturnAllRayCastObject();
+            if (result.Count > 0)
             {
-                PointerEventData pointerData = new PointerEventData(EventSystem.current);
-                pointerData.position = Input.mousePosition;
-
-                List<RaycastResult> result = new List<RaycastResult>();
-                EventSystem.current.RaycastAll(pointerData, result);
-
-                if (result.Count > 0)
+                for (int i = 0; i < result.Count; i++)
                 {
-                    for (int i = 0; i < result.Count; i++)
+                    if (result[i].gameObject.layer == LayerMask.NameToLayer("UIInventorySlot"))
                     {
-                        if (result[i].gameObject.layer == LayerMask.NameToLayer("UIInventorySlot"))
+                        InventorySlot inventorySlot = result[i].gameObject.GetComponent<InventorySlot>();
+                        _firstSlotForChange = inventorySlot;
+                        _keyIsDown = true;
+                    }
+                }
+            }
+        }
+    }
+
+    private void SelectSecondItem()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            List<RaycastResult> result = ReturnAllRayCastObject();
+            if (result.Count > 0)
+            {
+                for (int i = 0; i < result.Count; i++)
+                {
+                    if (result[i].gameObject.layer == LayerMask.NameToLayer("UIInventorySlot"))
+                    {
+                        InventorySlot inventorySlot = result[i].gameObject.GetComponent<InventorySlot>();
+                        _secondSlotForChange = inventorySlot;
+                        if (_firstSlotForChange != _secondSlotForChange)
                         {
-                            InventorySlot inventorySlot = result[i].gameObject.GetComponent<InventorySlot>();
-                            _selectItemForSwap = inventorySlot;
-                            if (_selectItemForChange != _selectItemForSwap)
-                            {
-                                SwapItemsInInventory(ref _selectItemForChange, ref _selectItemForSwap);
-                                _selectItemForChange = null;
-                                _selectItemForSwap = null;
-                            }
+                            SwapItemsInInventory(ref _firstSlotForChange, ref _secondSlotForChange);
+                            _firstSlotForChange = null;
+                            _secondSlotForChange = null;
                         }
                     }
                 }
             }
-            _keyIsDown = false;
         }
+        _keyIsDown = false;
     }
+
     // Добавить если типы одинаковые то добавлять просто к кол-ву
     private void SwapItemsInInventory(ref InventorySlot inventoryItem1, ref InventorySlot inventoryItem2)
     {
@@ -94,5 +86,16 @@ public class SwapItems : MonoBehaviour
             }
             Destroy(tempSlot);
         }
+    }
+
+    private List<RaycastResult> ReturnAllRayCastObject()
+    {
+        PointerEventData pointerData = new PointerEventData(EventSystem.current);
+        pointerData.position = Input.mousePosition;
+
+        List<RaycastResult> result = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerData, result);
+
+        return (result);
     }
 }
