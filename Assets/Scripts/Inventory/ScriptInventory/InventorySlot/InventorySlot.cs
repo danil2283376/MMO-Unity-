@@ -39,21 +39,13 @@ public class InventorySlot : MonoBehaviour
         }
         private set
         {
-            //if (value > maxAmount)
-            //    throw new InvalidOperationException("value > maxAmount, in Script InventorySlot!!!");
             if ((_amount + value) >= maxAmount)
                 SlotIsFull = true;
             else
                 SlotIsFull = false;
-            //Debug.Log("SlotIsFull: " + SlotIsFull);
-            //Debug.Log("(_amount + value): " + (_amount + value));
-            //Debug.Log("maxAmount: " + maxAmount);
             if ((_amount + value) <= maxAmount)
             {
-                if (this._amount == 0)
-                    this._amount = value;
-                else
-                    this._amount += value;
+                this._amount = value;
                 if (_textsOnSlot != null)
                     UpdateTextInventorySlot();
             }
@@ -123,11 +115,6 @@ public class InventorySlot : MonoBehaviour
             this._imagesOnslot.borderInSlot.color = idleColor;
     }
 
-    public InventorySlot()
-    {
-
-    }
-
     public InventorySlot(InventorySlot copy)
     {
         this.TextsOnSlot = copy.TextsOnSlot;
@@ -157,7 +144,7 @@ public class InventorySlot : MonoBehaviour
     {
         if (amount < 0)
             throw new InvalidOperationException("Amount not should be negative number!!!");
-        this.Amount = amount;
+        this.Amount += amount;
     }
 
     public void SetValueInSlot(ItemObject itemObject, int amount)
@@ -167,7 +154,6 @@ public class InventorySlot : MonoBehaviour
             this._itemObjectInSlot = itemObject;
             this._itemObjectInSlot.sprite = itemObject.sprite;
             this._itemObjectInSlot.typeItem = itemObject.typeItem;
-            Debug.Log("maxAmount: " + maxAmount);
             this.Amount = amount;
             if (_imagesOnslot.imageInSlot != null)
                 UpdateImageSlot();
