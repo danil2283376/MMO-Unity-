@@ -334,7 +334,7 @@
 "Assets/Scripts/Inventory/ScriptInventory/InventorySlot/TextsOnSlot.cs"
 "Assets/Scripts/PlayerScripts/Input/Move.cs"
 "Assets/Scripts/PlayerScripts/Input/MoveMouse.cs"
-"Assets/Scripts/PlayerScripts/InventoryPlayer/Inventory.cs"
+"Assets/Scripts/PlayerScripts/InventoryPlayer/InventoryPlayer.cs"
 "Assets/Scripts/PlayerScripts/InventoryPlayer/WorkWithInventory.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01_UGUI.cs"

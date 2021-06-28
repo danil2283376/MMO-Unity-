@@ -111,9 +111,7 @@ public class SwapItems : MonoBehaviour
                         if (inventorySlot1.Amount <= 0)
                             break;
                         inventorySlot1.SubstractAmount(1);
-                        Debug.Log("inventorySlot2.Amount: " + inventorySlot2.Amount);
                         inventorySlot2.AddAmount(1);
-                        Debug.Log("inventorySlot2.Amount: " + inventorySlot2.Amount);
                     }
                     if (inventorySlot1.Amount <= 0)
                         inventorySlot1.SetValueInSlot(null, 0);

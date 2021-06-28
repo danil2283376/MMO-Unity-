@@ -54,7 +54,7 @@ public class InventoryObject : ScriptableObject
             InventorySlot findInventorySlot = InventoryFindItem(itemObject);
             // Если мы не нашли похожего предмета
             if (findInventorySlot == null ||
-                findInventorySlot.SlotIsFull == true)// == -1)
+                findInventorySlot.SlotIsFull == true)
             {
                 // Ищу пустое место под предмет
                 int i;
@@ -63,14 +63,13 @@ public class InventoryObject : ScriptableObject
                     if (inventory[i].ItemObjectInSlot == null)
                     {
                         inventory[i].SetValueInSlot(itemObject, amount);
-                        //inventoryIsFull = false;
                         break;
                     }
                 }
                 CheckInventoryFull(itemObject);
             }
             else
-                findInventorySlot.AddAmount(amount);//inventory[indexFindItem].AddAmount(amount);
+                findInventorySlot.AddAmount(amount);
         }
     }
 
