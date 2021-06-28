@@ -8,9 +8,6 @@ public class SwapItems : MonoBehaviour
     private InventorySlot _secondSlotForChange;
     private bool _keyIsDown = false;
 
-    //Появляется проблема с тем что если я предмет с большим кол-вом,
-    //перетощу в слот с меньший вместительностью, происходит баг
-
     private void Update()
     {
         // Left button mouse pressed?
