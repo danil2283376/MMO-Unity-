@@ -4181,6 +4181,7 @@ GameObject:
   - component: {fileID: 1643924016}
   - component: {fileID: 1643924017}
   - component: {fileID: 1643924018}
+  - component: {fileID: 1643924019}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4238,10 +4239,25 @@ MonoBehaviour:
   speed: 10
   gravity: -19.6
   groundDistance: 0.4
+  jumpHeight: 3
   groundChecker: {fileID: 1052559655}
   groundMask:
     serializedVersion: 2
     m_Bits: 128
+--- !u!114 &1643924019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643924015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35b8896b08c84ac46bc5541e7a88caba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 11400000, guid: 87d1a6c1177528b48ab915a11e05543e, type: 2}
+  fastSlotsInventory: {fileID: 11400000, guid: 0bcd5edbf9649834a83f71905169fcd5, type: 2}
 --- !u!224 &1655709963 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1545961267066617753, guid: 338699abe8894fa49b8474e72e74eaee, type: 3}

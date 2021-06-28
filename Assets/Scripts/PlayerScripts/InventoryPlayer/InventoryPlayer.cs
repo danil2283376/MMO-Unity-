@@ -30,19 +30,6 @@ public class InventoryPlayer : MonoBehaviour
         }
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other != null)
-    //    {
-    //        Item item = other.GetComponent<Item>();
-    //        if (item != null)
-    //        {
-    //            PickUpItem(item);
-    //            Destroy(other.gameObject);
-    //        }
-    //    }
-    //}
-
     private void PickUpItem(Item item)
     {
         fastSlotsInventory.CheckInventoryFull(item.item);
