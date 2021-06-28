@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && _isGround == true)
             JumpPlayer();
         SquatPlayer();
+        SprintPlayer();
     }
 
     private void JumpPlayer() 
@@ -61,6 +62,13 @@ public class PlayerMovement : MonoBehaviour
             _controller.height = 1f;
         else
             _controller.height = 2f;
+    }
 
+    private void SprintPlayer()
+    {
+        if (Input.GetKey("left shift"))
+            speed = 20f;
+        else
+            speed = 10f;
     }
 }
