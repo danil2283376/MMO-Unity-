@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PlayerInventory
   m_EditorClassIdentifier: 
   inventory: []
-  maxAmountInventorySlot: 60
+  maxAmountInventorySlot: 1

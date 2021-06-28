@@ -8,8 +8,8 @@ public class SwapItems : MonoBehaviour
     private InventorySlot _secondSlotForChange;
     private bool _keyIsDown = false;
 
-    Появляется проблема с тем что если я предмет с большим кол-вом,
-    перетощу в слот с меньший вместительностью, происходит баг
+    //Появляется проблема с тем что если я предмет с большим кол-вом,
+    //перетощу в слот с меньший вместительностью, происходит баг
 
     private void Update()
     {
@@ -55,7 +55,7 @@ public class SwapItems : MonoBehaviour
                         _secondSlotForChange = inventorySlot;
                         if (_firstSlotForChange != _secondSlotForChange)
                         {
-                            bool mergeHappened = EqualsItemMerge(_firstSlotForChange, _secondSlotForChange);
+                            bool mergeHappened = MergeEqualsItem(_firstSlotForChange, _secondSlotForChange);
                             if (mergeHappened == false)
                                 SwapItemsInInventory(_firstSlotForChange, _secondSlotForChange);
                             _firstSlotForChange = null;
@@ -94,10 +94,11 @@ public class SwapItems : MonoBehaviour
         }
     }
 
-    private bool EqualsItemMerge(InventorySlot inventorySlot1, InventorySlot inventorySlot2)
+    private bool MergeEqualsItem(InventorySlot inventorySlot1, InventorySlot inventorySlot2)
     {
         ItemObject itemSlot1 = inventorySlot1.ItemObjectInSlot;
         ItemObject itemSlot2 = inventorySlot2.ItemObjectInSlot;
+
         if (itemSlot1 != null)
         {
             if (itemSlot2 != null)
@@ -105,18 +106,18 @@ public class SwapItems : MonoBehaviour
                 if (itemSlot1.typeItem == itemSlot2.typeItem
                     && itemSlot1.name == itemSlot2.name)
                 {
-                    int freeSpaceInSlot2 = inventorySlot2.maxAmount - inventorySlot2.Amount;
-                    int freeSpaceForAdd = freeSpaceInSlot2 - inventorySlot1.Amount;
-                    //int result = inventorySlot2.maxAmount - itemForAdd;
-                    //if (result < 0)
-                    //    result = 0;
-                    if (freeSpaceForAdd >= inventorySlot1.Amount)
+                    for (int i = inventorySlot2.Amount; i < inventorySlot2.maxAmount; i++)
                     {
-                        //Debug.Log(result);
-                        inventorySlot2.AddAmount(inventorySlot1.Amount);
-                        inventorySlot1.SubstractAmount(inventorySlot1.Amount);
-                        return (true);
+                        if (inventorySlot1.Amount <= 0)
+                            break;
+                        inventorySlot1.SubstractAmount(1);
+                        Debug.Log("inventorySlot2.Amount: " + inventorySlot2.Amount);
+                        inventorySlot2.AddAmount(1);
+                        Debug.Log("inventorySlot2.Amount: " + inventorySlot2.Amount);
                     }
+                    if (inventorySlot1.Amount <= 0)
+                        inventorySlot1.SetValueInSlot(null, 0);
+                    return (true);
                 }
             }
         }
