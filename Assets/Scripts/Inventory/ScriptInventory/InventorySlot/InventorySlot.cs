@@ -13,14 +13,15 @@ public class InventorySlot : MonoBehaviour
 
     [HideInInspector] public int maxAmount;
     [HideInInspector] public int numberInventorySlot;
-
     public bool _slotIsActive { get; set; } = false;
+    
     private int _amount { get; set; } = 0;
     private bool _slotIsFull { get; set; } = false;
     private ItemObject _itemObjectInSlot { get; set; } = null;
     private GameObject _gameObjectSlot { get; set; } = null;
     private TextsOnSlot _textsOnSlot { get; set; } = null;
     private ImagesOnSlot _imagesOnslot { get; set; } = null;
+    private EquipmentItem _equipItem { get; set; } = null;
 
     public bool SlotIsActive
     {
@@ -96,13 +97,25 @@ public class InventorySlot : MonoBehaviour
         private set => this._textsOnSlot = value;
     }
 
-    public ImagesOnSlot ImagesOnSlot 
+    public ImagesOnSlot ImagesOnSlot
     {
-        get 
+        get
         {
             return (_imagesOnslot);
         }
         private set => this._imagesOnslot = value;
+    }
+
+    public EquipmentItem EquipItem
+    {
+        get 
+        {
+            return (this._equipItem);
+        }
+        private set 
+        {
+            this._equipItem = value;
+        }
     }
 
     private void Awake()
@@ -111,8 +124,10 @@ public class InventorySlot : MonoBehaviour
         this._slotIsFull = false;
         this._textsOnSlot = new TextsOnSlot(this.GameObjectSlot);
         this._imagesOnslot = new ImagesOnSlot(this.GameObjectSlot, idleColor, activeColor);
+        this._equipItem = new EquipmentItem();
         if (this._imagesOnslot.borderInSlot != null)
             this._imagesOnslot.borderInSlot.color = idleColor;
+        this._equipItem.item = _itemObjectInSlot;
     }
 
     public InventorySlot(InventorySlot copy)
@@ -171,9 +186,18 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
+    Если ячейка становится не активной, происходит null Exception!!!!
+
     public void ActivateSlot(bool activeSlot)
     {
         this._imagesOnslot.ActivateBorder(activeSlot);
+        if (activeSlot == true)
+        {
+            GameObject createItem = Instantiate(_itemObjectInSlot.prefabItem);
+            if (createItem.GetComponent<Rigidbody>() != null)
+                Destroy(createItem.GetComponent<Rigidbody>());
+            _equipItem.EquipItem(createItem);
+        }
     }
 
     private void UpdateImageSlot()
@@ -203,5 +227,83 @@ public class InventorySlot : MonoBehaviour
         TextMeshProUGUI countItems = _textsOnSlot.SearchNeedText("CountItems");
         if (countItems != null)
             countItems.text = "";
+    }
+}
+
+public class EquipmentItem
+{
+    public GameObject player;
+    public ItemObject item;
+
+    private bool _itemDressed = false;
+    private BonesPlayer _bonesPlayer;
+
+    public EquipmentItem()
+    {
+        player = GameObject.Find("Player");
+        _bonesPlayer = new BonesPlayer(player);
+    }
+
+    public void EquipItem(GameObject createObject)
+    {
+        GameObject rightHandPlayer = _bonesPlayer.rightArm.transform.GetChild(0).gameObject;
+        createObject.transform.SetParent(rightHandPlayer.transform);
+        createObject.transform.position = rightHandPlayer.transform.position;
+        _itemDressed = true;
+    }
+
+    public void RemoveItem()
+    {
+        _itemDressed = false;
+    }
+}
+
+public class BonesPlayer
+{
+    public GameObject headPlayer;
+    public GameObject bodyPlayer;
+    public GameObject leftArm;
+    public GameObject rightArm;
+
+    private GameObject _player;
+
+    public BonesPlayer(GameObject player)
+    {
+        this._player = player;
+        GetBonePlayer();
+    }
+
+    private void GetBonePlayer()
+    {
+        FindAndGetBone(ref headPlayer, "Head");
+        FindAndGetBone(ref bodyPlayer, "Body");
+        FindAndGetArm(ref rightArm, ref bodyPlayer, "Right arm");
+        FindAndGetArm(ref leftArm, ref bodyPlayer, "Left arm");
+    }
+
+    private void FindAndGetBone(ref GameObject bonePlayer, string nameBone)
+    {
+        for (int i = 0; i < _player.transform.childCount; i++)
+        {
+            GameObject childPlayer = _player.transform.GetChild(i).gameObject;
+            if (childPlayer.name == nameBone)
+            {
+                bonePlayer = childPlayer;
+                break;
+            }
+        }
+    }
+
+    private void FindAndGetArm(ref GameObject arm, ref GameObject bodyPlayer, string nameArm) 
+    {
+        for (int i = 0; i < bodyPlayer.transform.childCount; i++) 
+        {
+            GameObject childBody = bodyPlayer.transform.GetChild(i).gameObject;
+            if (childBody.name == nameArm)
+            {
+                arm = childBody;
+                break;
+            }
+        }
     }
 }

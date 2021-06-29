@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5275881e2c78dd94882e5c845df886cd, type: 3}
   m_Name: Apple
   m_EditorClassIdentifier: 
-  name: Apple
   sprite: {fileID: 21300000, guid: 485d83f87c7139d459f5b7037e8368e4, type: 3}
-  prefabItem: {fileID: 0}
+  prefabItem: {fileID: 693510286573608286, guid: 27a6d8df51a62cc4ab2a5ffa2de06ca7, type: 3}
   description: Food Apple
   typeItem: 1
   saturation: 10

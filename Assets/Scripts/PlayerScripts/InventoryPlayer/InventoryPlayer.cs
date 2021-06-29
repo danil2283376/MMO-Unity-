@@ -18,9 +18,9 @@ public class InventoryPlayer : MonoBehaviour
         RaycastHit raycastHit;
         Vector3 directionRay = new Vector3(Screen.width / 2, Screen.height / 2);
         Ray originRay = Camera.main.ScreenPointToRay(directionRay);
+
         if (Physics.Raycast(originRay, out raycastHit, 1f))
         {
-            //Debug.Log(raycastHit.transform.gameObject.name);
             Item item = raycastHit.transform.GetComponent<Item>();
             if (item != null)
             {
