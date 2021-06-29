@@ -333,6 +333,7 @@
 "Assets/Scripts/Inventory/ScriptInventory/InventorySlot/InventorySlot.cs"
 "Assets/Scripts/Inventory/ScriptInventory/InventorySlot/TextsOnSlot.cs"
 "Assets/Scripts/Item/Food/Food.cs"
+"Assets/Scripts/PlayerScripts/BonesPlayer.cs"
 "Assets/Scripts/PlayerScripts/Input/MouseMove.cs"
 "Assets/Scripts/PlayerScripts/Input/PlayerMovement.cs"
 "Assets/Scripts/PlayerScripts/InventoryPlayer/InventoryPlayer.cs"

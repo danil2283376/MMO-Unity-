@@ -124,10 +124,10 @@ public class InventorySlot : MonoBehaviour
         this._slotIsFull = false;
         this._textsOnSlot = new TextsOnSlot(this.GameObjectSlot);
         this._imagesOnslot = new ImagesOnSlot(this.GameObjectSlot, idleColor, activeColor);
-        this._equipItem = new EquipmentItem();
         if (this._imagesOnslot.borderInSlot != null)
             this._imagesOnslot.borderInSlot.color = idleColor;
-        this._equipItem.item = _itemObjectInSlot;
+        gameObject.AddComponent<EquipmentItem>();
+        this._equipItem = gameObject.GetComponent<EquipmentItem>();
     }
 
     public InventorySlot(InventorySlot copy)
@@ -176,6 +176,7 @@ public class InventorySlot : MonoBehaviour
             this._itemObjectInSlot = itemObject;
             this._itemObjectInSlot.sprite = itemObject.sprite;
             this._itemObjectInSlot.typeItem = itemObject.typeItem;
+            this._equipItem.item = _itemObjectInSlot;
             this.Amount = amount;
             if (_imagesOnslot.imageInSlot != null)
                 UpdateImageSlot();
@@ -186,18 +187,15 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
-    Если ячейка становится не активной, происходит null Exception!!!!
+    //Если ячейка становится не активной, происходит null Exception!!!!
 
     public void ActivateSlot(bool activeSlot)
     {
         this._imagesOnslot.ActivateBorder(activeSlot);
         if (activeSlot == true)
-        {
-            GameObject createItem = Instantiate(_itemObjectInSlot.prefabItem);
-            if (createItem.GetComponent<Rigidbody>() != null)
-                Destroy(createItem.GetComponent<Rigidbody>());
-            _equipItem.EquipItem(createItem);
-        }
+            _equipItem.EquipItem();
+        else
+            _equipItem.RemoveItem();
     }
 
     private void UpdateImageSlot()
@@ -230,80 +228,46 @@ public class InventorySlot : MonoBehaviour
     }
 }
 
-public class EquipmentItem
+public class EquipmentItem : MonoBehaviour
 {
-    public GameObject player;
+    [HideInInspector]
     public ItemObject item;
+    public GameObject player;
 
     private bool _itemDressed = false;
     private BonesPlayer _bonesPlayer;
 
-    public EquipmentItem()
+    private void Awake()
     {
         player = GameObject.Find("Player");
-        _bonesPlayer = new BonesPlayer(player);
+        _bonesPlayer = player.GetComponent<BonesPlayer>();
     }
 
-    public void EquipItem(GameObject createObject)
+    public void EquipItem()
     {
-        GameObject rightHandPlayer = _bonesPlayer.rightArm.transform.GetChild(0).gameObject;
-        createObject.transform.SetParent(rightHandPlayer.transform);
-        createObject.transform.position = rightHandPlayer.transform.position;
-        _itemDressed = true;
+        if (item != null)
+        {
+            GameObject createItem = Instantiate(item.prefabItem);
+            if (createItem.GetComponent<Rigidbody>() != null)
+                Destroy(createItem.GetComponent<Rigidbody>());
+
+            GameObject rightHandPlayer = _bonesPlayer.rightArm.transform.GetChild(0).gameObject;
+            createItem.transform.SetParent(rightHandPlayer.transform);
+            createItem.transform.position = rightHandPlayer.transform.position;
+
+            _itemDressed = true;
+        }
     }
 
     public void RemoveItem()
     {
-        _itemDressed = false;
-    }
-}
-
-public class BonesPlayer
-{
-    public GameObject headPlayer;
-    public GameObject bodyPlayer;
-    public GameObject leftArm;
-    public GameObject rightArm;
-
-    private GameObject _player;
-
-    public BonesPlayer(GameObject player)
-    {
-        this._player = player;
-        GetBonePlayer();
-    }
-
-    private void GetBonePlayer()
-    {
-        FindAndGetBone(ref headPlayer, "Head");
-        FindAndGetBone(ref bodyPlayer, "Body");
-        FindAndGetArm(ref rightArm, ref bodyPlayer, "Right arm");
-        FindAndGetArm(ref leftArm, ref bodyPlayer, "Left arm");
-    }
-
-    private void FindAndGetBone(ref GameObject bonePlayer, string nameBone)
-    {
-        for (int i = 0; i < _player.transform.childCount; i++)
+        if (item != null)
         {
-            GameObject childPlayer = _player.transform.GetChild(i).gameObject;
-            if (childPlayer.name == nameBone)
-            {
-                bonePlayer = childPlayer;
-                break;
-            }
-        }
-    }
-
-    private void FindAndGetArm(ref GameObject arm, ref GameObject bodyPlayer, string nameArm) 
-    {
-        for (int i = 0; i < bodyPlayer.transform.childCount; i++) 
-        {
-            GameObject childBody = bodyPlayer.transform.GetChild(i).gameObject;
-            if (childBody.name == nameArm)
-            {
-                arm = childBody;
-                break;
-            }
+            if (_itemDressed == false)
+                throw new InvalidOperationException("Not set item on right arm!!!");
+            GameObject hand = _bonesPlayer.rightArm.transform.GetChild(0).gameObject;
+            Destroy(hand.transform.GetChild(0).gameObject);
+            _itemDressed = false;
         }
     }
 }
