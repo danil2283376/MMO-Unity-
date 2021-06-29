@@ -10,6 +10,7 @@ public class InventorySlot : MonoBehaviour
 {
     public Color idleColor;
     public Color activeColor;
+    public GameObject player;
 
     [HideInInspector] public int maxAmount;
     [HideInInspector] public int numberInventorySlot;
@@ -228,10 +229,12 @@ public class InventorySlot : MonoBehaviour
     }
 }
 
+[RequireComponent(typeof(InventorySlot))]
 public class EquipmentItem : MonoBehaviour
 {
     [HideInInspector]
     public ItemObject item;
+    [HideInInspector]
     public GameObject player;
 
     private bool _itemDressed = false;
@@ -239,7 +242,7 @@ public class EquipmentItem : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.Find("Player");
+        this.player = gameObject.GetComponent<InventorySlot>().player;
         _bonesPlayer = player.GetComponent<BonesPlayer>();
     }
 
