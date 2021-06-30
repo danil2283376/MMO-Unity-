@@ -34,9 +34,9 @@ public class InventoryPlayer : MonoBehaviour
     {
         fastSlotsInventory.CheckInventoryFull(item.item);
         if (fastSlotsInventory.InventoryIsFull == true)
-            inventory.AddItemInSlot(item.item, item.amount);
+            inventory.AddItemInSlot(item.item, item.countCopy);
         else
-            fastSlotsInventory.AddItemInSlot(item.item, item.amount);
+            fastSlotsInventory.AddItemInSlot(item.item, item.countCopy);
     }
 
     private void OnApplicationQuit()
