@@ -22,12 +22,12 @@ public class ActivateFastSlotOnKeyBoard : MonoBehaviour
                         if (_activatingSameSlot == false)
                         {
                             ActivateSlot(_lastClickButton);
-                            _activatingSameSlot = !_activatingSameSlot;
+                            _activatingSameSlot = true;
                         }
                         else
                         {
                             DeactivateSlot(_lastClickButton);
-                            _activatingSameSlot = !_activatingSameSlot;
+                            _activatingSameSlot = false;
                         }
                     }
                     else

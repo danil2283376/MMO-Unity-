@@ -482,6 +482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idleColor: {r: 1, g: 1, b: 1, a: 1}
   activeColor: {r: 1, g: 0.023584902, b: 0.023584902, a: 1}
+  player: {fileID: 0}
   maxAmount: 60
   numberInventorySlot: 0
 --- !u!114 &1900333819

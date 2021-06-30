@@ -86,6 +86,8 @@ public class InventorySlot : MonoBehaviour
         {
             if (value != null)
                 this._gameObjectSlot = value;
+            else
+                throw new InvalidOperationException("GameObjectSlot NULL!!!");
         }
     }
 
@@ -127,8 +129,11 @@ public class InventorySlot : MonoBehaviour
         this._imagesOnslot = new ImagesOnSlot(this.GameObjectSlot, idleColor, activeColor);
         if (this._imagesOnslot.borderInSlot != null)
             this._imagesOnslot.borderInSlot.color = idleColor;
-        gameObject.AddComponent<EquipmentItem>();
-        this._equipItem = gameObject.GetComponent<EquipmentItem>();
+        if (_gameObjectSlot.tag != "InventorySlot" && _gameObjectSlot.name != "Canvas")
+        {
+            gameObject.AddComponent<EquipmentItem>();
+            this._equipItem = gameObject.GetComponent<EquipmentItem>();
+        }
     }
 
     public InventorySlot(InventorySlot copy)
@@ -177,8 +182,9 @@ public class InventorySlot : MonoBehaviour
             this._itemObjectInSlot = itemObject;
             this._itemObjectInSlot.sprite = itemObject.sprite;
             this._itemObjectInSlot.typeItem = itemObject.typeItem;
-            this._equipItem.item = _itemObjectInSlot;
             this.Amount = amount;
+            if (this._equipItem != null)
+                this._equipItem.item = _itemObjectInSlot;
             if (_imagesOnslot.imageInSlot != null)
                 UpdateImageSlot();
         }
@@ -193,10 +199,13 @@ public class InventorySlot : MonoBehaviour
     public void ActivateSlot(bool activeSlot)
     {
         this._imagesOnslot.ActivateBorder(activeSlot);
-        if (activeSlot == true)
-            _equipItem.EquipItem();
-        else
-            _equipItem.RemoveItem();
+        if (this._equipItem != null)
+        {
+            if (activeSlot == true)
+                this._equipItem.EquipItem();
+            else
+                this._equipItem.RemoveItem();
+        }
     }
 
     private void UpdateImageSlot()
@@ -232,10 +241,8 @@ public class InventorySlot : MonoBehaviour
 [RequireComponent(typeof(InventorySlot))]
 public class EquipmentItem : MonoBehaviour
 {
-    [HideInInspector]
-    public ItemObject item;
-    [HideInInspector]
-    public GameObject player;
+    [HideInInspector] public ItemObject item;
+    [HideInInspector] public GameObject player;
 
     private bool _itemDressed = false;
     private BonesPlayer _bonesPlayer;
@@ -243,6 +250,11 @@ public class EquipmentItem : MonoBehaviour
     private void Awake()
     {
         this.player = gameObject.GetComponent<InventorySlot>().player;
+        if (this.player == null)
+        {
+            Debug.Log(gameObject.name);
+            throw new InvalidOperationException("Player null");
+        }
         _bonesPlayer = player.GetComponent<BonesPlayer>();
     }
 

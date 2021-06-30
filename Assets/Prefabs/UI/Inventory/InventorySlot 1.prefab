@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 52286550}
   m_Layer: 6
   m_Name: InventorySlot 1
-  m_TagString: Untagged
+  m_TagString: InventorySlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -348,6 +348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idleColor: {r: 1, g: 1, b: 1, a: 0}
   activeColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
+  player: {fileID: 0}
   maxAmount: 60
   numberInventorySlot: 0
 --- !u!114 &7972276484722238184
