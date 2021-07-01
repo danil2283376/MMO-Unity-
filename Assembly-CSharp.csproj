@@ -114,6 +114,8 @@
     <Compile Include="Assets\Scripts\UI\Inventory\Animation\SwapItems.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\UseItem.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\Characteristics\SatietyPlayer.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\Characteristics\StaminaPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -14,12 +14,12 @@ public class UseItem : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-            UseItemInHand();
+        //if (Input.GetKeyDown(KeyCode.Mouse0))
+        //    UseItemInHand();
     }
 
-    private void UseItemInHand() 
-    {
-
-    }
+    //private void UseItemInHand() 
+    //{
+    //    _bonesPlayer.bodyPlayer.
+    //}
 }

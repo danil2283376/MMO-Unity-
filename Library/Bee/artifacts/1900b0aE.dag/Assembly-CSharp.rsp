@@ -323,6 +323,8 @@
 "Assets/Scripts/Item/IItemUsed.cs"
 "Assets/Scripts/PlayerScripts/BonesPlayer.cs"
 "Assets/Scripts/PlayerScripts/Characteristics/HealthPlayer.cs"
+"Assets/Scripts/PlayerScripts/Characteristics/SatietyPlayer.cs"
+"Assets/Scripts/PlayerScripts/Characteristics/StaminaPlayer.cs"
 "Assets/Scripts/PlayerScripts/Input/MouseMove.cs"
 "Assets/Scripts/PlayerScripts/Input/PlayerMovement.cs"
 "Assets/Scripts/PlayerScripts/InventoryPlayer/InventoryPlayer.cs"

@@ -10,7 +10,7 @@ public class HealthPlayer : MonoBehaviour
     public int maxHP = 100;
 
     [SerializeField] private GameObject _healthBarUI;
-    private int currentHP { get; set; }
+    private int _currentHP { get; set; }
 
     private Image _imageHealthBar;
     private TextMeshProUGUI _textCountHealth;
@@ -18,17 +18,17 @@ public class HealthPlayer : MonoBehaviour
     {
         get
         {
-            return (currentHP);
+            return (_currentHP);
         }
         private set 
         {
-            currentHP = value;
-            if (currentHP < 0)
-                currentHP = 0;
-            if (currentHP > maxHP)
-                currentHP = maxHP;
+            _currentHP = value;
+            if (_currentHP < 0)
+                _currentHP = 0;
+            if (_currentHP > maxHP)
+                _currentHP = maxHP;
             UpdateHealthBar();
-            if (currentHP == 0)
+            if (_currentHP == 0)
                 PlayerDied();
         }
     }
@@ -44,7 +44,7 @@ public class HealthPlayer : MonoBehaviour
     {
         if (damage < 0)
             throw new InvalidOperationException("Damage not be negative number!!!");
-        currentHP -= damage;
+        _currentHP -= damage;
     }
 
     public void HealingPlayer(int healing)
@@ -54,7 +54,7 @@ public class HealthPlayer : MonoBehaviour
         if (healing > maxHP)
             throw new InvalidOperationException("Healing not be larger maxHP!!!");
 
-        currentHP += healing;
+        _currentHP += healing;
     }
 
     private void PlayerDied()
@@ -70,12 +70,12 @@ public class HealthPlayer : MonoBehaviour
 
     private void UpdateTextHealthBar() 
     {
-        _textCountHealth.text = $"{currentHP}";
+        _textCountHealth.text = $"{_currentHP}";
     }
 
     private void UpdateImageHealthBar()
     {
         // Formula for the percentage of two numbers
-        _imageHealthBar.fillAmount = (((float)currentHP * 100f) / (float)maxHP) / 100f;
+        _imageHealthBar.fillAmount = (((float)_currentHP * 100f) / (float)maxHP) / 100f;
     }
 }
