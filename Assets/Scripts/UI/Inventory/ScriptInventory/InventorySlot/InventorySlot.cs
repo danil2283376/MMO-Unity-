@@ -264,6 +264,7 @@ public class EquipmentItem : MonoBehaviour
             GameObject rightHandPlayer = _bonesPlayer.rightArm.transform.GetChild(0).gameObject;
             GameObject createItem = Instantiate(item.prefabItem, rightHandPlayer.transform);
             IItemUsed itemUsed = createItem.GetComponent<IItemUsed>();
+            Debug.Log(itemUsed);
             if (itemUsed != null)
             {
                 SetValueInItem(itemUsed);

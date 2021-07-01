@@ -326,6 +326,7 @@
 "Assets/Scripts/PlayerScripts/Input/MouseMove.cs"
 "Assets/Scripts/PlayerScripts/Input/PlayerMovement.cs"
 "Assets/Scripts/PlayerScripts/InventoryPlayer/InventoryPlayer.cs"
+"Assets/Scripts/PlayerScripts/UseItem.cs"
 "Assets/Scripts/UI/Inventory/Animation/FastSlot/ActivateFastSlotOnKeyBoard.cs"
 "Assets/Scripts/UI/Inventory/Animation/InventorySlot/ActivateSlotOnMouse.cs"
 "Assets/Scripts/UI/Inventory/Animation/SwapItems.cs"

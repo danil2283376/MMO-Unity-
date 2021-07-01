@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef2cd828ab9d5bd4a9cb1071ca5cb98f, type: 3}
   m_Name: AK-47
   m_EditorClassIdentifier: 
-  name: AK-47
   sprite: {fileID: 21300000, guid: 53a7d99e3d94f174f84f68751eafba09, type: 3}
-  prefabItem: {fileID: 0}
+  prefabItem: {fileID: 1320495491477998467, guid: 5ebd3b7d4ebc1d64084f70229d553d22, type: 3}
   description: Weapon
   typeItem: 0
   damage: 20
