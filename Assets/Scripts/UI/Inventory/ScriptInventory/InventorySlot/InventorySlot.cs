@@ -261,7 +261,8 @@ public class EquipmentItem : MonoBehaviour
     {
         if (item != null)
         {
-            GameObject createItem = Instantiate(item.prefabItem);
+            GameObject rightHandPlayer = _bonesPlayer.rightArm.transform.GetChild(0).gameObject;
+            GameObject createItem = Instantiate(item.prefabItem, rightHandPlayer.transform);
             IItemUsed itemUsed = createItem.GetComponent<IItemUsed>();
             if (itemUsed != null)
             {
@@ -269,8 +270,8 @@ public class EquipmentItem : MonoBehaviour
                 if (createItem.GetComponent<Rigidbody>() != null)
                     Destroy(createItem.GetComponent<Rigidbody>());
 
-                GameObject rightHandPlayer = _bonesPlayer.rightArm.transform.GetChild(0).gameObject;
-                createItem.transform.SetParent(rightHandPlayer.transform);
+                //GameObject rightHandPlayer = _bonesPlayer.rightArm.transform.GetChild(0).gameObject;
+                //createItem.transform.SetParent(rightHandPlayer.transform);
                 createItem.transform.position = rightHandPlayer.transform.position;
 
                 _itemDressed = true;
@@ -287,7 +288,8 @@ public class EquipmentItem : MonoBehaviour
         if (item != null)
         {
             if (_itemDressed == false)
-                throw new InvalidOperationException("Not set item on right arm!!!");
+                return;
+                //throw new InvalidOperationException("Not set item on right arm!!!");
             GameObject hand = _bonesPlayer.rightArm.transform.GetChild(0).gameObject;
             Destroy(hand.transform.GetChild(0).gameObject);
             _itemDressed = false;

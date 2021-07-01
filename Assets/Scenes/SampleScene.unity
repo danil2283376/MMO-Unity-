@@ -604,6 +604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _newPosition: {x: -807, y: 0, z: 0}
   _startPosition: {x: 0, y: 0, z: 0}
+  _playerMovement: {fileID: 1643924018}
 --- !u!1001 &284818392
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4790,7 +4791,7 @@ GameObject:
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -5310,7 +5311,7 @@ Transform:
   m_GameObject: {fileID: 1843815426}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.65}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 1528718354}
   m_RootOrder: 0
@@ -5607,7 +5608,7 @@ GameObject:
   m_Layer: 0
   m_Name: Tomat
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -5773,7 +5774,7 @@ GameObject:
   m_Layer: 0
   m_Name: AK-47
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -5936,10 +5937,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 693510286573608225, guid: 27a6d8df51a62cc4ab2a5ffa2de06ca7, type: 3}
-      propertyPath: countCopy
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 693510286573608226, guid: 27a6d8df51a62cc4ab2a5ffa2de06ca7, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -5984,6 +5981,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 693510286573608286, guid: 27a6d8df51a62cc4ab2a5ffa2de06ca7, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 693510286573608286, guid: 27a6d8df51a62cc4ab2a5ffa2de06ca7, type: 3}
       propertyPath: m_Name
       value: Apple

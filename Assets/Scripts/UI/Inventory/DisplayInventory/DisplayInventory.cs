@@ -6,9 +6,11 @@ public class DisplayInventory : MonoBehaviour
 {
     [SerializeField] private Vector3 _newPosition;
     [SerializeField] private Vector3 _startPosition;
+    [SerializeField] private PlayerMovement _playerMovement;
 
     private bool _inventoryActive { get; set; } = false;
 
+    private MouseMove _mousePlayer;
     public bool InventoryActive 
     {
         get 
@@ -26,6 +28,8 @@ public class DisplayInventory : MonoBehaviour
     {
         gameObject.transform.localPosition = _newPosition;
         Cursor.lockState = CursorLockMode.Locked;
+
+        _mousePlayer = Camera.main.GetComponent<MouseMove>();
     }
 
     void Update()
@@ -50,12 +54,18 @@ public class DisplayInventory : MonoBehaviour
             gameObject.transform.localPosition = _newPosition;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+
+            _mousePlayer.enabled = true;
+            _playerMovement.enabled = true;
         }
         else
         {
             gameObject.transform.localPosition = _startPosition;
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
+
+            _mousePlayer.enabled = false;
+            _playerMovement.enabled = false;
         }
     }
 }

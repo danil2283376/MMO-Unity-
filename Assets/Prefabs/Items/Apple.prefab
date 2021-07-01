@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: ea68796d52b73cd40b0c634e01f41579, type: 2}
-  amount: 1
+  countCopy: 1
 --- !u!54 &693510286573608224
 Rigidbody:
   m_ObjectHideFlags: 0

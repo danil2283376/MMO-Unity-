@@ -28,6 +28,8 @@ public class HealthPlayer : MonoBehaviour
             if (currentHP > maxHP)
                 currentHP = maxHP;
             UpdateHealthBar();
+            if (currentHP == 0)
+                PlayerDied();
         }
     }
 
@@ -53,6 +55,11 @@ public class HealthPlayer : MonoBehaviour
             throw new InvalidOperationException("Healing not be larger maxHP!!!");
 
         currentHP += healing;
+    }
+
+    private void PlayerDied()
+    {
+
     }
 
     private void UpdateHealthBar() 
