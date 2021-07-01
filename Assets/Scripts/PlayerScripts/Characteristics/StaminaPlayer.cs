@@ -4,18 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(CharacterController))]
 public class StaminaPlayer : MonoBehaviour
 {
+    public float maxStamina = 100;
 
-    public int maxStamina = 100;
+    [SerializeField] private Image _staminaBarUI;
+    [SerializeField] private Image _maxStaminaBarUI;
 
-    [SerializeField] private GameObject _staminaBarUI;
+    private float _currentStamina { get; set; }
 
-    private int _currentStamina { get; set; }
-
-    private Image _imageStaminaBar;
-
-    public int CurrentStamina
+    //private Image _imageStaminaBar;
+    //private Image _imageMaxStaminaBar;
+    public float CurrentStamina
     {
         get
         {
@@ -26,48 +27,83 @@ public class StaminaPlayer : MonoBehaviour
             _currentStamina = value;
             if (_currentStamina < 0)
                 _currentStamina = 0;
-            if (_currentStamina > maxStamina)
+            if ((int)_currentStamina > (int)maxStamina)
+            {
                 _currentStamina = maxStamina;
-            UpdateSatietyBar();
+                //Debug.Log($"{_currentStamina} > {maxStamina}");
+            }
+            UpdateStaminaBar();
             if (_currentStamina == 0)
                 LackOfStamina();
         }
     }
 
+    public float MaxStamina 
+    {
+        get 
+        {
+            return (maxStamina);
+        }
+        set 
+        {
+            maxStamina = value;
+            if (maxStamina < 0)
+                maxStamina = 0;
+            if ((value + maxStamina) < maxStamina)
+                maxStamina = value;
+            UpdateStaminaBar();
+        }
+    }
+
     private void Start()
     {
-        _imageStaminaBar = _imageStaminaBar.GetComponent<Image>();
+        //_imageStaminaBar = _staminaBarUI.GetComponent<Image>();
+
         CurrentStamina = maxStamina;
+
     }
 
-    public void UpStamina(int stamina)
+    public void UpStamina(float stamina)
     {
-        if (stamina < 0)
-            throw new InvalidOperationException("UpSatiety not be negative number!!!");
-        if (stamina > maxStamina)
-            throw new InvalidOperationException("UpSatiety not be larger maxSatiety!!!");
-        CurrentStamina += stamina;
+        //if (maxStamina > 0)
+        //{
+            if (stamina < 0)
+                throw new InvalidOperationException("UpSatiety not be negative number!!!");
+            CurrentStamina += stamina;
+        //}
     }
 
-    public void DownStamina(int stamina)
+    public void DownStamina(float stamina)
     {
         if (stamina < 0)
             throw new InvalidOperationException("DownSatiety not be negative number!!!");
         CurrentStamina -= stamina;
     }
 
-    private void LackOfStamina()
+    public void LackOfStamina()
     {
-
+        PlayerMovement playerMovement = gameObject.GetComponent<PlayerMovement>();
+        maxStamina -= (playerMovement.wasteOfStamina * 2) * Time.deltaTime;
     }
 
-    private void UpdateSatietyBar()
+    private void UpdateStaminaBar()
     {
-        UpdateImageSatietyBar();
+        UpdateImageStaminaBar();
+        UpdateMaxStaminaBar();
     }
 
-    private void UpdateImageSatietyBar()
+    private void UpdateImageStaminaBar()
     {
-        _imageStaminaBar.fillAmount = (((float)_currentStamina * 100f) / (float)maxStamina) / 100f;
+        float tempCurretStamina = _currentStamina;
+        float temoMaxStamina = maxStamina;
+        Не работает если максимальная стамина 50% то формула считает не правильно.
+        Нужно что бы на 50% выносливость игрока застыла
+        Debug.Log((((float)_currentStamina * 100f) / (float)maxStamina) / 100f);
+        _staminaBarUI.fillAmount = (((float)_currentStamina * 100f) / (float)maxStamina) / 100f;
+    }
+
+    private void UpdateMaxStaminaBar() 
+    {
+        _maxStaminaBarUI.fillAmount = maxStamina / 100;
     }
 }
