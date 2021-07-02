@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
     private void SprintPlayer()
     {
         StaminaPlayer staminaPlayer = gameObject.GetComponent<StaminaPlayer>();
-        if (Input.GetKey("left shift") && staminaPlayer.CurrentStamina > 0 && staminaPlayer.maxStamina > 0)
+        if (Input.GetKey("left shift") && staminaPlayer.maxStamina > 0)
         {
             speed = sprintSpeed;
             staminaPlayer.DownStamina(wasteOfStamina * Time.deltaTime);

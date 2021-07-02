@@ -94,12 +94,8 @@ public class StaminaPlayer : MonoBehaviour
 
     private void UpdateImageStaminaBar()
     {
-        float tempCurretStamina = _currentStamina;
-        float temoMaxStamina = maxStamina;
-        Не работает если максимальная стамина 50% то формула считает не правильно.
-        Нужно что бы на 50% выносливость игрока застыла
-        Debug.Log((((float)_currentStamina * 100f) / (float)maxStamina) / 100f);
-        _staminaBarUI.fillAmount = (((float)_currentStamina * 100f) / (float)maxStamina) / 100f;
+        if (_currentStamina <= maxStamina)
+            _staminaBarUI.fillAmount = (((float)_currentStamina * 100f) / 100f) / 100f;
     }
 
     private void UpdateMaxStaminaBar() 

@@ -97,8 +97,10 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Scripts\UI\Inventory\ScriptInventory\Fill_Inventory.cs" />
     <Compile Include="Assets\Scripts\UI\Inventory\Items\WeaponObject.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\UseItem.cs" />
     <Compile Include="Assets\Scripts\UI\Inventory\ScriptInventory\InventorySlot\ImagesOnSlot.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\Characteristics\SatietyPlayer.cs" />
     <Compile Include="Assets\Scripts\Item\Food\Food.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
@@ -113,8 +115,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Scripts\UI\Inventory\Animation\SwapItems.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
-    <Compile Include="Assets\Scripts\PlayerScripts\UseItem.cs" />
-    <Compile Include="Assets\Scripts\PlayerScripts\Characteristics\SatietyPlayer.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\Characteristics\StaminaPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
