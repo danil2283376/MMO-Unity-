@@ -26,9 +26,14 @@ public class JumpPlayer : MonoBehaviour
         // Formul jumps
         StaminaPlayer staminaPlayer = gameObject.GetComponent<StaminaPlayer>();
         _gravityPlayer._velocity.y = Mathf.Sqrt(jumpHeight * (_gravityPlayer.gravity * -2));
-        if (staminaPlayer.CurrentStamina > 0)
+        Debug.Log(staminaPlayer.CurrentStamina - staminaOnJump);
+        if ((staminaPlayer.CurrentStamina - staminaOnJump) < 0)
+        {
+            float newStaminaOnJump = (staminaPlayer.CurrentStamina - staminaOnJump) * -1;
             staminaPlayer.DownStamina(staminaOnJump);
-        else if ((staminaPlayer.CurrentStamina - staminaOnJump) < 0)
-            staminaPlayer.LackOfStamina(staminaOnJump);
+            staminaPlayer.LackOfStamina(newStaminaOnJump);
+        }
+        else if (staminaPlayer.CurrentStamina > 0)
+            staminaPlayer.DownStamina(staminaOnJump);
     }
 }

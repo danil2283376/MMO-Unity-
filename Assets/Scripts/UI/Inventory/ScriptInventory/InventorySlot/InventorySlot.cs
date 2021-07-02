@@ -45,19 +45,11 @@ public class InventorySlot : MonoBehaviour
                 SlotIsFull = true;
             else
                 SlotIsFull = false;
-
-            if (_amount + value <= 0)
+            if ((_amount + value) <= maxAmount)
             {
-                SetDefaultValueInSlot();
-            }
-            else
-            {
-                if ((_amount + value) <= maxAmount)
-                {
-                    this._amount = value;
-                    if (_textsOnSlot != null)
-                        UpdateTextInventorySlot();
-                }
+                this._amount = value;
+                if (_textsOnSlot != null)
+                    UpdateTextInventorySlot();
             }
         }
     }
@@ -180,6 +172,10 @@ public class InventorySlot : MonoBehaviour
     {
         if ((this._amount - amount) < 0)
             throw new InvalidOperationException("Amount not should be negative number!!!");
+        if (this.Amount - amount <= 0)
+        {
+            SetDefaultValueInSlot();
+        }
         this.Amount -= amount;
     }
 
@@ -278,9 +274,6 @@ public class EquipmentItem : MonoBehaviour
                 SetValueInItem(itemUsed);
                 if (createItem.GetComponent<Rigidbody>() != null)
                     Destroy(createItem.GetComponent<Rigidbody>());
-
-                //GameObject rightHandPlayer = _bonesPlayer.rightArm.transform.GetChild(0).gameObject;
-                //createItem.transform.SetParent(rightHandPlayer.transform);
                 createItem.transform.position = rightHandPlayer.transform.position;
 
                 _itemDressed = true;
@@ -298,7 +291,6 @@ public class EquipmentItem : MonoBehaviour
         {
             if (_itemDressed == false)
                 return;
-                //throw new InvalidOperationException("Not set item on right arm!!!");
             GameObject hand = _bonesPlayer.rightArm.transform.GetChild(0).gameObject;
             Destroy(hand.transform.GetChild(0).gameObject);
             _itemDressed = false;
