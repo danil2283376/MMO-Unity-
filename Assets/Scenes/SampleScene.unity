@@ -643,7 +643,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _newPosition: {x: -807, y: 0, z: 0}
   _startPosition: {x: 0, y: 0, z: 0}
-  _playerMovement: {fileID: 1643924018}
+  _playerMove: {fileID: 1643924026}
 --- !u!1001 &284818392
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1333,7 +1333,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -100.372406, y: 58.800003}
+  m_AnchoredPosition: {x: -100.372314, y: 58.80005}
   m_SizeDelta: {x: 191.8226, y: 79.7812}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &426945840
@@ -5090,12 +5090,15 @@ GameObject:
   m_Component:
   - component: {fileID: 1643924016}
   - component: {fileID: 1643924017}
-  - component: {fileID: 1643924018}
   - component: {fileID: 1643924019}
   - component: {fileID: 1643924020}
   - component: {fileID: 1643924021}
   - component: {fileID: 1643924023}
   - component: {fileID: 1643924022}
+  - component: {fileID: 1643924024}
+  - component: {fileID: 1643924025}
+  - component: {fileID: 1643924026}
+  - component: {fileID: 1643924018}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -5147,19 +5150,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1643924015}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 070210ff3e239384c8a62b4c4a23abf4, type: 3}
+  m_Script: {fileID: 11500000, guid: d5082cfc0b7b42748a9c49f798cd82c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wasteOfStamina: 5
-  sprintSpeed: 20
-  speed: 10
-  gravity: -19.6
-  groundDistance: 0.4
-  jumpHeight: 3
-  groundChecker: {fileID: 1052559655}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 128
+  idleHeight: 2
+  squatHeight: 1
 --- !u!114 &1643924019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5233,6 +5228,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSatiety: 100
   _satietyBarUI: {fileID: 1081306222}
+--- !u!114 &1643924024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643924015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef993631a762cd46858f94b856f4df9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundChecker: {fileID: 1052559655}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 128
+  gravity: -9.8
+  _isGround: 0
+  _velocity: {x: 0, y: 0, z: 0}
+  groundDistance: 0.4
+--- !u!114 &1643924025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643924015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ff84971bc773904e8c09cfa0be272c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpHeight: 2
+--- !u!114 &1643924026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643924015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5447f47d9c5be4d81fb3ddee9cf6e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wasteOfStamina: 5
+  sprintSpeed: 20
+  speed: 10
 --- !u!1 &1656538255
 GameObject:
   m_ObjectHideFlags: 0

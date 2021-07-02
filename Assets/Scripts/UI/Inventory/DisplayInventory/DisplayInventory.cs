@@ -6,7 +6,7 @@ public class DisplayInventory : MonoBehaviour
 {
     [SerializeField] private Vector3 _newPosition;
     [SerializeField] private Vector3 _startPosition;
-    [SerializeField] private PlayerMovement _playerMovement;
+    [SerializeField] private MovePlayer _playerMove;
 
     private bool _inventoryActive { get; set; } = false;
 
@@ -56,7 +56,7 @@ public class DisplayInventory : MonoBehaviour
             Cursor.visible = false;
 
             _mousePlayer.enabled = true;
-            _playerMovement.enabled = true;
+            _playerMove.enabled = true;
         }
         else
         {
@@ -65,7 +65,7 @@ public class DisplayInventory : MonoBehaviour
             Cursor.visible = true;
 
             _mousePlayer.enabled = false;
-            _playerMovement.enabled = false;
+            _playerMove.enabled = false;
         }
     }
 }

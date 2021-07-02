@@ -13,9 +13,6 @@ public class StaminaPlayer : MonoBehaviour
     [SerializeField] private Image _maxStaminaBarUI;
 
     private float _currentStamina { get; set; }
-
-    //private Image _imageStaminaBar;
-    //private Image _imageMaxStaminaBar;
     public float CurrentStamina
     {
         get
@@ -28,23 +25,20 @@ public class StaminaPlayer : MonoBehaviour
             if (_currentStamina < 0)
                 _currentStamina = 0;
             if ((int)_currentStamina > (int)maxStamina)
-            {
                 _currentStamina = maxStamina;
-                //Debug.Log($"{_currentStamina} > {maxStamina}");
-            }
             UpdateStaminaBar();
             if (_currentStamina == 0)
                 LackOfStamina();
         }
     }
 
-    public float MaxStamina 
+    public float MaxStamina
     {
-        get 
+        get
         {
             return (maxStamina);
         }
-        set 
+        set
         {
             maxStamina = value;
             if (maxStamina < 0)
@@ -65,12 +59,9 @@ public class StaminaPlayer : MonoBehaviour
 
     public void UpStamina(float stamina)
     {
-        //if (maxStamina > 0)
-        //{
-            if (stamina < 0)
-                throw new InvalidOperationException("UpSatiety not be negative number!!!");
-            CurrentStamina += stamina;
-        //}
+        if (stamina < 0)
+            throw new InvalidOperationException("UpSatiety not be negative number!!!");
+        CurrentStamina += stamina;
     }
 
     public void DownStamina(float stamina)
@@ -82,7 +73,7 @@ public class StaminaPlayer : MonoBehaviour
 
     public void LackOfStamina()
     {
-        PlayerMovement playerMovement = gameObject.GetComponent<PlayerMovement>();
+        MovePlayer playerMovement = gameObject.GetComponent<MovePlayer>();
         maxStamina -= (playerMovement.wasteOfStamina * 2) * Time.deltaTime;
     }
 
@@ -98,7 +89,7 @@ public class StaminaPlayer : MonoBehaviour
             _staminaBarUI.fillAmount = (((float)_currentStamina * 100f) / 100f) / 100f;
     }
 
-    private void UpdateMaxStaminaBar() 
+    private void UpdateMaxStaminaBar()
     {
         _maxStaminaBarUI.fillAmount = maxStamina / 100;
     }
