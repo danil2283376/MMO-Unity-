@@ -22,8 +22,16 @@ public class Food : MonoBehaviour, IItemUsed
             EatFood();
     }
 
-    private void EatFood() 
+    private void EatFood()
     {
-
+        SatietyPlayer satietyPlayer = player.GetComponent<SatietyPlayer>();
+        FoodObject foodObject = (FoodObject)_foodItem.item;
+        if (satietyPlayer.CurrentSatiety < 100)
+        {
+            satietyPlayer.UpSatiety(foodObject.saturation);
+            inventorySlotItem.SubstractAmount(_foodItem.countCopy);
+        }
+        //Debug.Log(foodObject.saturation);
+        //satietyPlayer.UpSatiety(_foodItem.item.);
     }
 }

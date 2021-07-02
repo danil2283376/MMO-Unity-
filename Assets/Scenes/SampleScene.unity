@@ -5099,6 +5099,7 @@ GameObject:
   - component: {fileID: 1643924025}
   - component: {fileID: 1643924026}
   - component: {fileID: 1643924018}
+  - component: {fileID: 1643924027}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -5227,6 +5228,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSatiety: 100
+  damageAtStarvation: 2
+  starve: 0.5
   _satietyBarUI: {fileID: 1081306222}
 --- !u!114 &1643924024
 MonoBehaviour:
@@ -5261,6 +5264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpHeight: 2
+  staminaOnJump: 20
 --- !u!114 &1643924026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5276,6 +5280,19 @@ MonoBehaviour:
   wasteOfStamina: 5
   sprintSpeed: 20
   speed: 10
+  speedDownStamina: 2
+--- !u!114 &1643924027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643924015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 255d8450ce801b847b10789d1bd4dbb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1656538255
 GameObject:
   m_ObjectHideFlags: 0

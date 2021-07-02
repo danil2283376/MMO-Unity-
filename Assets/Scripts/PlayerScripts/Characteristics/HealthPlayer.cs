@@ -7,14 +7,14 @@ using TMPro;
 
 public class HealthPlayer : MonoBehaviour
 {
-    public int maxHP = 100;
+    public float maxHP = 100f;
 
     [SerializeField] private GameObject _healthBarUI;
-    private int _currentHP { get; set; }
+    private float _currentHP { get; set; }
 
     private Image _imageHealthBar;
     private TextMeshProUGUI _textCountHealth;
-    public int CurrentHP
+    public float CurrentHP
     {
         get
         {
@@ -40,11 +40,11 @@ public class HealthPlayer : MonoBehaviour
         CurrentHP = maxHP;
     }
 
-    public void TakeDamage(int damage) 
+    public void TakeDamage(float damage) 
     {
         if (damage < 0)
             throw new InvalidOperationException("Damage not be negative number!!!");
-        _currentHP -= damage;
+        CurrentHP -= damage;
     }
 
     public void HealingPlayer(int healing)
@@ -54,7 +54,7 @@ public class HealthPlayer : MonoBehaviour
         if (healing > maxHP)
             throw new InvalidOperationException("Healing not be larger maxHP!!!");
 
-        _currentHP += healing;
+        CurrentHP += healing;
     }
 
     private void PlayerDied()

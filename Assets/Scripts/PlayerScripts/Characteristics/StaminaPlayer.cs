@@ -27,8 +27,8 @@ public class StaminaPlayer : MonoBehaviour
             if ((int)_currentStamina > (int)maxStamina)
                 _currentStamina = maxStamina;
             UpdateStaminaBar();
-            if (_currentStamina == 0)
-                LackOfStamina();
+            //if (_currentStamina == 0)
+            //    LackOfStamina();
         }
     }
 
@@ -71,10 +71,9 @@ public class StaminaPlayer : MonoBehaviour
         CurrentStamina -= stamina;
     }
 
-    public void LackOfStamina()
+    public void LackOfStamina(float subtractMaxStamina)
     {
-        MovePlayer playerMovement = gameObject.GetComponent<MovePlayer>();
-        maxStamina -= (playerMovement.wasteOfStamina * 2) * Time.deltaTime;
+        maxStamina -= subtractMaxStamina;
     }
 
     private void UpdateStaminaBar()

@@ -37,7 +37,7 @@ public class InventorySlot : MonoBehaviour
     {
         get
         {
-            return this._amount;
+            return (this._amount);
         }
         private set
         {
@@ -45,11 +45,19 @@ public class InventorySlot : MonoBehaviour
                 SlotIsFull = true;
             else
                 SlotIsFull = false;
-            if ((_amount + value) <= maxAmount)
+
+            if (_amount + value <= 0)
             {
-                this._amount = value;
-                if (_textsOnSlot != null)
-                    UpdateTextInventorySlot();
+                SetDefaultValueInSlot();
+            }
+            else
+            {
+                if ((_amount + value) <= maxAmount)
+                {
+                    this._amount = value;
+                    if (_textsOnSlot != null)
+                        UpdateTextInventorySlot();
+                }
             }
         }
     }

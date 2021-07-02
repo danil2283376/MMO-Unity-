@@ -5,14 +5,16 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class MovePlayer : MonoBehaviour
 {
-    public float wasteOfStamina = 5f;
+    public float wasteOfStamina = 10f;
     public float sprintSpeed = 20f;
     public float speed = 10f;
+    public float speedDownStamina = 2f;
 
     [HideInInspector] GravityPlayer gravityPlayer;
 
     private CharacterController _controller;
     private float _oldSpeed;
+    private Vector3 _oldPosition;
     private void Start()
     {
         _controller = gameObject.GetComponent<CharacterController>();
@@ -24,6 +26,7 @@ public class MovePlayer : MonoBehaviour
     {
         Move();
         SprintPlayer();
+        _oldPosition = transform.position;
     }
 
     private void Move()
@@ -31,6 +34,7 @@ public class MovePlayer : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
+        speed = _oldSpeed;
         Vector3 move = transform.right * x + transform.forward * z;
         // free fall formula
         _controller.Move(move * speed * Time.deltaTime);
@@ -41,12 +45,12 @@ public class MovePlayer : MonoBehaviour
     private void SprintPlayer()
     {
         StaminaPlayer staminaPlayer = gameObject.GetComponent<StaminaPlayer>();
-        if (Input.GetKey("left shift") && staminaPlayer.maxStamina > 0)
+        if (Input.GetKey("left shift") && staminaPlayer.maxStamina > 0 && _oldPosition != transform.position)
         {
             speed = sprintSpeed;
             staminaPlayer.DownStamina(wasteOfStamina * Time.deltaTime);
             if (staminaPlayer.CurrentStamina == 0)
-                staminaPlayer.LackOfStamina();
+                staminaPlayer.LackOfStamina(speedDownStamina * Time.deltaTime);
         }
         else
         {
