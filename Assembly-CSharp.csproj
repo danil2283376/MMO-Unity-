@@ -119,6 +119,10 @@
     <Compile Include="Assets\Scripts\UI\Inventory\Animation\SwapItems.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\Characteristics\StaminaPlayer.cs" />
+    <Compile Include="Assets\Scripts\Item\Weapon\Ak_47.cs" />
+    <Compile Include="Assets\Scripts\UI\Inventory\ScriptInventory\StorageItem\IStorageItem.cs" />
+    <Compile Include="Assets\Scripts\UI\Inventory\ScriptInventory\StorageItem\Items\WeaponStorage.cs" />
+    <Compile Include="Assets\Scripts\UI\Inventory\ScriptInventory\StorageItem\Items\FoodStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
