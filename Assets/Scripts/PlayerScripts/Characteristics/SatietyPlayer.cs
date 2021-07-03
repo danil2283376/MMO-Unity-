@@ -70,7 +70,6 @@ public class SatietyPlayer : MonoBehaviour
 
     private void Starvation()
     {
-        Debug.Log("Starve!!!");
         HealthPlayer healthPlayer = gameObject.GetComponent<HealthPlayer>();
         healthPlayer.TakeDamage(damageAtStarvation * Time.deltaTime);
     }

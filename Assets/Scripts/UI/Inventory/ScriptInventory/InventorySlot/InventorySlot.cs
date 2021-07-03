@@ -180,7 +180,7 @@ public class InventorySlot : MonoBehaviour
         Debug.Log(this.Amount);
         if (this.Amount <= 0)
         {
-            GameObject rightHandPlayer = player.GetComponent<BonesPlayer>().rightArm;
+            GameObject rightHandPlayer = player.GetComponent<BonesPlayer>().rightArm.transform.GetChild(0).gameObject;
             if (rightHandPlayer.transform.childCount > 0)
                 Destroy(rightHandPlayer.transform.GetChild(0).gameObject);
         }
@@ -203,12 +203,18 @@ public class InventorySlot : MonoBehaviour
         {
             SetDefaultValueInSlot();
         }
+        if (SlotIsActive == true)
+        {
+            if (EquipItem != null)
+                EquipItem.EquipItem();
+        }
     }
 
 
     public void ActivateSlot(bool activeSlot)
     {
         this._imagesOnslot.ActivateBorder(activeSlot);
+        this.SlotIsActive = activeSlot;
         if (this._equipItem != null)
         {
             if (activeSlot == true)
@@ -245,7 +251,8 @@ public class InventorySlot : MonoBehaviour
         TextMeshProUGUI countItems = _textsOnSlot.SearchNeedText("CountItems");
         if (countItems != null)
             countItems.text = "";
-        _equipItem.item = null;
+        if (_equipItem != null)
+            _equipItem.item = null;
     }
 }
 
@@ -301,8 +308,12 @@ public class EquipmentItem : MonoBehaviour
         {
             if (_itemDressed == false)
                 return;
-            GameObject hand = _bonesPlayer.rightArm.transform.GetChild(0).gameObject;
-            Destroy(hand.transform.GetChild(0).gameObject);
+            if (_bonesPlayer.rightArm.transform.childCount > 0)
+            {
+                GameObject rightHandPlayer = _bonesPlayer.rightArm.transform.GetChild(0).gameObject;
+                if (rightHandPlayer.transform.childCount > 0)
+                    Destroy(rightHandPlayer.transform.GetChild(0).gameObject);
+            }
             _itemDressed = false;
         }
     }

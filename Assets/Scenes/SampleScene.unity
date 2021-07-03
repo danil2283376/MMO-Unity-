@@ -653,7 +653,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _newPosition: {x: -807, y: 0, z: 0}
   _startPosition: {x: 0, y: 0, z: 0}
-  _playerMove: {fileID: 1643924026}
+  _movePlayer: {fileID: 1643924026}
+  _jumpPlayer: {fileID: 1643924025}
+  _squatPlayer: {fileID: 1643924018}
+  _useItemPlayer: {fileID: 1643924027}
+  _activateFastSlotOnKeyBoard: {fileID: 1254235787}
 --- !u!1001 &284818392
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6391,7 +6395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSatiety: 100
   damageAtStarvation: 2
-  starve: 0.5
+  starve: 5
   _satietyBarUI: {fileID: 1081306222}
 --- !u!114 &1643924024
 MonoBehaviour:

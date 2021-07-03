@@ -8,6 +8,7 @@ public class GravityPlayer : MonoBehaviour
     public Transform groundChecker;
     public LayerMask groundMask;
     public float gravity = -9.8f;
+    public bool isDeactivate { get; set; } = true;
 
     [HideInInspector] public bool _isGround;
     [HideInInspector] public Vector3 _velocity;

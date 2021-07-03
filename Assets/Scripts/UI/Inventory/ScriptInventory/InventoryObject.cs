@@ -63,6 +63,8 @@ public class InventoryObject : ScriptableObject
                     if (inventory[i].ItemObjectInSlot == null)
                     {
                         inventory[i].SetValueInSlot(itemObject, amount);
+                        //if (inventory[i].SlotIsActive == true)
+                        //    inventory[i].EquipItem.EquipItem();
                         break;
                     }
                 }

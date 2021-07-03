@@ -6,7 +6,12 @@ public class DisplayInventory : MonoBehaviour
 {
     [SerializeField] private Vector3 _newPosition;
     [SerializeField] private Vector3 _startPosition;
-    [SerializeField] private MovePlayer _playerMove;
+
+    [SerializeField] private MovePlayer _movePlayer;
+    [SerializeField] private JumpPlayer _jumpPlayer;
+    [SerializeField] private SquatPlayer _squatPlayer;
+    [SerializeField] private UseItem _useItemPlayer;
+    [SerializeField] private ActivateFastSlotOnKeyBoard _activateFastSlotOnKeyBoard;
 
     private bool _inventoryActive { get; set; } = false;
 
@@ -55,8 +60,7 @@ public class DisplayInventory : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            _mousePlayer.enabled = true;
-            _playerMove.enabled = true;
+            ActivateScript(true);
         }
         else
         {
@@ -64,8 +68,17 @@ public class DisplayInventory : MonoBehaviour
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
 
-            _mousePlayer.enabled = false;
-            _playerMove.enabled = false;
+            ActivateScript(false);
         }
+    }
+
+    private void ActivateScript(bool activate) 
+    {
+        _mousePlayer.enabled = activate;
+        _movePlayer.enabled = activate;
+        _jumpPlayer.enabled = activate;
+        _squatPlayer.enabled = activate;
+        _useItemPlayer.enabled = activate;
+        _activateFastSlotOnKeyBoard.enabled = activate;
     }
 }
