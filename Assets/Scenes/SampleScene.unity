@@ -450,8 +450,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000012279, y: 0.00000095235}
-  m_SizeDelta: {x: 33, y: 310}
+  m_AnchoredPosition: {x: 0.2436, y: -0.000040352}
+  m_SizeDelta: {x: 32.566, y: 294.12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &140868973
 MonoBehaviour:
@@ -893,8 +893,8 @@ RectTransform:
   m_Children:
   - {fileID: 264305590}
   - {fileID: 92025340}
-  - {fileID: 1412321452}
   - {fileID: 418295092}
+  - {fileID: 1412321452}
   m_Father: {fileID: 907157096}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1561,7 +1561,7 @@ RectTransform:
   m_Children:
   - {fileID: 1590258656}
   m_Father: {fileID: 316042537}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -3744,8 +3744,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 43.84, y: 50}
+  m_AnchoredPosition: {x: -0.3551, y: 0.013}
+  m_SizeDelta: {x: 43.2898, y: 48.6961}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1081306224
 MonoBehaviour:
@@ -5238,7 +5238,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 316042537}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6444,8 +6444,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wasteOfStamina: 5
-  sprintSpeed: 20
-  speed: 10
+  sprintSpeed: 10
+  speed: 5
   speedDownStamina: 2
 --- !u!114 &1643924027
 MonoBehaviour:
@@ -7951,6 +7951,7 @@ GameObject:
   - component: {fileID: 2086767726}
   - component: {fileID: 2086767724}
   - component: {fileID: 2086767725}
+  - component: {fileID: 2086767727}
   m_Layer: 0
   m_Name: AK-47
   m_TagString: Untagged
@@ -8000,6 +8001,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2086767727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2086767723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90e043bd83b2aa2409794e72d2d11dcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentAmmo: 0
+  _currentMaxAmmo: 0
 --- !u!1001 &2140340643
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8161,10 +8176,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 693510286573608286, guid: 27a6d8df51a62cc4ab2a5ffa2de06ca7, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 693510286573608286, guid: 27a6d8df51a62cc4ab2a5ffa2de06ca7, type: 3}
       propertyPath: m_Name
       value: Apple

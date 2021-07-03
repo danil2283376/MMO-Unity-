@@ -47,7 +47,7 @@ public class InventoryObject : ScriptableObject
         return (null);
     }
 
-    public void AddItemInSlot(ItemObject itemObject, int amount)
+    public void AddItemInSlot(ItemObject itemObject, int amount, IStorageItem storageItem)
     {
         if (itemObject != null)
         {
@@ -62,7 +62,7 @@ public class InventoryObject : ScriptableObject
                 {
                     if (inventory[i].ItemObjectInSlot == null)
                     {
-                        inventory[i].SetValueInSlot(itemObject, amount);
+                        inventory[i].SetValueInSlot(itemObject, amount, storageItem);
                         //if (inventory[i].SlotIsActive == true)
                         //    inventory[i].EquipItem.EquipItem();
                         break;

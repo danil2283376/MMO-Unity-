@@ -34,7 +34,6 @@ public class MovePlayer : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        speed = _oldSpeed;
         Vector3 move = transform.right * x + transform.forward * z;
         // free fall formula
         _controller.Move(move * speed * Time.deltaTime);

@@ -10,6 +10,7 @@ public class WeaponObject : ItemObject
     public int ñartridgeInTheHorn;
     public int maxAmmo;
     public int accuracy;
+
     public void Awake()
     {
         typeItem = TypeItem.Weapon;

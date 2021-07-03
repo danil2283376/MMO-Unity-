@@ -23,7 +23,7 @@ public class InventorySlot : MonoBehaviour
     private TextsOnSlot _textsOnSlot { get; set; } = null;
     private ImagesOnSlot _imagesOnslot { get; set; } = null;
     private EquipmentItem _equipItem { get; set; } = null;
-
+    private IStorageItem _storageItem { get; set; } = null;
     public bool SlotIsActive
     {
         get
@@ -123,6 +123,15 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
+    public IStorageItem StorageItem 
+    {
+        get 
+        {
+            return (this._storageItem);
+        }
+        private set => this._storageItem = value;
+    }
+
     private void Awake()
     {
         this.GameObjectSlot = gameObject;
@@ -160,6 +169,7 @@ public class InventorySlot : MonoBehaviour
         this.SlotIsFull = copy.SlotIsFull;
         this.idleColor = copy.idleColor;
         this.activeColor = copy.activeColor;
+        this.StorageItem = copy.StorageItem;
         UpdateImageSlot();
     }
 
@@ -186,13 +196,14 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
-    public void SetValueInSlot(ItemObject itemObject, int amount)
+    public void SetValueInSlot(ItemObject itemObject, int amount, IStorageItem storageItem)
     {
         if (itemObject != null)
         {
             this._itemObjectInSlot = itemObject;
             this._itemObjectInSlot.sprite = itemObject.sprite;
             this._itemObjectInSlot.typeItem = itemObject.typeItem;
+            this.StorageItem = storageItem;
             this.Amount = amount;
             if (this._equipItem != null)
                 this._equipItem.item = _itemObjectInSlot;
@@ -203,6 +214,7 @@ public class InventorySlot : MonoBehaviour
         {
             SetDefaultValueInSlot();
         }
+
         if (SlotIsActive == true)
         {
             if (EquipItem != null)
@@ -253,6 +265,7 @@ public class InventorySlot : MonoBehaviour
             countItems.text = "";
         if (_equipItem != null)
             _equipItem.item = null;
+
     }
 }
 
@@ -261,6 +274,7 @@ public class EquipmentItem : MonoBehaviour
 {
     [HideInInspector] public ItemObject item;
     [HideInInspector] public GameObject player;
+    [HideInInspector] public IStorageItem storageItem;
 
     private bool _itemDressed = false;
     private BonesPlayer _bonesPlayer;
@@ -285,7 +299,6 @@ public class EquipmentItem : MonoBehaviour
                 Destroy(rightHandPlayer.transform.GetChild(0).gameObject);
             GameObject createItem = Instantiate(item.prefabItem, rightHandPlayer.transform);
             IItemUsed itemUsed = createItem.GetComponent<IItemUsed>();
-            Debug.Log(itemUsed);
             if (itemUsed != null)
             {
                 SetValueInItem(itemUsed);

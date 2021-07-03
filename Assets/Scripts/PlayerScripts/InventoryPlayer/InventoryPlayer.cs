@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,19 +26,25 @@ public class InventoryPlayer : MonoBehaviour
             Item item = raycastHit.transform.GetComponent<Item>();
             if (item != null)
             {
-                PickUpItem(item);
-                Destroy(raycastHit.transform.gameObject);
+                IStorageItem storageItem = raycastHit.transform.GetComponent<IStorageItem>();
+                if (storageItem != null)
+                {
+                    PickUpItem(item, storageItem);
+                    Destroy(raycastHit.transform.gameObject);
+                }
+                else
+                    throw new InvalidOperationException("On item not storage item, fix them!!!");
             }
         }
     }
 
-    private void PickUpItem(Item item)
+    private void PickUpItem(Item item, IStorageItem storageItem)
     {
         fastSlotsInventory.CheckInventoryFull(item.item);
         if (fastSlotsInventory.InventoryIsFull == true)
-            inventory.AddItemInSlot(item.item, item.countCopy);
+            inventory.AddItemInSlot(item.item, item.countCopy, storageItem);
         else
-            fastSlotsInventory.AddItemInSlot(item.item, item.countCopy);
+            fastSlotsInventory.AddItemInSlot(item.item, item.countCopy, storageItem);
     }
 
     private void OnApplicationQuit()
