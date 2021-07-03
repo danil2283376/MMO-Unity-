@@ -48,6 +48,8 @@ public class InventorySlot : MonoBehaviour
             if ((_amount + value) <= maxAmount)
             {
                 this._amount = value;
+                if (this._amount <= 0)
+                    this._amount = 0;
                 if (_textsOnSlot != null)
                     UpdateTextInventorySlot();
             }
@@ -175,6 +177,13 @@ public class InventorySlot : MonoBehaviour
         if (this.Amount - amount <= 0)
             SetDefaultValueInSlot();
         this.Amount -= amount;
+        Debug.Log(this.Amount);
+        if (this.Amount <= 0)
+        {
+            GameObject rightHandPlayer = player.GetComponent<BonesPlayer>().rightArm;
+            if (rightHandPlayer.transform.childCount > 0)
+                Destroy(rightHandPlayer.transform.GetChild(0).gameObject);
+        }
     }
 
     public void SetValueInSlot(ItemObject itemObject, int amount)
