@@ -75,17 +75,17 @@ public class SwapItems : MonoBehaviour
 
             tempSlot.maxAmount = inventorySlot1.maxAmount;
             tempSlot.SetValueInSlot(inventorySlot1.ItemObjectInSlot, inventorySlot1.Amount);
-            //Debug.Log("Amount: " + tempSlot.Amount);
             if (inventorySlot2.ItemObjectInSlot != null)
             {
                 inventorySlot1.SetValueInSlot(inventorySlot2.ItemObjectInSlot, inventorySlot2.Amount);
                 inventorySlot2.SetValueInSlot(tempSlot.ItemObjectInSlot, tempSlot.Amount);
+                //Debug.Log(inventorySlot1.ItemObjectInSlot.description);
             }
             else
             {
-                //inventoryItem1.SetValueInSlot(null, 0);
                 inventorySlot1.SetValueInSlot(null, 0);
                 inventorySlot2.SetValueInSlot(tempSlot.ItemObjectInSlot, tempSlot.Amount);
+                //Debug.Log(inventorySlot1.ItemObjectInSlot.description);
             }
             Destroy(tempSlot);
         }

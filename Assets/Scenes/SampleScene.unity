@@ -5965,6 +5965,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 87d1a6c1177528b48ab915a11e05543e, type: 2}
   fastSlotsInventory: {fileID: 11400000, guid: 0bcd5edbf9649834a83f71905169fcd5, type: 2}
+  distanceRayPickUpItem: 2
 --- !u!114 &1643924020
 MonoBehaviour:
   m_ObjectHideFlags: 0

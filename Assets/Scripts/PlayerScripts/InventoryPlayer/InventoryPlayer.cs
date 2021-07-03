@@ -6,6 +6,7 @@ public class InventoryPlayer : MonoBehaviour
 {
     public InventoryObject inventory;
     public InventoryObject fastSlotsInventory;
+    public float distanceRayPickUpItem = 1f;
 
     private void Update()
     {
@@ -19,7 +20,7 @@ public class InventoryPlayer : MonoBehaviour
         Vector3 directionRay = new Vector3(Screen.width / 2, Screen.height / 2);
         Ray originRay = Camera.main.ScreenPointToRay(directionRay);
 
-        if (Physics.Raycast(originRay, out raycastHit, 1f))
+        if (Physics.Raycast(originRay, out raycastHit, distanceRayPickUpItem))
         {
             Item item = raycastHit.transform.GetComponent<Item>();
             if (item != null)

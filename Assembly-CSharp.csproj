@@ -70,7 +70,9 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\Input\GravityPlayer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\Input\ControllerPlayer\JumpPlayer.cs" />
     <Compile Include="Assets\Scripts\UI\Inventory\ScriptInventory\InventorySlot\TextsOnSlot.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\Characteristics\HealthPlayer.cs" />
@@ -99,8 +101,10 @@
     <Compile Include="Assets\Scripts\UI\Inventory\Items\WeaponObject.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\UseItem.cs" />
     <Compile Include="Assets\Scripts\UI\Inventory\ScriptInventory\InventorySlot\ImagesOnSlot.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\Input\ControllerPlayer\MovePlayer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\Characteristics\SatietyPlayer.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\Input\ControllerPlayer\SquatPlayer.cs" />
     <Compile Include="Assets\Scripts\Item\Food\Food.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
@@ -115,10 +119,6 @@
     <Compile Include="Assets\Scripts\UI\Inventory\Animation\SwapItems.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\Characteristics\StaminaPlayer.cs" />
-    <Compile Include="Assets\Scripts\PlayerScripts\Input\GravityPlayer.cs" />
-    <Compile Include="Assets\Scripts\PlayerScripts\Input\ControllerPlayer\JumpPlayer.cs" />
-    <Compile Include="Assets\Scripts\PlayerScripts\Input\ControllerPlayer\MovePlayer.cs" />
-    <Compile Include="Assets\Scripts\PlayerScripts\Input\ControllerPlayer\SquatPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

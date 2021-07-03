@@ -45,6 +45,7 @@ public class ActivateFastSlotOnKeyBoard : MonoBehaviour
     {
         GameObject gameObjectSlot = gameObject.transform.GetChild(index).gameObject;
         InventorySlot inventorySlot = gameObjectSlot.GetComponent<InventorySlot>();
+        //Debug.Log(inventorySlot.ItemObjectInSlot.description);
         inventorySlot.ActivateSlot(true);
     }
 

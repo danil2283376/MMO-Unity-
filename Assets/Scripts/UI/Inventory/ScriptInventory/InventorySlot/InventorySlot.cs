@@ -173,9 +173,7 @@ public class InventorySlot : MonoBehaviour
         if ((this._amount - amount) < 0)
             throw new InvalidOperationException("Amount not should be negative number!!!");
         if (this.Amount - amount <= 0)
-        {
             SetDefaultValueInSlot();
-        }
         this.Amount -= amount;
     }
 
@@ -238,6 +236,7 @@ public class InventorySlot : MonoBehaviour
         TextMeshProUGUI countItems = _textsOnSlot.SearchNeedText("CountItems");
         if (countItems != null)
             countItems.text = "";
+        _equipItem.item = null;
     }
 }
 
@@ -266,6 +265,8 @@ public class EquipmentItem : MonoBehaviour
         if (item != null)
         {
             GameObject rightHandPlayer = _bonesPlayer.rightArm.transform.GetChild(0).gameObject;
+            if (rightHandPlayer.transform.childCount > 0)
+                Destroy(rightHandPlayer.transform.GetChild(0).gameObject);
             GameObject createItem = Instantiate(item.prefabItem, rightHandPlayer.transform);
             IItemUsed itemUsed = createItem.GetComponent<IItemUsed>();
             Debug.Log(itemUsed);
