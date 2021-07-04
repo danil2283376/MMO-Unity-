@@ -283,10 +283,7 @@ public class EquipmentItem : MonoBehaviour
     {
         this.player = gameObject.GetComponent<InventorySlot>().player;
         if (this.player == null)
-        {
-            Debug.Log(gameObject.name);
             throw new InvalidOperationException("Player null");
-        }
         _bonesPlayer = player.GetComponent<BonesPlayer>();
     }
 
@@ -298,10 +295,13 @@ public class EquipmentItem : MonoBehaviour
             if (rightHandPlayer.transform.childCount > 0)
                 Destroy(rightHandPlayer.transform.GetChild(0).gameObject);
             GameObject createItem = Instantiate(item.prefabItem, rightHandPlayer.transform);
+            if (createItem == null)
+                throw new InvalidOperationException("EquipItem null!!!");
             IItemUsed itemUsed = createItem.GetComponent<IItemUsed>();
+
             if (itemUsed != null)
             {
-                SetValueInItem(itemUsed);
+                SetValueInItem(itemUsed, createItem);
                 if (createItem.GetComponent<Rigidbody>() != null)
                     Destroy(createItem.GetComponent<Rigidbody>());
                 createItem.transform.position = rightHandPlayer.transform.position;
@@ -331,9 +331,12 @@ public class EquipmentItem : MonoBehaviour
         }
     }
 
-    private void SetValueInItem(IItemUsed itemUsed)
+    private void SetValueInItem(IItemUsed itemUsed, GameObject createEquipItem)
     {
         itemUsed.inventorySlotItem = gameObject.GetComponent<InventorySlot>();
         itemUsed.player = this.player;
+        ActivateScript activateScript = createEquipItem.GetComponent<ActivateScript>();
+        if (activateScript != null)
+            activateScript.ActivateScriptsOnObject();
     }
 }

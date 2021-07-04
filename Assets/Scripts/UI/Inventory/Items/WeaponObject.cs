@@ -7,10 +7,15 @@ using UnityEngine;
 public class WeaponObject : ItemObject
 {
     public int damage;
+    public int accuracy;
+    public int rateFire;
+
     public int ñartridgeInTheHorn;
     public int maxAmmo;
-    public int accuracy;
 
+    public int timeReload;
+    public int speedBullet;
+    public GameObject prefabBullet;
     public void Awake()
     {
         typeItem = TypeItem.Weapon;

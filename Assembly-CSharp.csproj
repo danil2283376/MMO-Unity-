@@ -64,13 +64,17 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
+    <Compile Include="Assets\Scripts\UI\Inventory\ScriptInventory\StorageItem\IStorageItem.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Scripts\Item\IItemUsed.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
+    <Compile Include="Assets\Scripts\Item\Weapon\Ak_47.cs" />
+    <Compile Include="Assets\Scripts\Item\Weapon\ActivateScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\Input\GravityPlayer.cs" />
+    <Compile Include="Assets\Scripts\UI\Inventory\ScriptInventory\StorageItem\Items\WeaponStorage.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\Input\ControllerPlayer\JumpPlayer.cs" />
     <Compile Include="Assets\Scripts\UI\Inventory\ScriptInventory\InventorySlot\TextsOnSlot.cs" />
@@ -111,18 +115,16 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\UI\Inventory\DisplayInventory\DisplayInventory.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\Input\ControllerPlayer\MouseMove.cs" />
+    <Compile Include="Assets\Scripts\Item\Weapon\IWeapon.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Scripts\UI\Inventory\Animation\SwapItems.cs" />
+    <Compile Include="Assets\Scripts\UI\Inventory\ScriptInventory\StorageItem\Items\FoodStorage.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\Characteristics\StaminaPlayer.cs" />
-    <Compile Include="Assets\Scripts\Item\Weapon\Ak_47.cs" />
-    <Compile Include="Assets\Scripts\UI\Inventory\ScriptInventory\StorageItem\IStorageItem.cs" />
-    <Compile Include="Assets\Scripts\UI\Inventory\ScriptInventory\StorageItem\Items\WeaponStorage.cs" />
-    <Compile Include="Assets\Scripts\UI\Inventory\ScriptInventory\StorageItem\Items\FoodStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
