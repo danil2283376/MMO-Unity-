@@ -42,6 +42,5 @@ public class WeaponStorage : MonoBehaviour, IStorageItem
         WeaponStorage weaponStorage = (WeaponStorage)storageItem;
         this.currentAmmo = weaponStorage.currentAmmo;
         this.currentMaxAmmo = weaponStorage.currentMaxAmmo;
-        Debug.Log("WeaponStorage: " + this.currentAmmo);
     }
 }

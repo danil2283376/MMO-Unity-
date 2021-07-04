@@ -129,10 +129,10 @@ public class InventorySlot : MonoBehaviour
         {
             return (this._storageItem);
         }
-        private set
+        set
         {
             this._storageItem = value;
-            this._equipItem.storageItem = this._storageItem;
+            this._equipItem.storageItem = value;
         }
     }
 
@@ -304,6 +304,7 @@ public class EquipmentItem : MonoBehaviour
                 throw new InvalidOperationException("EquipItem null!!!");
             IItemUsed itemUsed = createItem.GetComponent<IItemUsed>();
             WeaponStorage weaponStorage = (WeaponStorage)storageItem;
+            Debug.Log("SUCK ME BOOLS: " + weaponStorage.currentAmmo);
             //Debug.Log(weaponStorage.currentAmmo);
             if (itemUsed != null)
             {

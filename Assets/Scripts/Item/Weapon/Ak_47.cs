@@ -26,9 +26,6 @@ public class Ak_47 : MonoBehaviour, IItemUsed, IWeapon
         weaponStorage = gameObject.GetComponent<WeaponStorage>();
 
         bulletInMinute = 60.0f / _weaponObject.rateFire;
-        weaponStorage.CurrentAmmo = _weaponObject.сartridgeInTheHorn;
-        //WeaponStorage weaponStorage1 = (WeaponStorage)weaponStorage;
-        Debug.Log(weaponStorage.CurrentAmmo);
         activateReloading = false;
         player = inventorySlotItem.player;
     }
@@ -90,6 +87,11 @@ public class Ak_47 : MonoBehaviour, IItemUsed, IWeapon
 
     private void OnDestroy()
     {
-        inventorySlotItem.StorageItem = (IStorageItem)this.weaponStorage;
+        if (this.weaponStorage != null && inventorySlotItem != null)
+        {
+            //Debug.Log(this.weaponStorage.currentAmmo);
+            inventorySlotItem.StorageItem = (IStorageItem)this.weaponStorage;
+            WeaponStorage weaponStorage1 = (WeaponStorage)inventorySlotItem.StorageItem;
+        }
     }
 }
