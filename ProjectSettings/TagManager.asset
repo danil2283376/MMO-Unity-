@@ -6,6 +6,7 @@ TagManager:
   tags:
   - InventorySlot
   - FastSlot
+  - RangeWeapon
   layers:
   - Default
   - TransparentFX

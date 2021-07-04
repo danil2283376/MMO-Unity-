@@ -335,6 +335,7 @@
 "Assets/Scripts/PlayerScripts/Input/GravityPlayer.cs"
 "Assets/Scripts/PlayerScripts/InventoryPlayer/InventoryPlayer.cs"
 "Assets/Scripts/PlayerScripts/UseItem.cs"
+"Assets/Scripts/UI/InfoWeapon/UpdateUIWeapon.cs"
 "Assets/Scripts/UI/Inventory/Animation/FastSlot/ActivateFastSlotOnKeyBoard.cs"
 "Assets/Scripts/UI/Inventory/Animation/InventorySlot/ActivateSlotOnMouse.cs"
 "Assets/Scripts/UI/Inventory/Animation/SwapItems.cs"

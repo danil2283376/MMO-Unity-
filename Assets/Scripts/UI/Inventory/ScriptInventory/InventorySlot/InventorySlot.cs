@@ -129,7 +129,11 @@ public class InventorySlot : MonoBehaviour
         {
             return (this._storageItem);
         }
-        private set => this._storageItem = value;
+        private set
+        {
+            this._storageItem = value;
+            this._equipItem.storageItem = this._storageItem;
+        }
     }
 
     private void Awake()
@@ -222,7 +226,6 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
-
     public void ActivateSlot(bool activeSlot)
     {
         this._imagesOnslot.ActivateBorder(activeSlot);
@@ -298,7 +301,6 @@ public class EquipmentItem : MonoBehaviour
             if (createItem == null)
                 throw new InvalidOperationException("EquipItem null!!!");
             IItemUsed itemUsed = createItem.GetComponent<IItemUsed>();
-
             if (itemUsed != null)
             {
                 SetValueInItem(itemUsed, createItem);
@@ -337,6 +339,10 @@ public class EquipmentItem : MonoBehaviour
         itemUsed.player = this.player;
         ActivateScript activateScript = createEquipItem.GetComponent<ActivateScript>();
         if (activateScript != null)
+        {
+            IStorageItem storageItem = createEquipItem.GetComponent<IStorageItem>();
+            storageItem = this.storageItem;
             activateScript.ActivateScriptsOnObject();
+        }
     }
 }

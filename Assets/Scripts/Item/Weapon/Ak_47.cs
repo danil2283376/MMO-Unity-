@@ -8,6 +8,7 @@ public class Ak_47 : MonoBehaviour, IItemUsed, IWeapon
     public GameObject player { get; set; }
     //public GameObject prefabBullet;
     public GameObject spawnBullet;
+    private WeaponStorage weaponStorage;
 
     private Item _weaponItem;
     private WeaponObject _weaponObject;
@@ -15,16 +16,18 @@ public class Ak_47 : MonoBehaviour, IItemUsed, IWeapon
     private float timeShoot = 0.0f;
     private float currentReload = 0.0f;
     private float bulletInMinute;
-    private int currentBullet;
+    //private int currentBullet;
     private bool activateReloading;
 
     private void Start()
     {
         _weaponItem = gameObject.GetComponent<Item>();
         _weaponObject = (WeaponObject)_weaponItem.item;
+        weaponStorage = gameObject.GetComponent<WeaponStorage>();
 
         bulletInMinute = 60.0f / _weaponObject.rateFire;
-        currentBullet = _weaponObject.сartridgeInTheHorn;
+        weaponStorage.CurrentAmmo = _weaponObject.сartridgeInTheHorn;
+        Debug.Log(weaponStorage.CurrentAmmo);
         activateReloading = false;
         player = inventorySlotItem.player;
     }
@@ -46,9 +49,7 @@ public class Ak_47 : MonoBehaviour, IItemUsed, IWeapon
     {
         if (Input.GetButton("Fire1"))
         {
-            if (currentBullet <= 0)
-                currentBullet = 0;
-            else if ((timeShoot > bulletInMinute) && currentBullet > 0)
+            if ((timeShoot > bulletInMinute) && weaponStorage.CurrentAmmo > 0)
                 Shoot();
         }
     }
@@ -60,7 +61,7 @@ public class Ak_47 : MonoBehaviour, IItemUsed, IWeapon
 
     public void Shoot()
     {
-        currentBullet--;
+        weaponStorage.CurrentAmmo--;
         GameObject objectBullet = Instantiate(_weaponObject.prefabBullet, spawnBullet.transform.position, spawnBullet.transform.rotation);
         Rigidbody rigidbody = objectBullet.GetComponent<Rigidbody>();
         rigidbody.AddForce(gameObject.transform.forward * _weaponObject.speedBullet, ForceMode.VelocityChange);
@@ -70,8 +71,13 @@ public class Ak_47 : MonoBehaviour, IItemUsed, IWeapon
 
     public void Reload()
     {
-        currentBullet = _weaponObject.сartridgeInTheHorn;
+        weaponStorage.CurrentAmmo = _weaponObject.сartridgeInTheHorn;
         currentReload = 0.0f;
         activateReloading = false;
+    }
+
+    private void OnDestroy()
+    {
+        
     }
 }
