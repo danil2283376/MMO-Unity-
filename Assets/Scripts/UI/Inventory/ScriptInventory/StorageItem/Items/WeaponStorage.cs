@@ -15,7 +15,7 @@ public class WeaponStorage : MonoBehaviour, IStorageItem
         }
         set 
         {
-            if ((currentAmmo - value) <= 0)
+            if (value <= 0)
                 currentAmmo = 0;
             else
                 currentAmmo = value;
@@ -37,8 +37,11 @@ public class WeaponStorage : MonoBehaviour, IStorageItem
         }
     }
 
-    public void SaveValueInObject() 
+    public void UnpackingTheInterface(IStorageItem storageItem)
     {
-
+        WeaponStorage weaponStorage = (WeaponStorage)storageItem;
+        this.currentAmmo = weaponStorage.currentAmmo;
+        this.currentMaxAmmo = weaponStorage.currentMaxAmmo;
+        Debug.Log("WeaponStorage: " + this.currentAmmo);
     }
 }

@@ -8,8 +8,8 @@ public class Ak_47 : MonoBehaviour, IItemUsed, IWeapon
     public GameObject player { get; set; }
     //public GameObject prefabBullet;
     public GameObject spawnBullet;
-    private WeaponStorage weaponStorage;
 
+    private WeaponStorage weaponStorage;
     private Item _weaponItem;
     private WeaponObject _weaponObject;
 
@@ -27,6 +27,7 @@ public class Ak_47 : MonoBehaviour, IItemUsed, IWeapon
 
         bulletInMinute = 60.0f / _weaponObject.rateFire;
         weaponStorage.CurrentAmmo = _weaponObject.сartridgeInTheHorn;
+        //WeaponStorage weaponStorage1 = (WeaponStorage)weaponStorage;
         Debug.Log(weaponStorage.CurrentAmmo);
         activateReloading = false;
         player = inventorySlotItem.player;
@@ -49,6 +50,8 @@ public class Ak_47 : MonoBehaviour, IItemUsed, IWeapon
     {
         if (Input.GetButton("Fire1"))
         {
+            if (weaponStorage.CurrentAmmo <= 0)
+                weaponStorage.CurrentAmmo = 0;
             if ((timeShoot > bulletInMinute) && weaponStorage.CurrentAmmo > 0)
                 Shoot();
         }
@@ -71,13 +74,22 @@ public class Ak_47 : MonoBehaviour, IItemUsed, IWeapon
 
     public void Reload()
     {
-        weaponStorage.CurrentAmmo = _weaponObject.сartridgeInTheHorn;
-        currentReload = 0.0f;
-        activateReloading = false;
+        if (weaponStorage.currentMaxAmmo > 0)
+        {
+            for (int i = weaponStorage.currentAmmo; i < _weaponObject.сartridgeInTheHorn; i++)
+            {
+                if (weaponStorage.currentMaxAmmo == 0)
+                    break;
+                weaponStorage.currentAmmo++;
+                weaponStorage.currentMaxAmmo--;
+            }
+            currentReload = 0.0f;
+            activateReloading = false;
+        }
     }
 
     private void OnDestroy()
     {
-        
+        inventorySlotItem.StorageItem = (IStorageItem)this.weaponStorage;
     }
 }

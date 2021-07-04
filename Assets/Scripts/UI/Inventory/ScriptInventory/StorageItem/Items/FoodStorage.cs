@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FoodStorage : MonoBehaviour, IStorageItem
 {
-    public void SaveValueInObject()
+    public void UnpackingTheInterface(IStorageItem storageItem)
     {
 
     }

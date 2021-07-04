@@ -40,7 +40,7 @@ public class UpdateUIWeapon : MonoBehaviour
 
     private void UpdateTextOnPanel(WeaponStorage weaponStorage) 
     {
-        infoAmmo.text = weaponStorage.CurrentAmmo + "/" + weaponStorage.CurrentAmmo;
+        infoAmmo.text = weaponStorage.CurrentAmmo + "/" + weaponStorage.currentMaxAmmo;
     }
 
     private void UpdateImageOnPanel(GameObject weapon)

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IStorageItem
 {
-    public void SaveValueInObject();
+    public void UnpackingTheInterface(IStorageItem storageItem);
 }

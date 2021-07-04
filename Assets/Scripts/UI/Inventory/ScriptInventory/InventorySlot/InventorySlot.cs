@@ -208,6 +208,8 @@ public class InventorySlot : MonoBehaviour
             this._itemObjectInSlot.sprite = itemObject.sprite;
             this._itemObjectInSlot.typeItem = itemObject.typeItem;
             this.StorageItem = storageItem;
+            //WeaponStorage weaponStorage = (WeaponStorage)storageItem;
+            //Debug.Log(weaponStorage.currentAmmo);
             this.Amount = amount;
             if (this._equipItem != null)
                 this._equipItem.item = _itemObjectInSlot;
@@ -301,6 +303,8 @@ public class EquipmentItem : MonoBehaviour
             if (createItem == null)
                 throw new InvalidOperationException("EquipItem null!!!");
             IItemUsed itemUsed = createItem.GetComponent<IItemUsed>();
+            WeaponStorage weaponStorage = (WeaponStorage)storageItem;
+            //Debug.Log(weaponStorage.currentAmmo);
             if (itemUsed != null)
             {
                 SetValueInItem(itemUsed, createItem);
@@ -340,9 +344,11 @@ public class EquipmentItem : MonoBehaviour
         ActivateScript activateScript = createEquipItem.GetComponent<ActivateScript>();
         if (activateScript != null)
         {
-            IStorageItem storageItem = createEquipItem.GetComponent<IStorageItem>();
-            storageItem = this.storageItem;
+            IStorageItem storageItem1 = createEquipItem.GetComponent<IStorageItem>();
+            //Debug.Log(weaponStorage.currentAmmo);
+            storageItem1.UnpackingTheInterface(this.storageItem);
             activateScript.ActivateScriptsOnObject();
+            //storageItem = this.storageItem;
         }
     }
 }
