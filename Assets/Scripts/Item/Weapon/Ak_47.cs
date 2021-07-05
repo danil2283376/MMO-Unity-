@@ -18,7 +18,7 @@ public class Ak_47 : MonoBehaviour, IItemUsed, IWeapon
     private float bulletInMinute;
     //private int currentBullet;
     private bool activateReloading;
-
+    private bool activateScript = false;
     private void Start()
     {
         _weaponItem = gameObject.GetComponent<Item>();
@@ -32,15 +32,18 @@ public class Ak_47 : MonoBehaviour, IItemUsed, IWeapon
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.R))
-            activateReloading = true;
+        if (activateScript == true)
+        {
+            if (Input.GetKey(KeyCode.R))
+                activateReloading = true;
 
-        if (currentReload > _weaponObject.timeReload)
-            Reload();
+            if (currentReload > _weaponObject.timeReload)
+                Reload();
 
-        timeShoot += Time.deltaTime;
-        if (activateReloading)
-            currentReload += Time.deltaTime;
+            timeShoot += Time.deltaTime;
+            if (activateReloading)
+                currentReload += Time.deltaTime;
+        }
     }
 
     private void FixedUpdate()
@@ -56,6 +59,7 @@ public class Ak_47 : MonoBehaviour, IItemUsed, IWeapon
 
     public void UseItem() 
     {
+        activateScript = true;
         //Shoot();
     }
 

@@ -653,11 +653,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _newPosition: {x: -807, y: 0, z: 0}
   _startPosition: {x: 0, y: 0, z: 0}
-  _movePlayer: {fileID: 1643924026}
-  _jumpPlayer: {fileID: 1643924025}
-  _squatPlayer: {fileID: 1643924018}
-  _useItemPlayer: {fileID: 1643924027}
-  _activateFastSlotOnKeyBoard: {fileID: 1254235787}
+  scriptsForDeactivate:
+  - {fileID: 1643924026}
+  - {fileID: 1643924025}
+  - {fileID: 1643924018}
+  - {fileID: 1643924027}
+  - {fileID: 1254235787}
+  player: {fileID: 1643924015}
 --- !u!1001 &284818392
 PrefabInstance:
   m_ObjectHideFlags: 0

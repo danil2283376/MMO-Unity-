@@ -7,15 +7,14 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] private Vector3 _newPosition;
     [SerializeField] private Vector3 _startPosition;
 
-    [SerializeField] private MovePlayer _movePlayer;
-    [SerializeField] private JumpPlayer _jumpPlayer;
-    [SerializeField] private SquatPlayer _squatPlayer;
-    [SerializeField] private UseItem _useItemPlayer;
-    [SerializeField] private ActivateFastSlotOnKeyBoard _activateFastSlotOnKeyBoard;
+    public List<MonoBehaviour> scriptsForDeactivate;
+    public GameObject player;
 
     private bool _inventoryActive { get; set; } = false;
 
     private MouseMove _mousePlayer;
+    private GameObject _rightPlayerHand;
+    private MonoBehaviour[] _scriptOnUseItem;
     public bool InventoryActive 
     {
         get 
@@ -35,6 +34,7 @@ public class DisplayInventory : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         _mousePlayer = Camera.main.GetComponent<MouseMove>();
+        _rightPlayerHand = player.GetComponent<BonesPlayer>().rightArm.transform.GetChild(0).gameObject;
     }
 
     void Update()
@@ -75,10 +75,12 @@ public class DisplayInventory : MonoBehaviour
     private void ActivateScript(bool activate) 
     {
         _mousePlayer.enabled = activate;
-        _movePlayer.enabled = activate;
-        _jumpPlayer.enabled = activate;
-        _squatPlayer.enabled = activate;
-        _useItemPlayer.enabled = activate;
-        _activateFastSlotOnKeyBoard.enabled = activate;
+        for (int script = 0; script < scriptsForDeactivate.Count; script++)
+            scriptsForDeactivate[script].enabled = activate;
+        if (_rightPlayerHand.transform.childCount > 0)
+            _scriptOnUseItem = _rightPlayerHand.transform.GetChild(0).GetComponents<MonoBehaviour>();
+        Debug.Log(_scriptOnUseItem.Length);
+        for (int script = 0; script < _scriptOnUseItem.Length; script++)
+            _scriptOnUseItem[script].enabled = activate;
     }
 }
