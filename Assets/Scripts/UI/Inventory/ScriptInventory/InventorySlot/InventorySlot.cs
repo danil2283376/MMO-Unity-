@@ -132,7 +132,8 @@ public class InventorySlot : MonoBehaviour
         set
         {
             this._storageItem = value;
-            this._equipItem.storageItem = value;
+            if (this._equipItem != null)
+                this._equipItem.storageItem = value;
         }
     }
 
@@ -208,8 +209,6 @@ public class InventorySlot : MonoBehaviour
             this._itemObjectInSlot.sprite = itemObject.sprite;
             this._itemObjectInSlot.typeItem = itemObject.typeItem;
             this.StorageItem = storageItem;
-            //WeaponStorage weaponStorage = (WeaponStorage)storageItem;
-            //Debug.Log(weaponStorage.currentAmmo);
             this.Amount = amount;
             if (this._equipItem != null)
                 this._equipItem.item = _itemObjectInSlot;
@@ -270,7 +269,7 @@ public class InventorySlot : MonoBehaviour
             countItems.text = "";
         if (_equipItem != null)
             _equipItem.item = null;
-
+        this._storageItem = null;
     }
 }
 
@@ -303,8 +302,6 @@ public class EquipmentItem : MonoBehaviour
             if (createItem == null)
                 throw new InvalidOperationException("EquipItem null!!!");
             IItemUsed itemUsed = createItem.GetComponent<IItemUsed>();
-            WeaponStorage weaponStorage = (WeaponStorage)storageItem;
-            Debug.Log("SUCK ME BOOLS: " + weaponStorage.currentAmmo);
             //Debug.Log(weaponStorage.currentAmmo);
             if (itemUsed != null)
             {
