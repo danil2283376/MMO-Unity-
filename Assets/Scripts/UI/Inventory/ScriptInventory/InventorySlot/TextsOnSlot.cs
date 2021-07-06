@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Newtonsoft.Json;
 
 public class TextsOnSlot
 {
+    [JsonIgnore]
     public GameObject gameObjectSlot;
     private TextMeshProUGUI[] textsOnGameObject;
 

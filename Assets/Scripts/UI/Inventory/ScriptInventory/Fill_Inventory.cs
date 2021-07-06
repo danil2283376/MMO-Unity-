@@ -16,6 +16,7 @@ public class Fill_Inventory : MonoBehaviour
             GameObject gameObjectSlot = inventoryPanel.transform.GetChild(i).gameObject;
             InventorySlot inventorySlot = gameObjectSlot.GetComponent<InventorySlot>();
             inventorySlot.numberInventorySlot = i;
+            inventorySlot.id = -1;
             inventory.AddInventorySlot(gameObjectSlot);
         }
     }

@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,18 +14,21 @@ public class InventorySlot : MonoBehaviour
     public Color activeColor;
     public GameObject player;
 
+    [HideInInspector] public int id = -1;
     [HideInInspector] public int maxAmount;
     [HideInInspector] public int numberInventorySlot;
     public bool _slotIsActive { get; set; } = false;
     
-    private int _amount { get; set; } = 0;
+    public int _amount { get; set; } = 0;
     private bool _slotIsFull { get; set; } = false;
-    private ItemObject _itemObjectInSlot { get; set; } = null;
+
+    public ItemObject _itemObjectInSlot { get; set; } = null;
     private GameObject _gameObjectSlot { get; set; } = null;
     private TextsOnSlot _textsOnSlot { get; set; } = null;
     private ImagesOnSlot _imagesOnslot { get; set; } = null;
     private EquipmentItem _equipItem { get; set; } = null;
     private IStorageItem _storageItem { get; set; } = null;
+
     public bool SlotIsActive
     {
         get
@@ -32,7 +37,6 @@ public class InventorySlot : MonoBehaviour
         }
         private set => _slotIsActive = value;
     }
-
     public int Amount
     {
         get
@@ -71,10 +75,14 @@ public class InventorySlot : MonoBehaviour
         {
             return (this._itemObjectInSlot);
         }
-        private set
+        set
         {
             if (value != null)
+            {
                 this._itemObjectInSlot = value;
+                UpdateImageSlot();
+                UpdateTextInventorySlot();
+            }
         }
     }
 
@@ -152,13 +160,6 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
-    public InventorySlot(InventorySlot copy)
-    {
-        this.TextsOnSlot = copy.TextsOnSlot;
-        this.ImagesOnSlot = copy.ImagesOnSlot;
-        this.Amount = copy.Amount;
-    }
-
     public void Clone(InventorySlot copy)
     {
         if (copy == this)
@@ -201,10 +202,11 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
-    public void SetValueInSlot(ItemObject itemObject, int amount, IStorageItem storageItem)
+    public void SetValueInSlot(int id, ItemObject itemObject, int amount, IStorageItem storageItem)
     {
         if (itemObject != null)
         {
+            this.id = id;
             this._itemObjectInSlot = itemObject;
             this._itemObjectInSlot.sprite = itemObject.sprite;
             this._itemObjectInSlot.typeItem = itemObject.typeItem;

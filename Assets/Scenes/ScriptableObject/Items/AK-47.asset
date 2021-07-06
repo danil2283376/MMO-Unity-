@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef2cd828ab9d5bd4a9cb1071ca5cb98f, type: 3}
+  m_Name: AK-47
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 53a7d99e3d94f174f84f68751eafba09, type: 3}
+  prefabItem: {fileID: 8853489877925127145, guid: 980532ff83f912f44b1636736abb5141, type: 3}
+  description: Weapon
+  typeItem: 0
+  damage: 20
+  accuracy: 5
+  rateFire: 1000
+  "\u0441artridgeInTheHorn": 30
+  maxAmmo: 90
+  timeReload: 3
+  speedBullet: 200
+  prefabBullet: {fileID: 5907735384288966197, guid: 7e8533402b04dd94bac7aac0d3b58cf6, type: 3}

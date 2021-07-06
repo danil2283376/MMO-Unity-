@@ -1,11 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 [CreateAssetMenu(fileName = "New Inventory Object",
     menuName = "Inventory System/Inventory")]
-public class InventoryObject : ScriptableObject
+public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
 {
+    public string savePath;
+    public ItemDatabaseObject database;
     public List<InventorySlot> inventory = new List<InventorySlot>();
     public int maxAmountInventorySlot;
 
@@ -24,6 +29,8 @@ public class InventoryObject : ScriptableObject
 
     public void AddInventorySlot(GameObject gameObjectSlot)
     {
+        if (database == null)
+            throw new InvalidOperationException("DATABASE NULL!!!");
         InventorySlot inventorySlot1 = gameObjectSlot.GetComponent<InventorySlot>();
         inventorySlot1.maxAmount = maxAmountInventorySlot;
         inventory.Add(inventorySlot1);
@@ -57,14 +64,12 @@ public class InventoryObject : ScriptableObject
                 findInventorySlot.SlotIsFull == true)
             {
                 // Ищу пустое место под предмет
-                int i;
-                for (i = 0; i < inventory.Count; i++)
+                for (int i = 0; i < inventory.Count; i++)
                 {
                     if (inventory[i].ItemObjectInSlot == null)
                     {
-                        inventory[i].SetValueInSlot(itemObject, amount, storageItem);
-                        //if (inventory[i].SlotIsActive == true)
-                        //    inventory[i].EquipItem.EquipItem();
+                        inventory[i].SetValueInSlot(database.GetId[itemObject], itemObject, amount, storageItem);
+                        Debug.Log("Id item: " + inventory[i].id);
                         break;
                     }
                 }
@@ -100,5 +105,71 @@ public class InventoryObject : ScriptableObject
             inventoryIsFull = true;
         else
             inventoryIsFull = false;
+    }
+
+    public void Save() 
+    {
+        //Debug.Log("\n\n\n\n");
+        //string saveData = JsonUtility.ToJson(this, true);
+        //string saveInventorySlots = JsonUtility.ToJson(inventory, true);
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(string.Concat(Application.persistentDataPath, savePath));
+        //bf.Serialize(file, saveData);
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            //Debug.Log(inventory[i].id);
+            string saveInventorySlots = JsonUtility.ToJson(inventory[i], true);
+            bf.Serialize(file, saveInventorySlots);
+        }
+        file.Close();
+    }
+
+    public void Load()
+    {
+        if (File.Exists(string.Concat(Application.persistentDataPath, savePath)) == true)
+        {
+            //Debug.Log(string.Concat(Application.persistentDataPath, savePath));
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(string.Concat(Application.persistentDataPath, savePath), FileMode.Open);
+            for (int i = 0; i < inventory.Count; i++)
+            {
+                JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), inventory[i]);
+            }
+            file.Close();
+            //Debug.Log("Load!");
+            //Debug.Log(inventory[0].ItemObjectInSlot.description);
+            Debug.Log(inventory[0].id);
+        }
+        Debug.Log("inventory.Count: " + inventory.Count);
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i] == null)
+                throw new InvalidOperationException("NULL");
+            if (inventory[i].id != -1)
+            {
+                Debug.Log(inventory[i].id);
+                inventory[i].ItemObjectInSlot = database.GetItem[inventory[i].id];
+            }
+        }
+    }
+
+    public void OnAfterDeserialize()
+    {
+        //for (int i = 0; i < inventory.Count; i++)
+        //{
+        //    if (inventory[i] == null)
+        //        throw new InvalidOperationException("NULL");
+        //    if (inventory[i].id != -1)
+        //    {
+        //        Debug.Log(inventory[i].id);
+        //        inventory[i].ItemObjectInSlot = database.GetItem[inventory[i].id];
+        //    }
+        //}
+        //throw new System.NotImplementedException();
+    }
+
+    public void OnBeforeSerialize()
+    {
+        //throw new System.NotImplementedException();
     }
 }

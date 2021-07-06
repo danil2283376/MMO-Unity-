@@ -72,15 +72,17 @@ public class DisplayInventory : MonoBehaviour
         }
     }
 
-    private void ActivateScript(bool activate) 
+    private void ActivateScript(bool activate)
     {
         _mousePlayer.enabled = activate;
         for (int script = 0; script < scriptsForDeactivate.Count; script++)
             scriptsForDeactivate[script].enabled = activate;
         if (_rightPlayerHand.transform.childCount > 0)
+        {
             _scriptOnUseItem = _rightPlayerHand.transform.GetChild(0).GetComponents<MonoBehaviour>();
-        Debug.Log(_scriptOnUseItem.Length);
-        for (int script = 0; script < _scriptOnUseItem.Length; script++)
-            _scriptOnUseItem[script].enabled = activate;
+            //Debug.Log(_scriptOnUseItem.Length);
+            for (int script = 0; script < _scriptOnUseItem.Length; script++)
+                _scriptOnUseItem[script].enabled = activate;
+        }
     }
 }
