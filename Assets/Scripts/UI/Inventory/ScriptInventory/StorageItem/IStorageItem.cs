@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IStorageItem
 {
-    public void UnpackingTheInterface(IStorageItem storageItem);
+    public void UnpackingTheInterface(object storageItem);
 }

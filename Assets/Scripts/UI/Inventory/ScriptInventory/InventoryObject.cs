@@ -113,6 +113,7 @@ public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
         //string saveData = JsonUtility.ToJson(this, true);
         //string saveInventorySlots = JsonUtility.ToJson(inventory, true);
         BinaryFormatter bf = new BinaryFormatter();
+        Debug.Log(string.Concat(Application.persistentDataPath, savePath));
         FileStream file = File.Create(string.Concat(Application.persistentDataPath, savePath));
         //bf.Serialize(file, saveData);
         for (int i = 0; i < inventory.Count; i++)
@@ -120,6 +121,11 @@ public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
             //Debug.Log(inventory[i].id);
             string saveInventorySlots = JsonUtility.ToJson(inventory[i], true);
             bf.Serialize(file, saveInventorySlots);
+            inventory[i].SaveItemSlot(file, bf);
+            //string saveItemObjectInSlot = JsonUtility.ToJson(inventory[i]._itemObjectInSlot, true);
+            //string saveStorageItem = JsonUtility.ToJson(inventory[i].StorageItem, true);
+            //bf.Serialize(file, saveItemObjectInSlot);
+            //bf.Serialize(file, saveStorageItem);
         }
         file.Close();
     }
@@ -128,29 +134,36 @@ public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
     {
         if (File.Exists(string.Concat(Application.persistentDataPath, savePath)) == true)
         {
+            //for (int i = 0; i < inventory.Count; i++)
+            //{
+            //    if (inventory[i] == null)
+            //        throw new InvalidOperationException("NULL");
+            //    if (inventory[i].id != -1)
+            //    {
+            //        Debug.Log(inventory[i].id);
+            //        inventory[i].ItemObjectInSlot = database.GetItem[inventory[i].id];
+            //    }
+            //}
             //Debug.Log(string.Concat(Application.persistentDataPath, savePath));
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(string.Concat(Application.persistentDataPath, savePath), FileMode.Open);
             for (int i = 0; i < inventory.Count; i++)
             {
                 JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), inventory[i]);
+                if (inventory[i].id != -1)
+                {
+                    inventory[i].ItemObjectInSlot = database.GetItem[inventory[i].id];
+                    inventory[i].LoadItemSlot(file, bf);
+                }
+                //JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), inventory[i]._itemObjectInSlot);
+                //JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), inventory[i]._storageItem);
             }
             file.Close();
             //Debug.Log("Load!");
             //Debug.Log(inventory[0].ItemObjectInSlot.description);
-            Debug.Log(inventory[0].id);
+            //Debug.Log(inventory[0].id);
         }
         Debug.Log("inventory.Count: " + inventory.Count);
-        for (int i = 0; i < inventory.Count; i++)
-        {
-            if (inventory[i] == null)
-                throw new InvalidOperationException("NULL");
-            if (inventory[i].id != -1)
-            {
-                Debug.Log(inventory[i].id);
-                inventory[i].ItemObjectInSlot = database.GetItem[inventory[i].id];
-            }
-        }
     }
 
     public void OnAfterDeserialize()

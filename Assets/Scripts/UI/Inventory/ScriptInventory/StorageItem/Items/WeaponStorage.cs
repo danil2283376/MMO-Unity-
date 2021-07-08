@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,10 +38,16 @@ public class WeaponStorage : MonoBehaviour, IStorageItem
         }
     }
 
-    public void UnpackingTheInterface(IStorageItem storageItem)
+    public void UnpackingTheInterface(object storageItem)
     {
-        WeaponStorage weaponStorage = (WeaponStorage)storageItem;
-        this.currentAmmo = weaponStorage.currentAmmo;
-        this.currentMaxAmmo = weaponStorage.currentMaxAmmo;
+        Type type = storageItem.GetType();
+        Type serializeInterface = type.GetInterface("IStorageItem");
+
+        if (serializeInterface.Name == "IStorageItem")
+        {
+            WeaponStorage weaponStorage = (WeaponStorage)storageItem;
+            this.currentAmmo = weaponStorage.currentAmmo;
+            this.currentMaxAmmo = weaponStorage.currentMaxAmmo;
+        }
     }
 }

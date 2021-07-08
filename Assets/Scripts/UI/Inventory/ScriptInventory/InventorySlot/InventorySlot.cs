@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Newtonsoft.Json;
 
 [System.Serializable]
 public class InventorySlot : MonoBehaviour
@@ -18,16 +19,16 @@ public class InventorySlot : MonoBehaviour
     [HideInInspector] public int maxAmount;
     [HideInInspector] public int numberInventorySlot;
     public bool _slotIsActive { get; set; } = false;
-    
+
     public int _amount { get; set; } = 0;
     private bool _slotIsFull { get; set; } = false;
 
-    public ItemObject _itemObjectInSlot { get; set; } = null;
-    private GameObject _gameObjectSlot { get; set; } = null;
-    private TextsOnSlot _textsOnSlot { get; set; } = null;
-    private ImagesOnSlot _imagesOnslot { get; set; } = null;
-    private EquipmentItem _equipItem { get; set; } = null;
-    private IStorageItem _storageItem { get; set; } = null;
+    public ItemObject _itemObjectInSlot;// { get; set; } = null;
+    public GameObject _gameObjectSlot;// { get; set; } = null;
+    public TextsOnSlot _textsOnSlot;// { get; set; } = null;
+    public ImagesOnSlot _imagesOnslot;// { get; set; } = null;
+    public EquipmentItem _equipItem;// { get; set; } = null;
+    public object _storageItem;// { get; set; } = null;
 
     public bool SlotIsActive
     {
@@ -121,19 +122,19 @@ public class InventorySlot : MonoBehaviour
 
     public EquipmentItem EquipItem
     {
-        get 
+        get
         {
             return (this._equipItem);
         }
-        private set 
+        private set
         {
             this._equipItem = value;
         }
     }
 
-    public IStorageItem StorageItem 
+    public object StorageItem
     {
-        get 
+        get
         {
             return (this._storageItem);
         }
@@ -202,7 +203,7 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
-    public void SetValueInSlot(int id, ItemObject itemObject, int amount, IStorageItem storageItem)
+    public void SetValueInSlot(int id, ItemObject itemObject, int amount, object storageItem)
     {
         if (itemObject != null)
         {
@@ -242,6 +243,49 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
+    public void SaveItemSlot(FileStream file, BinaryFormatter bf)
+    {
+        Type typeClassStorage = null;
+
+        if (this.id != -1)
+        {
+            typeClassStorage = this._storageItem.GetType();
+            string nameType = typeClassStorage.Name;
+
+            string saveNameStorageItem = JsonConvert.SerializeObject(nameType);
+            //string saveNameStorageItem = JsonUtility.ToJson(nameType);
+            Debug.Log(saveNameStorageItem);
+            bf.Serialize(file, saveNameStorageItem);
+        }
+        string saveItemObjectInSlot = JsonUtility.ToJson(this._itemObjectInSlot, true);
+        string saveTextsOnSlot = JsonUtility.ToJson(this._textsOnSlot, true);
+        string saveImagesOnslot = JsonUtility.ToJson(this._imagesOnslot, true);
+        string saveEquipItem = JsonUtility.ToJson(this._equipItem, true);
+        string saveStorageItem = JsonUtility.ToJson(this._storageItem, true);
+
+        bf.Serialize(file, saveItemObjectInSlot);
+        bf.Serialize(file, saveTextsOnSlot);
+        bf.Serialize(file, saveImagesOnslot);
+        bf.Serialize(file, saveEquipItem);
+        bf.Serialize(file, saveStorageItem);
+    }
+
+    public void LoadItemSlot(FileStream file, BinaryFormatter bf)
+    {
+        if (this.id != -1)
+        {
+            string type = (string)JsonConvert.DeserializeObject(bf.Deserialize(file).ToString());
+        //JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), type);
+            Debug.Log("type: " + type);
+        }
+        JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this._storageItem);
+        //JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this._itemObjectInSlot);
+        JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this._textsOnSlot);
+        JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this._imagesOnslot);
+        //JsonUtility.FromJson(bf.Deserialize(file).ToString());
+        JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this._equipItem);
+    }
+
     private void UpdateImageSlot()
     {
         _imagesOnslot.imageInSlot.sprite = _itemObjectInSlot.sprite;
@@ -273,6 +317,15 @@ public class InventorySlot : MonoBehaviour
             _equipItem.item = null;
         this._storageItem = null;
     }
+
+    private void AddStorageOnSlot() 
+    {
+        if (this._itemObjectInSlot.typeItem == TypeItem.Weapon)
+            gameObject.AddComponent<WeaponStorage>();
+        if (this._itemObjectInSlot.typeItem == TypeItem.Food)
+            gameObject.AddComponent<FoodStorage>();
+
+    }
 }
 
 [RequireComponent(typeof(InventorySlot))]
@@ -280,7 +333,7 @@ public class EquipmentItem : MonoBehaviour
 {
     [HideInInspector] public ItemObject item;
     [HideInInspector] public GameObject player;
-    [HideInInspector] public IStorageItem storageItem;
+    [HideInInspector] public object storageItem;
 
     private bool _itemDressed = false;
     private BonesPlayer _bonesPlayer;
