@@ -256,29 +256,32 @@ public class InventorySlot : MonoBehaviour
             //string saveNameStorageItem = JsonUtility.ToJson(nameType);
             Debug.Log(saveNameStorageItem);
             bf.Serialize(file, saveNameStorageItem);
+            string saveStorageItem = JsonUtility.ToJson(this._storageItem, true);
+            bf.Serialize(file, saveStorageItem);
         }
         string saveItemObjectInSlot = JsonUtility.ToJson(this._itemObjectInSlot, true);
         string saveTextsOnSlot = JsonUtility.ToJson(this._textsOnSlot, true);
         string saveImagesOnslot = JsonUtility.ToJson(this._imagesOnslot, true);
         string saveEquipItem = JsonUtility.ToJson(this._equipItem, true);
-        string saveStorageItem = JsonUtility.ToJson(this._storageItem, true);
 
         bf.Serialize(file, saveItemObjectInSlot);
         bf.Serialize(file, saveTextsOnSlot);
         bf.Serialize(file, saveImagesOnslot);
         bf.Serialize(file, saveEquipItem);
-        bf.Serialize(file, saveStorageItem);
     }
 
     public void LoadItemSlot(FileStream file, BinaryFormatter bf)
     {
         if (this.id != -1)
         {
-            string type = (string)JsonConvert.DeserializeObject(bf.Deserialize(file).ToString());
+            string typeStorage = (string)JsonConvert.DeserializeObject(bf.Deserialize(file).ToString());
         //JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), type);
-            Debug.Log("type: " + type);
+            Type type = Type.GetType(typeStorage);
+            Debug.Log("type: " + type.Name);
+            gameObject.AddComponent(type);
+            this._storageItem = gameObject.GetComponent(type);
+            JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this._storageItem);
         }
-        JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this._storageItem);
         //JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this._itemObjectInSlot);
         JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this._textsOnSlot);
         JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this._imagesOnslot);
