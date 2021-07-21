@@ -4709,7 +4709,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27b21224b4d4f754e87c7c74a37f967c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  database: {fileID: 11400000, guid: 65713cce5be42c045a5db5c92c2e787a, type: 2}
   inventory: {fileID: 11400000, guid: 0bcd5edbf9649834a83f71905169fcd5, type: 2}
+  savePath: /FastSlots.save
 --- !u!114 &1254235784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6218,7 +6220,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27b21224b4d4f754e87c7c74a37f967c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  database: {fileID: 11400000, guid: 65713cce5be42c045a5db5c92c2e787a, type: 2}
   inventory: {fileID: 11400000, guid: 87d1a6c1177528b48ab915a11e05543e, type: 2}
+  savePath: /Inventory.save
 --- !u!1 &1590258655
 GameObject:
   m_ObjectHideFlags: 0

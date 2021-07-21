@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using Newtonsoft.Json;
 
 [System.Serializable]
@@ -158,6 +155,8 @@ public class InventorySlot : MonoBehaviour
         {
             gameObject.AddComponent<EquipmentItem>();
             this._equipItem = gameObject.GetComponent<EquipmentItem>();
+            //if (this._equipItem == null)
+            //    Debug.Log("Null!!!!!!!!!!!!");
         }
     }
 
@@ -274,19 +273,36 @@ public class InventorySlot : MonoBehaviour
     {
         if (this.id != -1)
         {
+            //Debug.Log();
+            //string bfDeserialize = bf.Deserialize(file).ToString();
             string typeStorage = (string)JsonConvert.DeserializeObject(bf.Deserialize(file).ToString());
-        //JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), type);
+            Debug.Log(1);
+            //string typeStorage = bf.Deserialize(file).ToString();
+            //JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), type);
             Type type = Type.GetType(typeStorage);
             Debug.Log("type: " + type.Name);
             gameObject.AddComponent(type);
+            //gameObject.AddComponent<EquipmentItem>();
             this._storageItem = gameObject.GetComponent(type);
+            this._equipItem = gameObject.GetComponent<EquipmentItem>();
+            //this._equipItem = gameObject.GetComponent<EquipmentItem>();
             JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this._storageItem);
+            if (this._equipItem == null)
+                Debug.Log($"number = {this.numberInventorySlot}, id = {this.id}, Error null!!!!!!!!!!!");
+            try
+            {
+                JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this._equipItem);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(gameObject.name);
+                throw new InvalidOperationException("EquipItem, слот инвентаря должен создаться сначала с помощью Fill inventory, и в нем уже вызывать LoadSlot!!!!");
+            }
         }
-        //JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this._itemObjectInSlot);
         JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this._textsOnSlot);
         JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this._imagesOnslot);
+        //JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this._itemObjectInSlot);
         //JsonUtility.FromJson(bf.Deserialize(file).ToString());
-        JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this._equipItem);
     }
 
     private void UpdateImageSlot()
@@ -319,15 +335,6 @@ public class InventorySlot : MonoBehaviour
         if (_equipItem != null)
             _equipItem.item = null;
         this._storageItem = null;
-    }
-
-    private void AddStorageOnSlot() 
-    {
-        if (this._itemObjectInSlot.typeItem == TypeItem.Weapon)
-            gameObject.AddComponent<WeaponStorage>();
-        if (this._itemObjectInSlot.typeItem == TypeItem.Food)
-            gameObject.AddComponent<FoodStorage>();
-
     }
 }
 
