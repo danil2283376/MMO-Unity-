@@ -29,8 +29,8 @@ public class Fill_Inventory : MonoBehaviour
             inventorySlot.id = -1;
             //LoadInventorySlot(ref inventorySlot, i);
             inventory.AddInventorySlot(gameObjectSlot);
-            if (file.Length != 0)
-                LoadInventorySlot(ref file, ref inventorySlot);
+            //if (file.Length != 0)
+            //    LoadInventorySlot(ref file, ref inventorySlot);
         }
         file.Close();
     }

@@ -10,14 +10,14 @@ public class TestSaver : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F10))
         {
-            inventoryPlayer.Save();
-            fastSlotsPlayer.Save();
+            //inventoryPlayer.Save();
+            //fastSlotsPlayer.Save();
         }
 
         if (Input.GetKeyDown(KeyCode.F11))
         {
-            inventoryPlayer.Load();
-            fastSlotsPlayer.Load();
+            //inventoryPlayer.Load();
+            //fastSlotsPlayer.Load();
         }
     }
 }
